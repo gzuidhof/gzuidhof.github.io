@@ -28,9 +28,9 @@ kramdown:
 owner:
   name: Guido Zuidhof
   avatar: bio-photo.jpg
-  bio: "Student developer."
+  bio: "Student developer, recently interested in Haxe."
   email: me@guido.io
-  disqus-shortname: 
+  disqus-shortname: guidoio
   twitter: protoduction
   facebook: #username
   google:
