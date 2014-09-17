@@ -1,25 +1,19 @@
 ---
 layout: page
-title: About the Theme
+title: About me
 tags: [about, Jekyll, theme, responsive]
 modified: 2014-08-08T20:53:07.573882-04:00
 comments: true
 image:
   feature: texture-feature-02.jpg
-  credit: Texture Lovers
-  creditlink: http://texturelovers.com
 ---
 
-Minimal Mistakes is responsive Jekyll theme with large featured images and solid typography. As the name implies the styling is fairly minimal to make it easier for you to build on top of.
+I am an Artificial Intelligence student at Radboud University Nijmegen. Aged 20-something.
 
-## Minimal Mistakes is all about:
+## Some things I like:
 
-* Responsive templates. Looking good on mobile, tablet, and desktop.
-* Gracefully degrading in older browsers. Compatible with Internet Explorer 8+ and all modern browsers. 
-* Minimal embellishments -- content first.
-* Optional large feature images for posts and pages.
-* Simple and clear permalink structure.
-* [Custom 404 page](http://mmistakes.github.io/minimal-mistakes/404.html) to get you started.
-* Support for Disqus Comments
-
-<a markdown="0" href="{{ site.url }}/theme-setup" class="btn">Install Minimal Mistakes Theme</a>
+* Game development, I have partaken in quite a few gamejams. [My latest entry](http://www.ludumdare.com/compo/ludum-dare-30/?action=preview&uid=23945) for Ludum Dare ended up 6th out of 1493 overall!
+* Open source. I aim to write most of my projects with an open license, others may use and or learn from it one day. Also it is fun to explore old projects.
+* Haxe language. I love the idea of writing in one language and being able to target anything from browsers to toasters with good performance.
+* The latest in tech world. I'm an avid hackernews and proggit lurker.
+* Airsoft. Occasionally I join a skirm and practice my 360-noscopes in real life.
