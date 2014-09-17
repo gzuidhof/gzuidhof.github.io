@@ -2,7 +2,7 @@
 
 title:            Guido.IO
 locale:           en_US
-url:              http://rahazan.github.io
+url:              http://guido.io
 
 
 # Jekyll configuration
@@ -27,7 +27,7 @@ kramdown:
 # Site owner
 owner:
   name: Guido Zuidhof
-  avatar: bio-photo.jpg
+  avatar: cat-photo.png
   bio: "Student developer, recently interested in Haxe."
   email: me@guido.io
   disqus-shortname: guidoio
