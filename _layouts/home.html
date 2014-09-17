@@ -4,6 +4,10 @@
 <!--[if (IE 8)&!(IEMobile)]><html class="no-js lt-ie9" lang="en"><![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"><!--<![endif]-->
 <head>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/trianglify/0.1.4/trianglify.min.js"></script>
+
 {% include _head.html %}
 </head>
 
@@ -15,13 +19,15 @@
 
 {% if page.image.feature %}
   <div class="image-wrap">
-  <img src=
+  <!--<img src=
     {% if page.image.feature contains 'http' %}
       "{{ page.image.feature }}"
     {% else %}
       "{{ site.url }}/images/{{ page.image.feature }}"
     {% endif %}
-  alt="{{ page.title }} feature image">
+  alt="{{ page.title }} feature image"> -->
+  <script>var t = new Trianglify();
+var pattern = t.generate(2048, 512);</script>
   {% if page.image.credit %}
     <span class="image-credit">Photo Credit: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></span>
   {% endif %}
