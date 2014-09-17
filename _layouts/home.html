@@ -28,8 +28,8 @@
   alt="{{ page.title }} feature image"> -->
   <script>
   var t = new Trianglify();
-  var pattern = t.generate(2048, 512);
-  t.append();
+  var pattern = t.generate(document.body.clientWidth, 256);
+  document.querySelector(".image-wrap").appendChild(pattern.svg);
 </script>
   {% if page.image.credit %}
     <span class="image-credit">Photo Credit: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></span>
