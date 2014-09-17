@@ -26,8 +26,11 @@
       "{{ site.url }}/images/{{ page.image.feature }}"
     {% endif %}
   alt="{{ page.title }} feature image"> -->
-  <script>var t = new Trianglify();
-var pattern = t.generate(2048, 512);</script>
+  <script>
+  var t = new Trianglify();
+  var pattern = t.generate(2048, 512);
+  t.append();
+</script>
   {% if page.image.credit %}
     <span class="image-credit">Photo Credit: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></span>
   {% endif %}
