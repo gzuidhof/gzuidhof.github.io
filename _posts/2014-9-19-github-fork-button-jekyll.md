@@ -1,8 +1,7 @@
 ---
 layout: post
 title: Github fork button link in Jekyll posts
-excerpt: "Want to add a link to allow others to easily propose changes to your posts? Here's how."
-modified: 2013-05-31
+excerpt: "Want to add a link to allow others to easily propose changes to your posts?"
 tags: [beginner, jekyll, tutorial]
 comments: true
 ---
