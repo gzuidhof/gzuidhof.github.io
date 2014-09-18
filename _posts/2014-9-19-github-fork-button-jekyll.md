@@ -13,6 +13,7 @@ It is possible since 2.4.0 (april 2013), so ensure you have a recent enough vers
 
 ##Here's how
 
+The secret is using`{% raw %} {{page.filename}}.{% endraw %}` to get the filename of the file. This will work on any page (not just posts).
 Add the following to the layout of your posts.
 
 For a project github page:
@@ -21,7 +22,7 @@ For a project github page:
 <a href="https://github.com/GITHUB-USERNAME/PROJECT-NAME/edit/gh-pages/{{page.filename}}" class="btn">Fork this post!</a>
 {% endraw %}
 {% endhighlight %}
-
+----
 For a personal github page:
 {% highlight html %}
 {% raw %}
@@ -29,6 +30,8 @@ For a personal github page:
 {% endraw %}
 {% endhighlight %}
 
+
+----
 On my blog they are test links with a small icon. Here's what I use
 {% highlight html %}
 {% raw %}
