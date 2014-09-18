@@ -29,7 +29,8 @@
   <script>
   var t = new Trianglify();
   var pattern = t.generate(document.body.clientWidth, 256);
-  document.querySelector(".image-wrap").appendChild(pattern.svg);
+  document.querySelector(".image-wrap").setAttribute('style', 'background-image: '+pattern.dataUrl);
+  //document.querySelector(".image-wrap").appendChild(pattern.svg);
 </script>
   {% if page.image.credit %}
     <span class="image-credit">Photo Credit: <a href="{{ page.image.creditlink }}">{{ page.image.credit }}</a></span>
