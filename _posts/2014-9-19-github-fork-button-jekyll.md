@@ -16,16 +16,16 @@ It is possible since 2.4.0 (april 2013), so ensure you have a recent enough vers
 Add the following to the layout of your posts.
 
 For a project github page:
-```
+{% highlight html %}
 <a href="https://github.com/GITHUB-USERNAME/PROJECT-NAME/edit/gh-pages/{{page.filename}}" class="btn">Fork this post!</a>
-```
+{% endhighlight %}
 
 For a personal github page:
-```
+{% highlight html %}
 <a href="https://github.com/GITHUB-USERNAME/GITHUB-USERNAME.github.io/edit/master/{{page.filename}}" class="btn">Fork this post!</a>
-```
+{% endhighlight %}
 
 On my blog they are test links with a small icon. Here's what I use
-```
+{% highlight html %}
 <span class="git-pull">Something outdated or wrong in this post? <a href="https://github.com/Rahazan/rahazan.github.io/edit/master/{{page.path}}"><i class="fa fa-github fa-lg"></i> Submit a pull request!</a></span>
-```
+{% endhighlight %}
