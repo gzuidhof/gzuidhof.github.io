@@ -16,7 +16,7 @@ It is possible since Jekyll 2.4.0 (april 2013), so ensure you have a recent enou
 
 The secret is using `{% raw %}{{page.filename}}{% endraw %}` to get the filename of the file to be edited. This will work on any page (not just posts).
 
-Add the following to the layout of your posts.
+###Add the following to the layout of your posts.
 
 **For a project github page**
 {% highlight html %}
