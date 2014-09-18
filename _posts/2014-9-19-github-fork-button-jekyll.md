@@ -7,9 +7,10 @@ tags: [beginner, jekyll, tutorial]
 comments: true
 ---
 
-I recently added a link to the bottom of every post to allow others to easily submit a pull request. This can be useful if your posts have code examples that may get outdated, or just for small typos.Readers can propose changes via pull request.
+I recently added a link to the bottom of every post to allow others to easily submit a pull request. This can be useful if your posts have code examples that may get outdated, or just for small typos. Readers can propose changes via a pull request on Github.
 
-It is possible since 2.4.0 (april 2013), so ensure you have a recent enough version of Jekyll.
+
+It is possible since Jekyll 2.4.0 (april 2013), so ensure you have a recent enough version.
 
 ##Here's how
 
