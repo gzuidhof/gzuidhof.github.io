@@ -19,6 +19,7 @@
 
 {% if page.image.feature %}
   <div class="image-wrap">
+  <img id="feat-image" style="display: block;" alt="{{ page.title }} feature image"/>
   <!--<img src=
     {% if page.image.feature contains 'http' %}
       "{{ page.image.feature }}"
@@ -29,7 +30,7 @@
   <script>
   var t = new Trianglify();
   var pattern = t.generate(document.body.clientWidth, 256);
-  document.querySelector(".image-wrap").setAttribute('style', 'background-image: '+pattern.dataUrl);
+  document.querySelector("feat-image").src = pattern.dataUrl;//.setAttribute('style', 'background-image: '+pattern.dataUrl);
   //document.querySelector(".image-wrap").appendChild(pattern.svg);
 </script>
   {% if page.image.credit %}
