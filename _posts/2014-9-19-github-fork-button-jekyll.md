@@ -36,7 +36,7 @@ The secret is using `{% raw %}{{page.filename}}{% endraw %}` to get the filename
 
 ----
 
-On my blog they are test links with a small icon. Here's what I use
+On my blog they are text links with a small icon. Here's what I use
 {% highlight html %}
 {% raw %}
 <span class="git-pull">Something outdated or wrong in this post? <a href="https://github.com/Rahazan/rahazan.github.io/edit/master/{{page.path}}"><i class="fa fa-github fa-lg"></i> Submit a pull request!</a></span>
