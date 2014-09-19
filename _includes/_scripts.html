@@ -21,3 +21,8 @@
 {% if page.comments %}
   {% include _disqus_comments.html %}
 {% endif %}
+{% if page.image.trianglify %}
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/trianglify/0.1.4/trianglify.min.js"></script>
+<script src="{{ site.url }}/assets/js/trianglify_feature_image.js"></script>
+{% endif %}
