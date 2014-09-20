@@ -1,7 +1,7 @@
 ---
 layout: home
 excerpt: "Student developer blog."
-tags: [Jekyll, theme, responsive, blog, template]
+tags: [Student, Guido, dev, blog, haxe]
 image:
   trianglify: true
 ---
