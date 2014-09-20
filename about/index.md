@@ -2,7 +2,7 @@
 layout: page
 title: About me
 tags: [about, me, guido]
-modified: 2014-08-08T20:53:07.573882-04:00
+modified: 2014-09-19T20:53:07.573882-04:00
 comments: true
 image:
   trianglify: true
