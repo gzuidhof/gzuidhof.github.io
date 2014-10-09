@@ -9,7 +9,9 @@ I switched to [hugo](http://gohugo.io) after trying multiple static site generat
 
 [gamedev.tip.fish](http://gamedev.tip.fish) is a small project I started to become more familiar with devops, basic web design and tooling. On the site, daily a game development tip appears, which is also tweeted.
 
-Some features:
+
+**Some features:**
+
 * It now runs fully automated, all I have to do is add tips every now and then. 
 * My staged tips are verified using a simple test program on travis-ci, which also deploys the site to Github Pages. 
 * The tool is written in haxe, which is then compiled to a java executable to use the Twitter4J library.
