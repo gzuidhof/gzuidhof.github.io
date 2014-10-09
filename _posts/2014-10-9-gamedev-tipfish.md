@@ -1,11 +1,11 @@
 ---
 layout: post
-title: gamedev.tip.fish, personal project
+title: Gamedev.tip.fish, personal project
 tags: [project, hugo, gamedev.tip.fish, haxe]
 comments: true
 ---
 
-I jumped ship to [hugo](http://gohugo.io) after trying multiple static site generators. It's amazingly fast, easy to work with and doesn't force me to layout my site any specific way.
+I switched to [hugo](http://gohugo.io) after trying multiple static site generators. It's very fast, easy to work with and doesn't force me to layout my site any specific way.
 
 [gamedev.tip.fish](http://gamedev.tip.fish) is a small project I started to become more familiar with devops, basic web design and tooling. On the site, daily a game development tip appears, which is also tweeted.
 
