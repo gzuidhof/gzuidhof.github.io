@@ -26,7 +26,7 @@ It turned out to be a great way to learn programming, actually make something wh
 ##2009 - 2011
 **TI-84 Game Development** My first beginnings as a programmer, creating games for me and friends to play. Included text-based pokémon, text-based Sim City and story adventure games. 
 
-My fingers hurt thinking about pressing the alpha key for every letter one would type, combined with the alphabetical order of the keys. It was however, a nice way to kill time during forced studying hours (which were a nice introduction by the government..).
+My fingers hurt thinking about pressing the alpha key for every letter one would type, combined with the alphabetical order of the keys. It was however, a nice way to kill time during forced studying hours.
 
 I wish I still had these games, I had to wipe them for my finals :(
 
