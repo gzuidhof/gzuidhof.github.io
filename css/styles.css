@@ -10,7 +10,7 @@ body, html, .container {
 
 body {
 	background: #fff;
-	color: #265CAE;
+	color: #74777b;
 	font-weight: 500;
 	font-size: 1em;
 	font-family: 'Raleway', Arial, sans-serif;
@@ -27,7 +27,7 @@ a:hover, a:focus {
 }
 
 .color-1 {
-	background: #434d55;
+	background: #255E8E;
 	color: #eee;
 }
 
