@@ -1,0 +1,6 @@
+baseURL = "http://guido.io/"
+languageCode = "en-us"
+title = "Guido Zuidhof"
+theme = "catsup"
+
+disableKinds = ["RSS", "sitemap"]
