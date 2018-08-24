@@ -2,6 +2,7 @@ html.js,
 .js body {
 	overflow: hidden;
 	height: 100vh;
+	overflow-y: scroll;
 }
 
 /* Pages nav */
@@ -160,12 +161,13 @@ html.js,
 	position: relative;
 	z-index: 5;
 	overflow: hidden;
-	width: 100%;
-	height: 100vh;
+	width: 76%;
+	min-height: 100vh;
 	pointer-events: auto;
 	background: #fafafa;
 	background: linear-gradient(to bottom right,#ffffff,#f3f3f3);
 	box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
+	max-width: 960px;
 }
 
 .js .pages-stack--open .page {
@@ -174,6 +176,8 @@ html.js,
 	transition: transform 0.45s, opacity 0.45s;
 	-webkit-transition-timing-function: cubic-bezier(0.6, 0, 0.4, 1);
 	transition-timing-function: cubic-bezier(0.6, 0, 0.4, 1);
+	min-height: 100vh;
+	max-height: 100vh;
 }
 
 .js .page--inactive {
@@ -181,6 +185,9 @@ html.js,
 	z-index: 0;
 	top: 0;
 	opacity: 0;
+	max-height: 200px;
+	overflow: hidden;
+	min-height: 200px;
 }
 
 /* page content */
@@ -190,13 +197,6 @@ html.js,
 	margin-top: 1.5em;
 }
 
-.poster {
-	position: absolute;
-	bottom: 4vh;
-	left: 60%;
-	max-width: 100%;
-	max-height: 80%;
-}
 
 /* Menu button */
 
@@ -299,6 +299,10 @@ html.js,
 	.link--social {
 		margin: 0 0.1em;
 	}
+
+	.page {
+		width: 100% !important;
+	}
 }
 
 @media screen and (max-width: 40em) {
@@ -326,8 +330,5 @@ html.js,
 	}
 	.info {
 		font-size: 0.85em;
-	}
-	.poster {
-		margin: 1em;
 	}
 }

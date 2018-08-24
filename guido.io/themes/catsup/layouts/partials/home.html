@@ -1,76 +1,50 @@
-<!-- navigation -->
 <nav class="pages-nav">
-    <div class="pages-nav__item"><a class="link link--page" href="#page-home">Home</a></div>
-    <div class="pages-nav__item"><a class="link link--page" href="#page-about">About me</a></div>
-    <div class="pages-nav__item"><a class="link link--page" href="#page-projects">Projects</a></div>
-    <div class="pages-nav__item pages-nav__item--small"><a class="link link--page link--faded" href="#page-gamedev">Games</a></div>
-    <div class="pages-nav__item pages-nav__item--small"><a class="link link--page link--faded" target="_blank" href="cv.pdf">Résumé (pdf)</a></div>
-    <div class="pages-nav__item pages-nav__item--small"><a class="link link--page link--faded" href="#page-contact">Contact</a></div>
+    <div class="pages-nav__item">
+        <a class="link link--page" href="#page-home">Home</a>
+    </div>
+    <div class="pages-nav__item">
+        <a class="link link--page" href="#page-about">About me</a>
+    </div>
+    <div class="pages-nav__item">
+        <a class="link link--page" href="#page-projects">Projects</a>
+    </div>
+    <div class="pages-nav__item pages-nav__item--small">
+        <a class="link link--page link--faded" href="#page-gamedev">Games</a>
+    </div>
+    <div class="pages-nav__item pages-nav__item--small">
+        <a class="link link--page link--faded" target="_blank" href="cv.pdf">Résumé (pdf)</a>
+    </div>
+    <div class="pages-nav__item pages-nav__item--small">
+        <a class="link link--page link--faded" href="#page-contact">Contact</a>
+    </div>
     <div class="pages-nav__item pages-nav__item--social">
-        <a class="link link--social link--faded" href="https://www.github.com/gzuidhof"><i class="fa fa-github"></i><span class="text-hidden">GitHub</span></a>
-        <a class="link link--social link--faded" href="mailto:me@guido.io"><i class="fa fa-envelope"></i><span class="text-hidden">E-mail</span></a>
-        <a class="link link--social link--faded" href="https://www.linkedin.com/in/guido-zuidhof-377b6947/"><i class="fa fa-linkedin"></i><span class="text-hidden">LinkedIn</span></a>
+        <a class="link link--social link--faded" href="https://www.github.com/gzuidhof">
+            <i class="fa fa-github"></i>
+            <span class="text-hidden">GitHub</span>
+        </a>
+        <a class="link link--social link--faded" href="mailto:me@guido.io">
+            <i class="fa fa-envelope"></i>
+            <span class="text-hidden">E-mail</span>
+        </a>
+        <a class="link link--social link--faded" href="https://www.linkedin.com/in/guido-zuidhof-377b6947/">
+            <i class="fa fa-linkedin"></i>
+            <span class="text-hidden">LinkedIn</span>
+        </a>
     </div>
 </nav>
-<!-- /navigation-->
-<!-- pages stack -->
 <div class="pages-stack">
-    <!-- page -->
     <div class="page" id="page-home">
-        <!-- Blueprint header -->
         <header class="bp-header cf">
             <span class="bp-header__present">Hello, I'm</span>
             <h1 class="bp-header__title">Guido Zuidhof</h1>
-            <p class="bp-header__desc">Research Engineer at <a href="https://www.bluevisionlabs.com">Blue Vision Labs</a></p>
+            <p class="bp-header__desc" style="font-weight: normal">Research Engineer at
+                <a href="https://www.bluevisionlabs.com">Blue Vision Labs</a>
+            </p>
         </header>
     </div>
-    <!-- /page -->
-    <div class="page" id="page-about">
-        <header class="bp-header cf">
-            <h1 class="bp-header__title">About me</h1>
-            <p class="bp-header__desc">Dutch person who likes building stuff, originally from The Netherlands</p>
-            <p class="info">
-                Some things I like:
-            <ul>
-                <li><strong>AI & Machine Learning.</strong></li>
-                <li><strong>Game Development</strong>, my best game jam entry ended up 6th overall in Ludum Dare!</li>
-                <li><strong>Open source</strong>. I aim to write most of my projects with an open license, others may use and or learn from it one day.</li>
-                <li><strong>The latest tech</strong>. I’m an avid hackernews reader.</li>
-                <li><strong>Airsoft</strong>. Occasionally I join a skirm to practice my 360-noscopes in real life.</li>
-            </ul>
 
-            </p>
-        </header>
-    </div>
-    <div class="page" id="page-projects">
-        <header class="bp-header cf">
-            <h1 class="bp-header__title">Projects</h1>
-            <p class="bp-header__desc">See also my <a href="https://www.github.com/gzuidhof">GitHub profile</a></p>
-            <p class="info">
-               ⚒ Under construction..
-            </p>
-        </header>
-    </div>
-    <div class="page" id="page-gamedev">
-        <header class="bp-header cf">
-            <h1 class="bp-header__title">Games</h1>
-            <p class="bp-header__desc">"Juice it or lose it"</p>
-            <p class="info">
-               ⚒ Under construction..
-            </p>
-        </header>
-        <!--<img class="poster" src="images/1.jpg" alt="img01" />-->
-    </div>
-    <div class="page" id="page-contact">
-        <header class="bp-header cf">
-            <h1 class="bp-header__title">Contact</h1>
-            <p>
-                Say hello at <a href="mailto:me@guido.io">me@guido.io</a>.
-            <br>
-                I'm based in London by the way.
-            </p>
-        </header>
-    </div>
+    {{ partial "pages/about.html" }} {{ partial "pages/projects.html" }} {{ partial "pages/gamedev.html" }} {{ partial "pages/contact.html"}}
 </div>
-<!-- /pages-stack -->
-<button class="menu-button"><span>Menu</span></button>
+<button class="menu-button">
+    <span>Menu</span>
+</button>
