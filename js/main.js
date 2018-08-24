@@ -28,7 +28,7 @@
 		// total number of page elements
 		pagesTotal = pages.length,
 		// index of current page
-		current = 3,
+		current = 0,
 		// menu button
 		menuCtrl = document.querySelector('button.menu-button'),
 		// the navigation wrapper
