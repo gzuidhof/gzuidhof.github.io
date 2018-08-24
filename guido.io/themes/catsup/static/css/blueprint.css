@@ -12,7 +12,8 @@
 /* Made with http://icomoon.io/ */
 
 .project-title {
-	margin-bottom: 0em;
+	margin-bottom: -0.1em;
+	margin-top: 0.1em;
 }
 .project-subtitle {
 	margin-top: 0em;
@@ -27,7 +28,7 @@
 	font-style: italic;
 	border-left: 4px solid rgba(0, 0, 0, 0.04);
 	padding-left: 8px;
-	margin-left: 2.5em;
+	margin-left: 2.25em;
 }
 
 .project-quote-author {
@@ -65,8 +66,10 @@
 }
 
 .project-images {
-	max-width: 100%;
-	width: 100%;
+	margin-left: -10px;
+	margin-right: -10px;
+	width: calc(100% + 20px);
+	padding-top: 8px;
 }
 
 .project-images img {
@@ -162,6 +165,14 @@ strong {
 	color: #ccc;
 }
 
+
+@media screen and (max-width: 50em) {
+	.project-quote {
+		margin-left: 1.4em;
+	}
+}
+
+
 @media screen and (max-width: 40em) {
 	.bp-header {
 		padding: 50px 20px 1em;
@@ -172,5 +183,9 @@ strong {
 
 	.page-content {
 		padding: 10px 20px 1em;
+	}
+
+	.project-quote {
+		margin-left: 1.1em;
 	}
 }

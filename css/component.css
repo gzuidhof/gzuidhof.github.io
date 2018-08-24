@@ -178,6 +178,7 @@ html.js,
 	transition-timing-function: cubic-bezier(0.6, 0, 0.4, 1);
 	min-height: 100vh;
 	max-height: 100vh;
+	box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.1);
 }
 
 .js .page--inactive {
@@ -188,6 +189,7 @@ html.js,
 	max-height: 200px;
 	overflow: hidden;
 	min-height: 200px;
+	box-shadow: none;
 }
 
 /* page content */
