@@ -145,6 +145,8 @@
 			page.style.WebkitTransform = 'translate3d(0, 75%, ' + parseInt(-1 * 200 - 50 * i) + 'px)'; // -200px, -230px, -260px
 			page.style.transform = 'translate3d(0, 75%, ' + parseInt(-1 * 200 - 50 * i) + 'px)';
 		}
+
+		document.body.scrollTop = document.documentElement.scrollTop = 0;
 	}
 
 	// closes the menu
