@@ -147,6 +147,7 @@
 		}
 
 		document.body.scrollTop = document.documentElement.scrollTop = 0;
+		console.log("SCROLLZA")
 	}
 
 	// closes the menu
