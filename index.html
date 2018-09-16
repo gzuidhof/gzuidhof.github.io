@@ -84,7 +84,9 @@
                 <li>
                     <strong>Airsoft</strong>. Occasionally I join a skirm to practice my 360-noscopes in real life.</li>
             </ul>
-
+        </p>
+        <p>
+            Skills-wise I have been described as the most versatile developer they have ever seen. I have experience writing code for any part of the stack.
         </p>
     </header>
 </div> <div class="page" id="page-projects">
@@ -93,46 +95,143 @@
         <p class="bp-header__desc">See also my
             <a href="https://www.github.com/gzuidhof">GitHub profile</a>
         </p>
-        <p class="info">
+        <p>
             ⚒ Under construction.. I am slowly adding projects.
             <br><br>
-            My game development project page more complete already, have a look at that!
+            My game development project page is pretty much complete, have a look at that too!
         </p>
     </header>
     <div class="page-content">
-            <div class="project-container">
-                    <h3 class="project-title" >nn-transfer</h3>
-                    <span class="project-subtitle">Neural Network weight transfer - 
-                        <i>Pytorch &lt;> Kerase</i>
-                    </span>
-
+        <div class="project-container">
+            <h3 class="project-title" >nn-transfer</h3>
+            <span class="project-subtitle">Neural Network weight transfer - 
+                <i>Pytorch &lt;> Keras</i>
+            </span>
+            <p>
+                Utilities for converting PyTorch models to Keras and the other way around. More specifically, it allows you to copy the weights from a PyTorch model to an identical model in Keras and vice-versa.
+            </p>
+            <p>
+                I created this tool out of my own need, and since open sourcing it it has been starred over a hundred times on GitHub. <br>
+                It is unique in the way it works from other tools, as it does not infer the model structure itself. That is where every other tool has the most difficulty (and often fails). In this tool instead you define the same model architecture yourself.
+            </p>
+            <p class="project-links">
+                ⚙️ Pytorch, Keras, travic-ci |
+                <a href="http://github.com/gzuidhof/nn-transfer">project page</a>
+                |
+                <a href="https://github.com/gzuidhof/nn-transfer/blob/master/example.ipynb">example usage</a>
+            </p>
+        </div>
+        <p>
+            <h2>🏆 Hackathons</h2>
+        </p>
+        <div class="project-container">
+            <h3 class="project-title" >LI Hackathon (September 2017)</h3>
+            <span class="project-subtitle">Legal Search Innovation Hackathon -
+                <i>Winning team - €5000 prize</i>
+            </span>
+            <p>
+                Armed with access to a large corpus of hundreds of thousands of legal documents, the Legal Intelligence API, and the goal to innovate in search of legal documents we created Leegle (Legal Google).
+            </p>
+            <p> 
+                    Leegle is an in-browser graph based legal document explorer, where documents are linked
+                    by common court cases and law references. The tool seamlessly integrated with the
+                    existing Legal Intelligence search engine using a simple Chrome browser plugin.
+            </p>
+            <p class="project-links">
+                ⚙️ Vue.js, vis.js, Flask, Neo4j, Solr, Pandas |
+                <a href="https://github.com/gzuidhof/li-hackathon">Project page</a>
+                |
+                <a href="https://www.legalintelligence.com/hackathon/">Hackathon homepage (Dutch)</a>
+            </p>
+        </div>
+        <div class="project-container">
+            <h3 class="project-title" >AIVD Hackathon (March 2017)</h3>
+            <span class="project-subtitle">Dutch Intelligence Service Hackathon - 
+                <i>2nd place</i>
+            </span>
+            <p>
+                The objective of this 24 hour hackathon was to create anything that could be of value to the Dutch intelligence service. With this vague problem statement, we talked to various stakeholders, and identified that a big part of preventing extremism is identifying those that may develop extremist views.
+            </p>
+            <p> 
+            We created <i>TerrorFlow</i>, a tool for automatically detecting individuals that are at risk of turning to extremism. This was done by identifying various objects in images and videos (e.g. burning flags, AK-47s) posted publicly on Instagram and Youtube, the results of which could be viewed in an in-browser tool. 
+            </p>
+            <p class="project-links">
+                ⚙️ Keras, Vue.js, Flask, Ansible, AWS EC2 |
+                <a href="http://github.com/gzuidhof/terrorflow-hackathon">Project page</a>
+                |
+                <a href="https://www.youtube.com/watch?v=uEGZrlZVnL0">Video</a>
+            </p>
+        </div>
+        <p>
+            <h2>🏅 Kaggle Competitions</h2>
+        </p>
+        <div class="project-container">
+            <h3 class="project-title" >National Data Science Bowl 2017</h3>
+            <span class="project-subtitle">Kaggle Machine Learning competition - 
+                <i>Top Kernel Winner - $5000 prize</i>
+            </span>
+            <p>
+                    Wrote the most popular Kaggle kernel in the biggest yearly machine learning competi-
+                    tion. This kernel described how to preprocess and segment lungs in CT images. To this
+                    day it is still the most upvoted kernel of any Kaggle competition with prize money.
+            </p>
+            <p class="project-links">
+                ⚙️ NumPy, DICOM.js, scipy, matplotlib, pandas |
+                <a href="https://www.kaggle.com/gzuidhof/full-preprocessing-tutorial">Kernel link</a>
+                |
+                <a href="https://www.kaggle.com/c/data-science-bowl-2017">Competition homepage</a>
+            </p>
+        </div>
+        <div class="project-container">
+            <h3 class="project-title" >Ultrasound Nerve Segmentation (August 2016)</h3>
+            <span class="project-subtitle">Kaggle Machine Learning competition - 
+                <i>9th place (top 1%)</i>
+            </span>
+            <p>
+                    Tackled the problem of identifying nerve structures in ultrasound images using a hybrid
+                    approach using classical computer vision features (SIFT) and an adapted version of the
+                    fully convolutional network Unet architecture.
+            </p>
+            <p class="project-links">
+                ⚙️ NumPy, Theano, Lasagne |
+                <a href="https://www.kaggle.com/c/ultrasound-nerve-segmentation">Competition homepage</a>
+            </p>
+        </div>
+        <div class="project-container">
+            <h3 class="project-title">Diabetic Retinopathy Detection (July 2016)</h3>
+            <span class="project-subtitle">Kaggle Machine Learning competition - 
+                <i>11th place (top 2%)</i>
+            </span>
+            <p>
+                    Applied a convolutional neural network approach to automatically diagnose diabetic
+                    retinopathy, which is the leading cause of blindness in the US, from retina pictures.
+                    Trained on GPUs on a large cluster, achieving better than human expert performance.
+            </p>
+            <p class="project-links">
+                ⚙️ NumPy, Theano, Lasagne |
+                <a href="https://github.com/StevenReitsma/kaggle-diabetic-retinopathy">Project homepage</a>
+                |
+                <a href="https://www.kaggle.com/c/diabetic-retinopathy-detection">Competition homepage</a>
+            </p>
+        </div>
+        <div class="project-container">
+            <h3 class="project-title">National Data Science Bowl 2016</h3>
+            <span class="project-subtitle">Kaggle Machine Learning competition - 
+                <i>68th place (top 7%)</i>
+            </span>
+            <p>
+                    Developed a deep learning method for automatically classifying plankton from low res-
+olution black and white images. Also helped develop a method for unsupervised feature
+extraction based on kNN clusters of image patches, which performed worse.
+            </p>
+            <p class="project-links">
+                ⚙️ NumPy, Theano, Lasagne, Scikit-learn, nolearn |
+                <a href="https://github.com/StevenReitsma/kaggle-national-data-science-bowl">Project homepage</a>
+                |
+                <a href="https://www.kaggle.com/c/datasciencebowl">Competition homepage</a>
+            </p>
+        </div>
         
-                    <p>
-                        My first Ludum Dare entry, featuring a rather sad story and three mini-games. I was able to complete a much bigger game than I anticipated, and it was received pretty well. This game is what got me hooked on gamejams during university.
-                    </p>
-                    <blockquote class="project-quote">
-                        [...] the opening is a tad slow. But the atmosphere and mood is perfect! Love the gameplay and design choice. 
-                        <br>
-                        — <span class="project-quote-author">TurnA</span>
-                        <span class="project-quote-date">December 16, 2013</span>
-                    </blockquote>
-        
-                    <blockquote class="project-quote">
-                        Very touching and beautiful. I completed the first two levels in a dream-like determination that I knew Sam would feel. But I failed the third level without realizing the crucial thing that might've kept him alive. A sad game. Stunning end sequence. 
-                        <br>
-                        — <span class="project-quote-author">Shaun LeBron</span>
-                        <span class="project-quote-date">December 16, 2013</span>
-                    </blockquote>
-        
-                    <p class="project-links">
-                        ⚙️ Unity3D (C#) |
-                        <a href="http://ludumdare.com/compo/ludum-dare-28/?uid=23945">project page</a>
-                        |
-                        <a href="https://github.com/gzuidhof/gamejam/tree/master/LD28">source code</a>
-                        |
-                        <a href="/images/liftoff.gif">Rocket launch (.gif)</a>
-                    </p>
-                </div>
     </div>
 </div> <div class="page" id="page-gamedev">
     <header class="bp-header cf">
