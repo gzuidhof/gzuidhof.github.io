@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html lang="en-US" class="js">
 <head>
-	<meta name="generator" content="Hugo 0.47.1" />
+	<meta name="generator" content="Hugo 0.72.0" />
     <meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <base href="http://guido.io/">
+    <base href="https://guido.io/">
     <title>  </title>
-    <link rel="canonical" href="http://guido.io/">
+    <link rel="canonical" href="https://guido.io/">
 
     
 <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -58,9 +58,7 @@
         <header class="bp-header cf">
             <span class="bp-header__present">Hello, I'm</span>
             <h1 class="bp-header__title">Guido Zuidhof</h1>
-            <p class="bp-header__desc" style="font-weight: normal">Research Engineer at
-                <a href="https://www.bluevisionlabs.com">Blue Vision Labs</a>
-            </p>
+            <p class="bp-header__desc" style="font-weight: normal">Indie Hacker based in London.</p>
         </header>
     </div>
 
@@ -69,24 +67,10 @@
         <h1 class="bp-header__title">About me</h1>
         <p class="bp-header__desc">I'm someone who loves building stuff, originally from The Netherlands</p>
         <p class="info">
-            Some things I like:
-            <ul>
-                <li>
-                    <strong>AI & Machine Learning.</strong>
-                </li>
-                <li>
-                    <strong>Game Development</strong>, my best game jam entry ended up 6th overall in Ludum Dare!</li>
-                <li>
-                    <strong>Open source</strong>. I aim to write most of my projects with an open license, others may use and or
-                    learn from it one day.</li>
-                <li>
-                    <strong>The latest tech</strong>. I’m an avid hackernews reader.</li>
-                <li>
-                    <strong>Airsoft</strong>. Occasionally I join a skirm to practice my 360-noscopes in real life.</li>
-            </ul>
+            In particular my areas of interest are web technologies, machine learning, computer vision, and (3D) visualization. 
         </p>
         <p>
-            Skills-wise I have been described as the most versatile developer they have ever seen. I have experience writing code for any part of the stack.
+            I have experience writing code for any part of the stack (frontend, backend, machine learning, mobile).
         </p>
     </header>
 </div> <div class="page" id="page-projects">
@@ -96,12 +80,47 @@
             <a href="https://www.github.com/gzuidhof">GitHub profile</a>
         </p>
         <p>
-            ⚒ Under construction.. I am slowly adding projects.
-            <br><br>
-            My game development project page is pretty much complete, have a look at that too!
+            ⚒ I am slowly adding projects.. Work in progress!
         </p>
     </header>
     <div class="page-content">
+        <div class="project-container">
+            <h3 class="project-title" >Starboard</h3>
+            <span class="project-subtitle">In-browser literal notebooks.</span>
+            <p>
+                Similar to Project Iodide but with different tradeoffs, in my opinion the future of Jupyter Notebooks. This is definitely a work in progress, check out the website!
+            </p>
+            <p class="project-links">
+                ⚙️ Typescript, Go, Postgres, lit-html, Github Actions |
+                <a href="https://starboard.gg">website</a>
+            </p>
+        </div>
+        <div class="project-container">
+            <h3 class="project-title" >Friendly Captcha</h3>
+            <span class="project-subtitle">Proof of work based CAPTCHAs that are accessible, user-frienldy and privacy respecting.</span>
+            <p>
+               More details to be added..
+            </p>
+            <p class="project-links">
+                ⚙️ Assemblyscript (WebAssembly), Typescript, Cloudflare Workers, Github Actions |
+                <a href="https://friendlycaptcha.com">website</a>
+            </p>
+        </div>
+        <div class="project-container">
+            <h3 class="project-title" >Zarr.js</h3>
+            <span class="project-subtitle">Zarr that runs in the browser, Node and Deno.</span>
+            <p>
+               Zarr is a python library for chunked large multi-dimensional datasets. This library is a library that allows one to interact with these large datasets in the browser.
+            </p>
+            <p>
+                This was a particulary large undertaking because the browser (javascript) does not ship with any good support for multidimensional arrays or utilities like slicing, that all had to be implemented from scratch.
+             </p>
+            <p class="project-links">
+                ⚙️ Typescript, Github Actions |
+                <a href="https://github.com/gzuidhof/zarr.js">github repository</a>
+                <a href="https://guido.io/zarr.js">documentation homepage</a>
+            </p>
+        </div>
         <div class="project-container">
             <h3 class="project-title" >nn-transfer</h3>
             <span class="project-subtitle">Neural Network weight transfer - 
@@ -237,7 +256,7 @@ extraction based on kNN clusters of image patches, which performed worse.
     <header class="bp-header cf">
         <h1 class="bp-header__title">Games</h1>
         <p>
-            As a hobby, I like to work on video games. I think they provide a lot of unique challenges development wise. Video games are the intersection of many types of art, and actually seeing somebody have fun experiencing what you created is the most magical thing. </p>
+            Back in university, I liked to develop video games as a hobby. I think they provide a lot of unique challenges development wise. Video games are the intersection of many types of art, and actually seeing somebody have fun experiencing what you created is the most magical thing. </p>
         <p>
             <i>"Juice it or lose it"</i> is my motto in game development (and anything that a user interacts with really). Juice
             can be described as anything that doesn't change the functionality of a program, but just makes it
@@ -546,7 +565,7 @@ extraction based on kNN clusters of image patches, which performed worse.
 <footer style="position: absolute; display: none;">
   <div>
     <p>
-    &copy; 2016-2018 Guido Zuidhof.
+    &copy; 2016-2020 Guido Zuidhof.
     </p>
   </div>
 </footer>

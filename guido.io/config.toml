@@ -1,4 +1,4 @@
-baseURL = "http://guido.io/"
+baseURL = "https://guido.io/"
 languageCode = "en-us"
 title = "Guido Zuidhof"
 theme = "catsup"
