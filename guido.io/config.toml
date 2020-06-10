@@ -1,9 +1,13 @@
 baseURL = "https://guido.io/"
 languageCode = "en-us"
-title = "Guido Zuidhof"
+title = "Guido.io"
 theme = "codex"
 
 disableKinds = ["sitemap"]
+
+[author]
+  name = "Guido Zuidhof"
+  homepage = "https://guido.io"
 
 [params]
   github = "gzuidhof"

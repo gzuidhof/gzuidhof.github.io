@@ -1,0 +1,101 @@
+.project-title {
+	margin-bottom: -0.1em;
+	margin-top: 0.1em;
+}
+.project-subtitle {
+	margin-top: 0em;
+	font-size: 0.75em;
+	font-weight: 400;
+	letter-spacing: 1.2px;
+	text-transform: uppercase;
+}
+
+.project-quote {
+	font-size: 0.9em;
+	font-style: italic;
+	border-left: 4px solid rgba(0, 0, 0, 0.04);
+	padding-left: 8px;
+	margin-left: 2.25em;
+}
+
+.project-quote-author {
+	font-style: normal;
+	font-weight: bold;
+}
+
+.project-quote-date {
+	font-size: 0.725em;
+	font-style: normal;
+	margin-left: 4px;
+	opacity: 0.9;
+}
+
+.project-links {
+	text-transform: uppercase;
+	letter-spacing: 0.8px;
+	font-size: 0.68em;
+	margin-left: 0.5em;
+	opacity: 0.8;
+	font-weight: bold;
+	margin-top: 1.6em;
+	margin-bottom: 4px;
+}
+
+.project-links a {
+	font-weight: bold;
+}
+
+.project-container {
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	margin-bottom: 18px;
+	padding: 10px;
+	border-radius: 2px;
+}
+
+.project-images {
+	margin-left: -10px;
+	margin-right: -10px;
+	width: calc(100% + 20px);
+	padding-top: 8px;
+}
+
+.project-images img {
+	max-width: 100%;
+	width: 100%;
+}
+
+.post a {
+	color: #222;
+	outline: none;
+	font-weight: 600;
+}
+
+.post a:hover {
+	opacity: 0.8;
+}
+
+.post strong {
+	font-weight: 600;
+}
+
+
+@media screen and (max-width: 50em) {
+	.project-quote {
+		margin-left: 1.4em;
+	}
+}
+
+@media screen and (max-width: 40em) {
+	.project-quote {
+		margin-left: 1.1em;
+	}
+}
+
+.post h2 {
+    margin-bottom: 1rem;
+}
+
+.post blockquote {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
