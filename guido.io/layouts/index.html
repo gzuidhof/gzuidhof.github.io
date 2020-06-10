@@ -1,0 +1,24 @@
+{{ define "stylesheets" }}
+<link rel="stylesheet" href="/css/about.css" /> 
+{{ end }}
+
+{{ define "main" }}
+<div class="splash-container">
+  <div class="splash">
+    
+    <h1>{{ .Params.heading }}<span class="fancy">.</span></h1>
+    {{ if isset .Params "email" }}
+    <span class="handle">{{ .Params.email }}</span>
+    {{ end }}
+    <h2>
+      {{ .Params.subheading }}
+    </h2>
+
+    {{ partial "anchored-headings.html" .Content }}
+    
+
+    {{ partial "social-icons.html" .}}
+  </div>
+</div>
+
+{{ end }}

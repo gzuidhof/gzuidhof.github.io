@@ -1,0 +1,16 @@
+<nav class="nav" role="navigation">
+  <ul class="nav__list">
+    {{ $currentPage := . }} 
+    {{ range .Site.Menus.main }}
+      <li>
+        <a {{if (eq $currentPage.Name .Name)}} class="active" style="font-weight: bold; text-decoration: underline;"
+          {{end}}
+
+          {{if eq .Name "Guido.io"}} style="font-weight: bold;"
+          {{end}}
+          
+          href="{{ .URL }}">{{ .Name }}</a>
+      </li>
+    {{ end }}
+  </ul>
+</nav>

@@ -1,0 +1,46 @@
+# OVERRIDE #
+
+languageCode = "en-us"
+title = "Codex"
+baseURL = "https://example.org/"
+copyright = "© {year}"
+
+# OVERRIDE #
+
+# DONT OVERRIDE #
+
+[[menu.main]]
+    identifier = "About"
+    name = "Guido.io"
+    title = "Guido.io"
+    url = "/"
+    weight = 1
+
+[[menu.main]]
+    identifier = "posts"
+    name = "Posts"
+    title = "posts"
+    url = "/posts"
+    weight = 2
+
+[[menu.main]]
+  identifier = "Projects"
+  name = "Projects"
+  title = "Projects"
+  url = "/projects"
+  weight = 10
+
+[[menu.main]]
+  identifier = "Games"
+  name = "Games"
+  title = "Games"
+  url = "/games"
+  weight = 20
+
+
+preserveTaxonomyNames = true
+
+[taxonomies]
+  tag = "tags"
+
+# DONT OVERRIDE #
