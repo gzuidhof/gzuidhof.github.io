@@ -1,7 +1,7 @@
 ---
 title: "An introduction to AssemblyScript"
 date: 2020-06-10
-slug: "introduction-to-webassembly"
+slug: "introduction-to-assemblyscript"
 description: "An introduction to AssemblyScript for image processing. AssemblyScript is a compiled subset of Typescript that targets WebAssembly."
 keywords: []
 draft: false
@@ -17,7 +17,7 @@ WebAssembly allows near-native speed for programs that rely on heavy computation
 
 In my opinion Assemblyscript is the easiest way to get started with WebAssembly today, especially if you are already familiar with Typescript.
 
-## A realistic example
+## An image processing example
 
 Instead of showing a game of life implementation, I want to show examples for a usecase that WebAssembly may actually be the right choice for: **image processing**.
 
