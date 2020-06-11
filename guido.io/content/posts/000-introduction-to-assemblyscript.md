@@ -53,11 +53,9 @@ We can compile the above script to an optimized build by running
 
 There are three output files:
 
-#### Webassembly files `filters.wasm`:
-The generated `.wasm` code is **1.28KB** in size.
-
-When compiling we chose the `stub` [**runtime**](https://www.assemblyscript.org/runtime.html), which generates a build that is easy to interact with from Javascript using the `@assemblyscript/loader` package.
-This build however does not include an automatic garbage collector so it is only suitable for programs with a small memory footprint. For this demo it means a smaller build and won't hurt, but in real world applications please think twice.
+#### Webassembly binary file `filters.wasm`:
+We chose the `stub` [**runtime**](https://www.assemblyscript.org/runtime.html), which generates a build that is easy to interact with from Javascript using the `@assemblyscript/loader` package.
+This build however does not include an automatic garbage collector so it is only suitable for programs with a small memory footprint. For this demo it means a smaller build and won't hurt, but in real world applications please think twice. The generated `.wasm` code is **1.28KB** in size.
 
 If we switch to the `full` runtime the binary size becomes **3.44KB**, and with the most barebones runtime `none` the output is **1.14KB**. We could still hack off a few hundred bytes[^2], but even with the full runtime it's only a few KB in size! This compares favourably against other languages compiled to WebAssembly: In AssemblyScript we can write idiomatic Typescript code and still get tiny binaries.
 

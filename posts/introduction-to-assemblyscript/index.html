@@ -53,7 +53,7 @@
       "datePublished": "2020-06-10 00:00:00 \u002b0000 UTC",
       "dateModified" : "2020-06-10 00:00:00 \u002b0000 UTC",
       "url" : "https:\/\/guido.io\/posts\/introduction-to-assemblyscript\/",
-      "wordCount" : "1205",
+      "wordCount" : "1204",
       "keywords" : ["Blog"]
     }
   
@@ -180,10 +180,9 @@
 <p>We can compile the above script to an optimized build by running<br>
 <code>asc assembly/filters.ts -b build/filters.wasm -t build/filters.wat -d build/filters.d.ts -O3 --runtime stub</code></p>
 <p>There are three output files:</p>
-<h4 id="webassembly-files-filterswasm">Webassembly files <code>filters.wasm</code>:</h4>
-<p>The generated <code>.wasm</code> code is <strong>1.28KB</strong> in size.</p>
-<p>When compiling we chose the <code>stub</code> <a href="https://www.assemblyscript.org/runtime.html"><strong>runtime</strong></a>, which generates a build that is easy to interact with from Javascript using the <code>@assemblyscript/loader</code> package.
-This build however does not include an automatic garbage collector so it is only suitable for programs with a small memory footprint. For this demo it means a smaller build and won&rsquo;t hurt, but in real world applications please think twice.</p>
+<h4 id="webassembly-binary-file-filterswasm">Webassembly binary file <code>filters.wasm</code>:</h4>
+<p>We chose the <code>stub</code> <a href="https://www.assemblyscript.org/runtime.html"><strong>runtime</strong></a>, which generates a build that is easy to interact with from Javascript using the <code>@assemblyscript/loader</code> package.
+This build however does not include an automatic garbage collector so it is only suitable for programs with a small memory footprint. For this demo it means a smaller build and won&rsquo;t hurt, but in real world applications please think twice. The generated <code>.wasm</code> code is <strong>1.28KB</strong> in size.</p>
 <p>If we switch to the <code>full</code> runtime the binary size becomes <strong>3.44KB</strong>, and with the most barebones runtime <code>none</code> the output is <strong>1.14KB</strong>. We could still hack off a few hundred bytes<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>, but even with the full runtime it&rsquo;s only a few KB in size! This compares favourably against other languages compiled to WebAssembly: In AssemblyScript we can write idiomatic Typescript code and still get tiny binaries.</p>
 <h4 id="webassembly-text-repesentation-file-filterswat">WebAssembly text repesentation file <code>filters.wat</code></h4>
 <p>The <code>wat</code> file is a <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format">text representation of wasm code</a> that you can open in an editor, you wouldn&rsquo;t ship it in production but it can provide insights into the generated code. It&rsquo;s roughly 9KB in size so it&rsquo;s a bit large to display here, a link to the GitHub repository with all example code can be found at the bottom.</p>
