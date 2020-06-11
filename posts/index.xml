@@ -12,11 +12,11 @@
     
     
     <item>
-      <title>What is AssemblyScript?</title>
-      <link>https://guido.io/posts/what-is-assemblyscript/</link>
+      <title>An introduction to AssemblyScript</title>
+      <link>https://guido.io/posts/introduction-to-webassembly/</link>
       <pubDate>Wed, 10 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://guido.io/posts/what-is-assemblyscript/</guid>
+      <guid>https://guido.io/posts/introduction-to-webassembly/</guid>
       <description>⚠️ I am still writing this article, consider this an unfinished first draft.
 AssemblyScript is a programming language that is almost the same as Typescript and compiles to WebAssembly.
 WebAssembly allows near-native speed for programs that rely on heavy computation with smaller binaries. Any modern browser nowadays supports it as well as Deno and Node. It will not replace Javascript itself anytime soon, but for some problems it can be a good choice, especially those that involve extensive computation.</description>

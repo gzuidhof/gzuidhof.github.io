@@ -2,3 +2,4 @@
 guido.io/public
 \.vs/
 build/
+node_modules/

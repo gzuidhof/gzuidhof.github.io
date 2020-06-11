@@ -5,11 +5,12 @@
   "private": true,
   "scripts": {
     "asbuild": "asc assembly/filters.ts -b build/filters.wasm -t build/filters.wat -d build/filters.d.ts -O3 --runtime stub",
-    "tsbuild": "tsc -p assembly -t ES2017 -m commonjs --outDir build",
+    "tsbuild": "tsc -p assembly -t ES2017 -m ES6 --outDir build",
+    "asbuild:js": "asc assembly/filters.ts -j build/filtersASM.js -O3 --runtime stub",
     "build": "npm run asbuild && npm run tsbuild"
   },
   "devDependencies": {
-    "assemblyscript": "latest",
-    "typescript": "^3.8.3"
+    "assemblyscript": "0.10.0",
+    "typescript": "^3.9.0"
   }
 }
