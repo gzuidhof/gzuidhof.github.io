@@ -69,4 +69,7 @@ async function loadMyWasmLibrary() {
 export { loadMyWasmLibrary };
 ```
 
+As you can see the import gets replaced with a base64 encoded string.
+
+
 > For any serious project you should use Rollup with a config file instead, [this minimal example](https://github.com/gzuidhof/rollup-plugin-base64/tree/master/examples/add) should be a good starting point.
