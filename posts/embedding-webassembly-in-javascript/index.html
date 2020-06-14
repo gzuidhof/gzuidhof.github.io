@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>Embedding WebAssembly in Javascript code</title>
+
+  <meta charset="UTF-8">
+  <meta name="language" content="en">
+  <meta name="description" content="How to embed WebAssembly wasm source as base64 in Javascript.">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Embedding WebAssembly in Javascript code" />
+  <meta name="twitter:description" content="How to embed WebAssembly wasm source as base64 in Javascript."
+  />
+  <meta name="twitter:site" content="@protoduction" />
+  <meta name="twitter:creator" content="@protoduction" />
+  
+
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+  
+<link rel="stylesheet" href="/css/post.css" /> 
+
+   
+   
+    
+
+<script type="application/ld+json">
+  
+    {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/guido.io\/"
+      },
+      "articleSection" : "posts",
+      "name" : "Embedding WebAssembly in Javascript code",
+      "headline" : "Embedding WebAssembly in Javascript code",
+      "description" : "How to embed WebAssembly wasm source as base64 in Javascript.",
+      "inLanguage" : "en-US",
+      "author" : "",
+      "creator" : "",
+      "publisher": "",
+      "accountablePerson" : "",
+      "copyrightHolder" : "",
+      "copyrightYear" : "2020",
+      "datePublished": "2020-06-14 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2020-06-14 00:00:00 \u002b0000 UTC",
+      "url" : "https:\/\/guido.io\/posts\/embedding-webassembly-in-javascript\/",
+      "wordCount" : "378",
+      "keywords" : ["Blog"]
+    }
+  
+  </script>
+
+</head>
+
+<body>
+  <div class="burger__container">
+  <div class="burger" aria-controls="navigation" aria-label="Menu">
+    <div class="burger__meat burger__meat--1"></div>
+    <div class="burger__meat burger__meat--2"></div>
+    <div class="burger__meat burger__meat--3"></div>
+  </div>
+</div>
+ 
+
+  <nav class="nav" role="navigation">
+  <ul class="nav__list">
+     
+    
+      <li>
+        <a 
+
+           style="font-weight: bold;"
+          
+          
+          href="/">Guido.io</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/posts">Posts</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/projects">Projects</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/games">Games</a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <main>
+    
+<div class="post">
+  <header class="post__header">
+    <h1 class="post__title">Embedding WebAssembly in Javascript code</h1>
+    <time datetime="2020-06-14 00:00:00 &#43;0000 UTC" class="post__date"
+      >Jun 14 2020</time
+    >
+  </header>
+  <article class="post__content">
+    
+<p>Actually shipping compiled <a href="https://webassembly.org/">WebAssembly</a> code can be tricky. Especially when you want the wasm module to be easy to install and use through NPM it gets complicated, users will have to use wasm  plugins for their bundler of choice (such as Webpack or Rollup), or they will need to host the wasm file separately and pass it into your library.</p>
+<p>If the developer of this project does not interact with WASM code otherwise, this may be a big ask.</p>
+<h2 id="embedding-wasm-source-code-as-base64-string">Embedding WASM source code as base64 string<a class="anchor" href="#embedding-wasm-source-code-as-base64-string">#</a></h2>
+<p>Instead of having a separate file for the wasm that we load asynchronously, one can embed the WASM source code as a string in Javascript code. While this does come at a larger binary size (~33% for base64), it simplifies things a lot (and saves a request). With this technique you can distribute JS files only, so that the user of your libary does not need a special build step.</p>
+<h2 id="rollup-plugin-for-embedding-base64-strings">Rollup plugin for embedding base64 strings<a class="anchor" href="#rollup-plugin-for-embedding-base64-strings">#</a></h2>
+<p>I created a small plugin for Rollup that allows you to easily embed any file as a base64 encoded string in Javascript, it&rsquo;s called <code>rollup-plugin-base64</code>. Check it out <a href="https://github.com/gzuidhof/rollup-plugin-base64">here</a>.</p>
+<p>This allows you to load a <code>.wasm</code> file like this:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// input.js
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">base64Wasm</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./my-wasm-library.wasm&#34;</span>;
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">base64Decode</span>(<span style="color:#a6e22e">str</span>) {
+    <span style="color:#66d9ef">try</span> { <span style="color:#75715e">// Browser
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">atob</span>(<span style="color:#a6e22e">str</span>);
+    } <span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">err</span>) { <span style="color:#75715e">// Node
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Buffer</span>.<span style="color:#a6e22e">from</span>(<span style="color:#a6e22e">str</span>, <span style="color:#e6db74">&#34;base64&#34;</span>);
+    }
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">loadMyWasmLibrary</span>() {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">wasmBytes</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">base64Decode</span>(<span style="color:#a6e22e">base64Wasm</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">module</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">WebAssembly</span>.<span style="color:#a6e22e">instantiate</span>(<span style="color:#a6e22e">wasmBytes</span>, {});
+  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>}
+</code></pre></td></tr></table>
+</div>
+</div><p>Then we can run:</p>
+<pre><code>rollup  -p 'base64={include: &quot;**/*.wasm&quot;}' -i input.js -f es -o output.js
+</code></pre><p>And that outputs a file</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// output.js
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">base64Wasm</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;AGFzbQEAAAABBwFgAn9/AX8DAgEABwcBA2FkZAAACgkBBwAgACABags=&#34;</span>;
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">base64Decode</span>(<span style="color:#a6e22e">str</span>) {
+    <span style="color:#66d9ef">try</span> { <span style="color:#75715e">// Browser
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">atob</span>(<span style="color:#a6e22e">str</span>);
+    } <span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">err</span>) { <span style="color:#75715e">// Node
+</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">Buffer</span>.<span style="color:#a6e22e">from</span>(<span style="color:#a6e22e">str</span>, <span style="color:#e6db74">&#34;base64&#34;</span>);
+    }
+}
+<span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">loadMyWasmLibrary</span>() {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">wasmBytes</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">base64Decode</span>(<span style="color:#a6e22e">base64Wasm</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">module</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">WebAssembly</span>.<span style="color:#a6e22e">instantiate</span>(<span style="color:#a6e22e">wasmBytes</span>, {});
+  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>}
+
+<span style="color:#66d9ef">export</span> { <span style="color:#a6e22e">loadMyWasmLibrary</span> };
+</code></pre></td></tr></table>
+</div>
+</div><p>As you can see the import gets replaced with a base64 encoded string.</p>
+<blockquote>
+<p>For any serious project you should use Rollup with a config file instead, <a href="https://github.com/gzuidhof/rollup-plugin-base64/tree/master/examples/add">this minimal example</a> should be a good starting point.</p>
+</blockquote>
+
+
+    
+  </article>
+  
+
+<ul class="tags__list">
+    
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/assemblyscript/">assemblyscript</a>
+    </li>
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/webassembly/">webassembly</a>
+    </li></ul>
+
+ <div class="pagination">
+  
+    <a class="pagination__item" href="https://guido.io/posts/introduction-to-assemblyscript/">
+        <span class="pagination__label">Previous Post</span>
+        <span class="pagination__title">An introduction to AssemblyScript</span>
+    </a>
+  
+
+  
+</div>
+
+</div>
+
+  </main>
+
+  
+<footer>
+  <div class="social-icons">
+  
+  <a class="social-icons__icon social-icons__icon--github" style="margin-right: 2rem;" href="https://github.com/gzuidhof"></a>
+  
+  
+  <a class="social-icons__icon social-icons__icon--twitter" href="https://twitter.com/protoduction"></a>
+  
+</div>
+
+  <p></p>
+</footer>
+
+
+  <script src="/js/index.js"></script>
+  
+<script src="/vendor/prism/prism.js"></script>
+
+</body>
+
+</html>

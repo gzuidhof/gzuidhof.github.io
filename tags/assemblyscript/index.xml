@@ -6,10 +6,20 @@
     <description>Recent content in assemblyscript on Guido.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 14 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://guido.io/tags/assemblyscript/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Embedding WebAssembly in Javascript code</title>
+      <link>https://guido.io/posts/embedding-webassembly-in-javascript/</link>
+      <pubDate>Sun, 14 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://guido.io/posts/embedding-webassembly-in-javascript/</guid>
+      <description>Actually shipping compiled WebAssembly code can be tricky. Especially when you want the wasm module to be easy to install and use through NPM it gets complicated, users will have to use wasm plugins for their bundler of choice (such as Webpack or Rollup), or they will need to host the wasm file separately and pass it into your library.
+If the developer of this project does not interact with WASM code otherwise, this may be a big ask.</description>
+    </item>
     
     <item>
       <title>An introduction to AssemblyScript</title>
