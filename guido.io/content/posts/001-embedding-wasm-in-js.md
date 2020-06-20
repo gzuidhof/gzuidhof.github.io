@@ -5,7 +5,7 @@ slug: "embedding-webassembly-in-javascript"
 description: "How to embed WebAssembly wasm source as base64 in Javascript."
 keywords: []
 draft: false
-tags: ["assemblyscript", "webassembly"]
+tags: ["webassembly"]
 stylesheet: "post.css"
 ---
 

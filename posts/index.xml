@@ -6,10 +6,22 @@
     <description>Recent content in Posts on Guido.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 14 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://guido.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Embedding WebAssembly in Javascript code using wasmwrap</title>
+      <link>https://guido.io/posts/embedding-webassembly-in-javascript-without-a-bundler/</link>
+      <pubDate>Sat, 20 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://guido.io/posts/embedding-webassembly-in-javascript-without-a-bundler/</guid>
+      <description>As a followup to my previous post, I found that in practice embedding your WebAssembly binary in your code using a bundler such as Webpack or Rollup is still not ideal. So I created a small tool, wasmwrap that generates a plain Javascript or Typescript file for you instead.
+To install it:
+npm install wasmwrap --save-devThen you can use it as such:
+wasmwrap --input my-file.wasm --output myFile.tsand it then generates the code for you:</description>
+    </item>
     
     <item>
       <title>Embedding WebAssembly in Javascript code</title>
