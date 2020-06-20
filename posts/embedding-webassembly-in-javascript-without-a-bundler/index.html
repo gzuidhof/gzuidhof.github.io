@@ -53,7 +53,7 @@
       "datePublished": "2020-06-20 00:00:00 \u002b0000 UTC",
       "dateModified" : "2020-06-20 00:00:00 \u002b0000 UTC",
       "url" : "https:\/\/guido.io\/posts\/embedding-webassembly-in-javascript-without-a-bundler\/",
-      "wordCount" : "289",
+      "wordCount" : "293",
       "keywords" : ["Blog"]
     }
   
@@ -123,7 +123,7 @@
   </header>
   <article class="post__content">
     
-<p>As a followup to my <a href="/posts/embedding-wasm-in-js">previous post</a>, I found that in practice embedding a <a href="https://webassembly.org/">WebAssembly</a> binary in code using a bundler (such as Webpack or Rollup) is still not ideal. So I created a small tool, <a href="https://github.com/gzuidhof/wasmwrap"><strong>wasmwrap</strong></a> that generates a plain Javascript or Typescript file for you instead.</p>
+<p>As a followup to my <a href="/posts/embedding-wasm-in-js">previous post</a>, I found that in practice embedding a <a href="https://webassembly.org/">WebAssembly</a> binary in code as a base64 string using a bundler (such as Webpack or Rollup) is still not ideal. So I created a small tool, <a href="https://github.com/gzuidhof/wasmwrap"><strong>wasmwrap</strong></a> that generates a plain Javascript or Typescript file for you instead.</p>
 <p>To install it:</p>
 <pre><code>npm install wasmwrap --save-dev
 </code></pre><p>Then you can use it as such:</p>

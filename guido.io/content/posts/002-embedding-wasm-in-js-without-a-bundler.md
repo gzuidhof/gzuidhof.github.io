@@ -9,7 +9,7 @@ tags: ["webassembly"]
 stylesheet: "post.css"
 ---
 
-As a followup to my [previous post](/posts/embedding-wasm-in-js), I found that in practice embedding a [WebAssembly](https://webassembly.org/) binary in code using a bundler (such as Webpack or Rollup) is still not ideal. So I created a small tool, [**wasmwrap**](https://github.com/gzuidhof/wasmwrap) that generates a plain Javascript or Typescript file for you instead.
+As a followup to my [previous post](/posts/embedding-wasm-in-js), I found that in practice embedding a [WebAssembly](https://webassembly.org/) binary in code as a base64 string using a bundler (such as Webpack or Rollup) is still not ideal. So I created a small tool, [**wasmwrap**](https://github.com/gzuidhof/wasmwrap) that generates a plain Javascript or Typescript file for you instead.
 
 
 To install it:
