@@ -9,7 +9,7 @@ tags: ["webassembly"]
 stylesheet: "post.css"
 ---
 
-As a followup to my [previous post](/posts/embedding-wasm-in-js), I found that in practice embedding your [WebAssembly](https://webassembly.org/) binary in your code using a bundler such as Webpack or Rollup is still not ideal. So I created a small tool, [**wasmwrap**](https://github.com/gzuidhof/wasmwrap) that generates a plain Javascript or Typescript file for you instead.
+As a followup to my [previous post](/posts/embedding-wasm-in-js), I found that in practice embedding a [WebAssembly](https://webassembly.org/) binary in code using a bundler (such as Webpack or Rollup) is still not ideal. So I created a small tool, [**wasmwrap**](https://github.com/gzuidhof/wasmwrap) that generates a plain Javascript or Typescript file for you instead.
 
 
 To install it:
@@ -61,4 +61,4 @@ export const base64 = "AGFzbQEAAAABMAlgA"; // Shortened, normally this would be 
 export const buffer = decode(base64);
 ```
 
-As you can see it generates a base64 decoder too, you can turn that off if you want. Check outwasmwrap [here](https://github.com/gzuidhof/wasmwrap).
+As you can see it generates a base64 decoder too, you can turn that off if you want. Check out wasmwrap [here](https://github.com/gzuidhof/wasmwrap).
