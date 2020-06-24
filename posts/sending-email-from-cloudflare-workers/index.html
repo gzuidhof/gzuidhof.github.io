@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>Sending e-mail from Cloudflare Workers</title>
+
+  <meta charset="UTF-8">
+  <meta name="language" content="en">
+  <meta name="description" content="How to send e-mail from a Cloudflare Worker script using Mailgun">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Sending e-mail from Cloudflare Workers" />
+  <meta name="twitter:description" content="How to send e-mail from a Cloudflare Worker script using Mailgun"
+  />
+  <meta name="twitter:site" content="@protoduction" />
+  <meta name="twitter:creator" content="@protoduction" />
+  
+
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+  
+<link rel="stylesheet" href="/css/post.css" /> 
+
+   
+   
+    
+
+<script type="application/ld+json">
+  
+    {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/guido.io\/"
+      },
+      "articleSection" : "posts",
+      "name" : "Sending e-mail from Cloudflare Workers",
+      "headline" : "Sending e-mail from Cloudflare Workers",
+      "description" : "How to send e-mail from a Cloudflare Worker script using Mailgun",
+      "inLanguage" : "en-US",
+      "author" : "",
+      "creator" : "",
+      "publisher": "",
+      "accountablePerson" : "",
+      "copyrightHolder" : "",
+      "copyrightYear" : "2020",
+      "datePublished": "2020-06-24 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2020-06-24 00:00:00 \u002b0000 UTC",
+      "url" : "https:\/\/guido.io\/posts\/sending-email-from-cloudflare-workers\/",
+      "wordCount" : "246",
+      "keywords" : ["Blog"]
+    }
+  
+  </script>
+
+</head>
+
+<body>
+  <div class="burger__container">
+  <div class="burger" aria-controls="navigation" aria-label="Menu">
+    <div class="burger__meat burger__meat--1"></div>
+    <div class="burger__meat burger__meat--2"></div>
+    <div class="burger__meat burger__meat--3"></div>
+  </div>
+</div>
+ 
+
+  <nav class="nav" role="navigation">
+  <ul class="nav__list">
+     
+    
+      <li>
+        <a 
+
+           style="font-weight: bold;"
+          
+          
+          href="/">Guido.io</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/posts">Posts</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/projects">Projects</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/games">Games</a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <main>
+    
+<div class="post">
+  <header class="post__header">
+    <h1 class="post__title">Sending e-mail from Cloudflare Workers</h1>
+    <time datetime="2020-06-24 00:00:00 &#43;0000 UTC" class="post__date"
+      >Jun 24 2020</time
+    >
+  </header>
+  <article class="post__content">
+    
+<p>In most serverless environments, <a href="https://workers.cloudflare.com/">Cloudflare Workers</a> included, you can not send e-mail through SMTP. Also, many client SDKs for providers such as Mailgun or Sendgrid assume you are on the Node platform and will not work in many serverless runtimes. Luckily most providers also provide a REST API to send e-mail.</p>
+<p>I ended up going with Mailgun, below is some example Typescript code that works in Cloudflare Workers.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">37
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MAILGUN_API_BASE_URL</span>: <span style="color:#66d9ef">string</span>;
+<span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MAILGUN_API_KEY</span>: <span style="color:#66d9ef">string</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">EmailData</span> {
+    <span style="color:#a6e22e">from</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">to</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">subject</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">text</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">html</span>: <span style="color:#66d9ef">string</span>
+    <span style="color:#a6e22e">cc?</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">bcc?</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#e6db74">&#34;h-Reply-To&#34;</span><span style="color:#f92672">?:</span> <span style="color:#66d9ef">string</span>;
+    <span style="color:#e6db74">&#34;o:testmode&#34;</span><span style="color:#f92672">?:</span> <span style="color:#66d9ef">boolean</span>;
+}
+
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">urlEncodeObject</span>(<span style="color:#a6e22e">obj</span><span style="color:#f92672">:</span> {[<span style="color:#a6e22e">s</span>: <span style="color:#66d9ef">string</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">any</span>}) {
+  <span style="color:#66d9ef">return</span> Object.<span style="color:#a6e22e">keys</span>(<span style="color:#a6e22e">obj</span>)
+    .<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">k</span> <span style="color:#f92672">=&gt;</span> encodeURIComponent(<span style="color:#a6e22e">k</span>) <span style="color:#f92672">+</span> <span style="color:#e6db74">&#34;=&#34;</span> <span style="color:#f92672">+</span> encodeURIComponent(<span style="color:#a6e22e">obj</span>[<span style="color:#a6e22e">k</span>]))
+    .<span style="color:#a6e22e">join</span>(<span style="color:#e6db74">&#34;&amp;&#34;</span>);
+}
+
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">sendMail</span>(<span style="color:#a6e22e">data</span>: <span style="color:#66d9ef">EmailData</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dataUrlEncoded</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">urlEncodeObject</span>(<span style="color:#a6e22e">data</span>);
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">opts</span> <span style="color:#f92672">=</span> {
+        <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;POST&#34;</span>,
+        <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">Authorization</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Basic &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">btoa</span>(<span style="color:#e6db74">&#34;api:&#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">MAILGUN_API_KEY</span>),
+            <span style="color:#e6db74">&#34;Content-Type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;application/x-www-form-urlencoded&#34;</span>,
+            <span style="color:#e6db74">&#34;Content-Length&#34;</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">dataUrlEncoded</span>.<span style="color:#a6e22e">length</span>.<span style="color:#a6e22e">toString</span>()
+        },
+        <span style="color:#a6e22e">body</span>: <span style="color:#66d9ef">dataUrlEncoded</span>,
+    }
+
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">MAILGUN_API_BASE_URL</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/messages`</span>, <span style="color:#a6e22e">opts</span>);
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>You will have to set the global environment variables <code>MAILGUN_API_BASE_URL</code> and <code>MAILGUN_API_KEY</code> for your worker script using wrangler. The API base url can be put in the environment variables, <code>MAILGUN_API_KEY</code> should be added as a secret which you can do using the wrangler cli:</p>
+<pre><code>wrangler secret put MAILGUN_API_KEY
+</code></pre><p>It will prompt you for the secret value afterwards.</p>
+
+
+    
+  </article>
+  
+
+<ul class="tags__list">
+    
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/cloudflare-worker/">cloudflare-worker</a>
+    </li>
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/serverless/">serverless</a>
+    </li></ul>
+
+ <div class="pagination">
+  
+    <a class="pagination__item" href="https://guido.io/posts/embedding-webassembly-in-javascript-without-a-bundler/">
+        <span class="pagination__label">Previous Post</span>
+        <span class="pagination__title">Embedding WebAssembly in Javascript code using wasmwrap</span>
+    </a>
+  
+
+  
+</div>
+
+</div>
+
+  </main>
+
+  
+<footer>
+  <div class="social-icons">
+  
+  <a class="social-icons__icon social-icons__icon--github" style="margin-right: 2rem;" href="https://github.com/gzuidhof"></a>
+  
+  
+  <a class="social-icons__icon social-icons__icon--twitter" href="https://twitter.com/protoduction"></a>
+  
+</div>
+
+  <p></p>
+</footer>
+
+
+  <script src="/js/index.js"></script>
+  
+<script src="/vendor/prism/prism.js"></script>
+
+</body>
+
+</html>

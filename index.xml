@@ -6,10 +6,21 @@
     <description>Recent content on Guido.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 20 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://guido.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Sending e-mail from Cloudflare Workers</title>
+      <link>https://guido.io/posts/sending-email-from-cloudflare-workers/</link>
+      <pubDate>Wed, 24 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://guido.io/posts/sending-email-from-cloudflare-workers/</guid>
+      <description>In most serverless environments, Cloudflare Workers included, you can not send e-mail through SMTP. Also, many client SDKs for providers such as Mailgun or Sendgrid assume you are on the Node platform and will not work in many serverless runtimes. Luckily most providers also provide a REST API to send e-mail.
+I ended up going with Mailgun, below is some example Typescript code that works in Cloudflare Workers.
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37  declare const MAILGUN_API_BASE_URL: string; declare const MAILGUN_API_KEY: string; export interface EmailData { from: string; to: string; subject: string; text: string; html: string cc?</description>
+    </item>
     
     <item>
       <title>Embedding WebAssembly in Javascript code using wasmwrap</title>
