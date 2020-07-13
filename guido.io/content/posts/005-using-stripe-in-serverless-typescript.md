@@ -12,7 +12,7 @@ In my current project I am trying to go full origin-less: everything runs in a C
 
 This makes going fully serverless painful, so far I had to implement the client code for [Mailgun](/posts/sending-email-from-cloudflare-workers), BigQuery and Stripe myself. Each of these has a great SDK for Node, but unfortunately we can't use those. This is a big downside of going fully serverless: you end up implementing these clients or finding workarounds instead of building your own application.
 
-Fortunately, it turns out that for Stripe it's easy to write a type-safe client without too much code. This is where Typescript really shines.
+Fortunately, it turns out that for Stripe it's easy to write a type-safe client without too much code. **This is where Typescript really shines.**
 
 ## Setup
 

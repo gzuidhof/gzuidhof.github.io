@@ -127,7 +127,7 @@
     
 <p>In my current project I am trying to go full origin-less: everything runs in a CloudFlare worker script, there is no centralized server. These serverless Javascript environments often don&rsquo;t run on Node, so there are a lot of libraries you can&rsquo;t use.</p>
 <p>This makes going fully serverless painful, so far I had to implement the client code for <a href="/posts/sending-email-from-cloudflare-workers">Mailgun</a>, BigQuery and Stripe myself. Each of these has a great SDK for Node, but unfortunately we can&rsquo;t use those. This is a big downside of going fully serverless: you end up implementing these clients or finding workarounds instead of building your own application.</p>
-<p>Fortunately, it turns out that for Stripe it&rsquo;s easy to write a type-safe client without too much code. This is where Typescript really shines.</p>
+<p>Fortunately, it turns out that for Stripe it&rsquo;s easy to write a type-safe client without too much code. <strong>This is where Typescript really shines.</strong></p>
 <h2 id="setup">Setup<a class="anchor" href="#setup">#</a></h2>
 <p>First we install the Stripe Node client, we will only use its typings so we can install it as a dev dependency.</p>
 <pre><code>npm install --save-dev stripe
