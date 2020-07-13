@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Guido.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 24 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 13 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://guido.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Implementing a type-safe Stripe client for serverless using Typescript</title>
+      <link>https://guido.io/posts/using-stripe-in-serverless-typescript/</link>
+      <pubDate>Mon, 13 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://guido.io/posts/using-stripe-in-serverless-typescript/</guid>
+      <description>In my current project I am trying to go full origin-less: everything runs in a CloudFlare worker script, there is no centralized server. These serverless Javascript environments often don&amp;rsquo;t run on Node, so there are a lot of libraries you can&amp;rsquo;t use.
+This makes going fully serverless painful, so far I had to implement the client code for Mailgun, BigQuery and Stripe myself. Each of these has a great SDK for Node, but unfortunately we can&amp;rsquo;t use those.</description>
+    </item>
     
     <item>
       <title>Sending e-mail from Cloudflare Workers</title>

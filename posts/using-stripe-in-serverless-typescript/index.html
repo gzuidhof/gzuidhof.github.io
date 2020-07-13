@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>Implementing a type-safe Stripe client for serverless using Typescript</title>
+
+  <meta charset="UTF-8">
+  <meta name="language" content="en">
+  <meta name="description" content="How to use the Stripe API without Node.JS in a type safe way">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Implementing a type-safe Stripe client for serverless using Typescript" />
+  <meta name="twitter:description" content="How to use the Stripe API without Node.JS in a type safe way"
+  />
+  <meta name="twitter:site" content="@protoduction" />
+  <meta name="twitter:creator" content="@protoduction" />
+  
+
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+  <script async defer data-domain="guido.io" src="https://plausible.io/js/plausible.js"></script>
+
+  
+<link rel="stylesheet" href="/css/post.css" /> 
+
+   
+   
+    
+
+<script type="application/ld+json">
+  
+    {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/guido.io\/"
+      },
+      "articleSection" : "posts",
+      "name" : "Implementing a type-safe Stripe client for serverless using Typescript",
+      "headline" : "Implementing a type-safe Stripe client for serverless using Typescript",
+      "description" : "How to use the Stripe API without Node.JS in a type safe way",
+      "inLanguage" : "en-US",
+      "author" : "",
+      "creator" : "",
+      "publisher": "",
+      "accountablePerson" : "",
+      "copyrightHolder" : "",
+      "copyrightYear" : "2020",
+      "datePublished": "2020-07-13 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2020-07-13 00:00:00 \u002b0000 UTC",
+      "url" : "https:\/\/guido.io\/posts\/using-stripe-in-serverless-typescript\/",
+      "wordCount" : "447",
+      "keywords" : ["Blog"]
+    }
+  
+  </script>
+
+</head>
+
+<body>
+  <div class="burger__container">
+  <div class="burger" aria-controls="navigation" aria-label="Menu">
+    <div class="burger__meat burger__meat--1"></div>
+    <div class="burger__meat burger__meat--2"></div>
+    <div class="burger__meat burger__meat--3"></div>
+  </div>
+</div>
+ 
+
+  <nav class="nav" role="navigation">
+  <ul class="nav__list">
+     
+    
+      <li>
+        <a 
+
+           style="font-weight: bold;"
+          
+          
+          href="/">Guido.io</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/posts">Posts</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/projects">Projects</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/games">Games</a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <main>
+    
+<div class="post">
+  <header class="post__header">
+    <h1 class="post__title">Implementing a type-safe Stripe client for serverless using Typescript</h1>
+    <time datetime="2020-07-13 00:00:00 &#43;0000 UTC" class="post__date"
+      >Jul 13 2020</time
+    >
+  </header>
+  <article class="post__content">
+    
+<p>In my current project I am trying to go full origin-less: everything runs in a CloudFlare worker script, there is no centralized server. These serverless Javascript environments often don&rsquo;t run on Node, so there are a lot of libraries you can&rsquo;t use.</p>
+<p>This makes going fully serverless painful, so far I had to implement the client code for <a href="/posts/sending-email-from-cloudflare-workers">Mailgun</a>, BigQuery and Stripe myself. Each of these has a great SDK for Node, but unfortunately we can&rsquo;t use those. This is a big downside of going fully serverless: you end up implementing these clients or finding workarounds instead of building your own application.</p>
+<p>Fortunately, it turns out that for Stripe it&rsquo;s easy to write a type-safe client without too much code. This is where Typescript really shines.</p>
+<h2 id="setup">Setup<a class="anchor" href="#setup">#</a></h2>
+<p>First we install the Stripe Node client, we will only use its typings so we can install it as a dev dependency.</p>
+<pre><code>npm install --save-dev stripe
+</code></pre><p>Also we&rsquo;ll be using the <code>qs</code> NPM package, we use it to turn arbitrarily nested JSON objects into query strings.</p>
+<pre><code>npm install --save qs
+</code></pre><h2 id="writing-our-own-client">Writing our own client<a class="anchor" href="#writing-our-own-client">#</a></h2>
+<p>Below is all there is to the client. It currently only implements a single operation (for creating customers), but it&rsquo;s trivial to add more.</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">25
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">26
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">27
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">28
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">29
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">30
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">31
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">32
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">33
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">34
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">35
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">36
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Stripe</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;stripe&#34;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">stringify</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;qs&#34;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">STRIPE_SECRET_KEY</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;please-dont-actually-hardcode-your-api-secret-here-but-store-it-more-safely&#34;</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">STRIPE_API_URL</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;https://api.stripe.com&#34;</span>;
+
+
+<span style="color:#66d9ef">export</span> <span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">createCustomer</span>(<span style="color:#a6e22e">body</span>: <span style="color:#66d9ef">Stripe.CustomerCreateParams</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fetchStripe</span>(<span style="color:#e6db74">&#34;/v1/customers&#34;</span>, <span style="color:#a6e22e">body</span>, {
+        <span style="color:#a6e22e">method</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;POST&#34;</span>,
+    });
+}
+
+<span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">fetchStripe</span>(<span style="color:#a6e22e">endpoint</span>: <span style="color:#66d9ef">string</span>, <span style="color:#a6e22e">body?</span>: <span style="color:#66d9ef">any</span>, <span style="color:#a6e22e">init</span>: <span style="color:#66d9ef">RequestInit</span> <span style="color:#f92672">=</span> {})<span style="color:#f92672">:</span> <span style="color:#a6e22e">Stripe</span>.<span style="color:#a6e22e">Customer</span> {
+    <span style="color:#a6e22e">init</span> <span style="color:#f92672">=</span> {
+        ...<span style="color:#a6e22e">init</span>,
+        <span style="color:#a6e22e">body</span>: <span style="color:#66d9ef">body</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">body</span>) <span style="color:#f92672">:</span> <span style="color:#66d9ef">undefined</span>,
+        <span style="color:#a6e22e">headers</span><span style="color:#f92672">:</span> {
+            ...<span style="color:#a6e22e">init</span>.<span style="color:#a6e22e">headers</span>,
+            <span style="color:#e6db74">&#34;Accept&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;application/json&#34;</span>,
+            <span style="color:#e6db74">&#34;Content-Type&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;application/x-www-form-urlencoded&#34;</span>,
+            <span style="color:#e6db74">&#34;Authorization&#34;</span><span style="color:#f92672">:</span> <span style="color:#e6db74">`Bearer </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">STRIPE_SECRET_KEY</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>
+        },
+        
+    }
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">STRIPE_API_URL</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">endpoint</span>;
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>, <span style="color:#a6e22e">init</span>);
+
+    <span style="color:#75715e">// Note this line will throw in case we can&#39;t reach Stripe, error handling could be improved!
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">ok</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">status</span>.<span style="color:#a6e22e">toString</span>()[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">!==</span> <span style="color:#e6db74">&#34;2&#34;</span>) {
+        <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">`Stripe API call failed to </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">endpoint</span><span style="color:#e6db74">}</span><span style="color:#e6db74"> (</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">status</span><span style="color:#e6db74">}</span><span style="color:#e6db74">): </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">j</span>)<span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">j</span>;
+}
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="using-it">Using it<a class="anchor" href="#using-it">#</a></h3>
+<p>Now we can call the above code like this to create a new customer:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">customer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">createCustomer</span>({<span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;Jane Doe&#34;</span>, <span style="color:#a6e22e">email</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;jane@example/com&#34;</span>});
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Customer created with id </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">customer</span>.<span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+</code></pre></td></tr></table>
+</div>
+</div><p>The nice thing is that as we are using Typescript this will actually be typechecked as we are using the typings from the official Stripe NPM package. What that means is that your code-editor can autocomplete the fields, and if you add fields that are invalid the Typescript compiler will tell you.</p>
+
+
+    
+  </article>
+  
+
+<ul class="tags__list">
+    
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/cloudflare-worker/">cloudflare-worker</a>
+    </li>
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/serverless/">serverless</a>
+    </li>
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/stripe/">stripe</a>
+    </li></ul>
+
+ <div class="pagination">
+  
+    <a class="pagination__item" href="https://guido.io/posts/sending-email-from-cloudflare-workers/">
+        <span class="pagination__label">Previous Post</span>
+        <span class="pagination__title">Sending e-mail from Cloudflare Workers</span>
+    </a>
+  
+
+  
+</div>
+
+</div>
+
+  </main>
+
+  
+<footer>
+  <div class="social-icons">
+  
+  <a class="social-icons__icon social-icons__icon--github" style="margin-right: 2rem;" href="https://github.com/gzuidhof"></a>
+  
+  
+  <a class="social-icons__icon social-icons__icon--twitter" href="https://twitter.com/protoduction"></a>
+  
+</div>
+
+  <p></p>
+</footer>
+
+
+  <script src="/js/index.js"></script>
+  
+<script src="/vendor/prism/prism.js"></script>
+
+</body>
+
+</html>
