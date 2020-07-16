@@ -49,7 +49,7 @@ In FriendlyCaptcha it is important that the solution of a solved CAPTCHA can not
 ## Website on the edge
 By rendering the website on the edge you can achieve very quick response times and small bundle sizes, while still allowing you to use a templating engine and adapt the page to the user (e.g. for thei dashboard).
 
-The FriendlyCaptcha website is pure HTML and CSS that all gets rendered on the edge, there is no client-size Javascript. While I love frameworks like React, for a website (and many websites really) it's overkill. By rendering the website on the edge you get something that's in between a fully static website and a dynamic website.
+The [FriendlyCaptcha website](https://friendlycaptcha.com) is pure HTML and CSS that all gets rendered on the edge, there is no client-size Javascript. While I love frameworks like React, for a website (and many websites really) it's overkill. By rendering the website on the edge you get something that's in between a fully static website and a dynamic website.
 
 For templating I use [lit-html-server](https://github.com/popeindustries/lit-html-server), and I'm happy with that choice. It's just Javascript and template literals that you can compose in a way that makes sense for you, there was no new framework to learn.
 
