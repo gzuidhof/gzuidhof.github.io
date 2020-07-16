@@ -5,7 +5,7 @@ slug: "sending-email-from-cloudflare-workers"
 description: "How to send e-mail from a Cloudflare Worker script using Mailgun"
 keywords: []
 draft: false
-tags: ["cloudflare-worker", "serverless"]
+tags: ["cloudflare-workers", "serverless"]
 stylesheet: "post.css"
 ---
 In most serverless environments, [Cloudflare Workers](https://workers.cloudflare.com/) included, you can not send e-mail through SMTP. Also, many client SDKs for providers such as Mailgun or Sendgrid assume you are on the Node platform and will not work in many serverless runtimes. Luckily most providers also provide a REST API to send e-mail.

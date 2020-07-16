@@ -5,7 +5,7 @@ slug: "introduction-to-assemblyscript"
 description: "An introduction to AssemblyScript for image processing. AssemblyScript is a compiled subset of Typescript that targets WebAssembly."
 keywords: []
 draft: false
-tags: ["assemblyscript"]
+tags: ["webassembly", "assemblyscript"]
 stylesheet: "post.css"
 ---
 
@@ -127,6 +127,8 @@ Next let's use the code we wrote to make an image grayscale, and then draw it to
 ```javascript
 
 ```
+
+<p style="font-size: 1.2em; font-weight: bold">⚠️ I am still writing this article, consider this an unfinished first draft.</p>
 
 ### JS build
 ...

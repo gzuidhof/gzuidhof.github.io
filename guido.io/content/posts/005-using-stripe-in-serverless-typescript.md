@@ -5,7 +5,7 @@ slug: "using-stripe-in-serverless-typescript"
 description: "How to use the Stripe API without Node.JS in a type safe way"
 keywords: []
 draft: false
-tags: ["cloudflare-worker", "serverless", "stripe"]
+tags: ["cloudflare-workers", "serverless", "stripe"]
 stylesheet: "post.css"
 ---
 In my current project I am trying to go full origin-less: everything runs in a CloudFlare worker script, there is no centralized server. These serverless Javascript environments often don't run on Node, so there are a lot of libraries you can't use.
