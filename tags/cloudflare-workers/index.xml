@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>serverless on Guido.io</title>
-    <link>https://guido.io/tags/serverless/</link>
-    <description>Recent content in serverless on Guido.io</description>
+    <title>cloudflare-workers on Guido.io</title>
+    <link>https://guido.io/tags/cloudflare-workers/</link>
+    <description>Recent content in cloudflare-workers on Guido.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 16 Jul 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://guido.io/tags/serverless/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://guido.io/tags/cloudflare-workers/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>Going fully serverless with Cloudflare Workers</title>
+
+  <meta charset="UTF-8">
+  <meta name="language" content="en">
+  <meta name="description" content="My experience going fully serverless with Cloudflare Workers">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Going fully serverless with Cloudflare Workers" />
+  <meta name="twitter:description" content="My experience going fully serverless with Cloudflare Workers"
+  />
+  <meta name="twitter:site" content="@protoduction" />
+  <meta name="twitter:creator" content="@protoduction" />
+  
+
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+  <script async defer data-domain="guido.io" src="https://plausible.io/js/plausible.js"></script>
+
+  
+<link rel="stylesheet" href="/css/post.css" /> 
+
+   
+   
+    
+
+<script type="application/ld+json">
+  
+    {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/guido.io\/"
+      },
+      "articleSection" : "posts",
+      "name" : "Going fully serverless with Cloudflare Workers",
+      "headline" : "Going fully serverless with Cloudflare Workers",
+      "description" : "My experience going fully serverless with Cloudflare Workers",
+      "inLanguage" : "en-US",
+      "author" : "",
+      "creator" : "",
+      "publisher": "",
+      "accountablePerson" : "",
+      "copyrightHolder" : "",
+      "copyrightYear" : "2020",
+      "datePublished": "2020-07-16 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2020-07-16 00:00:00 \u002b0000 UTC",
+      "url" : "https:\/\/guido.io\/posts\/going-fully-serverless-with-cloudflare-workers\/",
+      "wordCount" : "1251",
+      "keywords" : ["Blog"]
+    }
+  
+  </script>
+
+</head>
+
+<body>
+  <div class="burger__container">
+  <div class="burger" aria-controls="navigation" aria-label="Menu">
+    <div class="burger__meat burger__meat--1"></div>
+    <div class="burger__meat burger__meat--2"></div>
+    <div class="burger__meat burger__meat--3"></div>
+  </div>
+</div>
+ 
+
+  <nav class="nav" role="navigation">
+  <ul class="nav__list">
+     
+    
+      <li>
+        <a 
+
+           style="font-weight: bold;"
+          
+          
+          href="/">Guido.io</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/posts">Posts</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/projects">Projects</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/games">Games</a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <main>
+    
+<div class="post">
+  <header class="post__header">
+    <h1 class="post__title">Going fully serverless with Cloudflare Workers</h1>
+    <time datetime="2020-07-16 00:00:00 &#43;0000 UTC" class="post__date"
+      >Jul 16 2020</time
+    >
+  </header>
+  <article class="post__content">
+    
+<p>Over the past two months I&rsquo;ve built <a href="https://friendlycaptcha.com">FriendlyCaptcha</a>, a privacy friendly alternative to Google reCAPTCHA. Normally if I were to start a new web application, I would write the server code in Golang, spin up a Postgres instance, and host a dockerized version of it on Google Cloud Run to get many of the serverless benefits.</p>
+<p>For a CAPTCHA product the requirements were a bit different: it is crtical that its API is fast, always available, has predictable costs, and can scale up and down instantly. A CAPTCHA service being down is a big issue for users, they can&rsquo;t verify the challenges submitted by their website visitors and face a dilemma: to allow requests without a valid challenge or to reject all requests (I propose they do the first!).</p>
+<p>Serverless can be a good choice for minimizing the risk of downtime for your APIs, especially if you only have a small team. There are less moving parts, a datacenter outage doesn&rsquo;t mean your service is down, and also the individual workers are more isolated and short-lived reducing the chance of an error putting your server into an unrecoverable bad state.</p>
+<h2 id="cloudflare-workers">Cloudflare Workers<a class="anchor" href="#cloudflare-workers">#</a></h2>
+<p>A couple years ago Cloudflare launched <a href="https://workers.cloudflare.com/">Workers</a>, a serverless platform that runs your code on <em>the edge</em>. That means your code runs in their datacenters all over the world, so any callee should have good latency from just about everywhere in the world.</p>
+<p>Your code in a Cloudflare Worker runs in a V8 isolate which means that the overhead of cold starts is extremely small (less than 5ms), and response times in general are ridiculously fast because of this. This makes it great for server side rendering and APIs.</p>
+<p>There is a catch, you have to make sure your server logic &lsquo;fits&rsquo; within these limits:</p>
+<ul>
+<li>Less than 50ms of computation time for given request. Time that your script is waiting for a request does not count and not doing any computation.</li>
+<li>Your code needs to either be written in Javascript or be a WebAssembly binary. Your total code bundle can only be 1MB in total size.</li>
+<li>You can not use more than 128MB of memory.</li>
+</ul>
+<p>If you can make it work you get a whole lot in return.</p>
+<h2 id="keeping-state">Keeping state<a class="anchor" href="#keeping-state">#</a></h2>
+<p>Most applications or APIs have some state, even if it&rsquo;s only secrets used for authentication. You could of course talk to your relational database of choice, but that removes any latency advantages of running code on the edge and re-introduces a single point of failure(unless you have your own globally replicated relational database, which is possible, but as we&rsquo;re starting a new product here we don&rsquo;t have that just yet).</p>
+<p>Instead we can keep state in a few different ways:</p>
+<h3 id="cache">Cache<a class="anchor" href="#cache">#</a></h3>
+<p>Cloudflare Workers offers a cache that is at the level of a datacenter. This is useful for caching objects for minutes up to hours.</p>
+<p>In FriendlyCaptcha this is how we can cache valid API keys without talking to the database every time.</p>
+<h3 id="workers-kv">Workers KV<a class="anchor" href="#workers-kv">#</a></h3>
+<p>Workers KV is a key value store that is globally distributed and eventually consistent, built into Cloudflare Workers. It is designed for infrequent writing (up to once per second), but frequent reading. This is great if you want to cache data that your worker simply forwards (e.g. a file on S3). If you frequently read from a key its value will get cached in the local edge datacenter.</p>
+<p>In FriendlyCaptcha this is used to store user sessions when you log into the website.</p>
+<h3 id="serverless-friendly-databases">Serverless-friendly databases<a class="anchor" href="#serverless-friendly-databases">#</a></h3>
+<p>Workers KV is not a great place to store data such as your user&rsquo;s data due to its eventual consistency and lack of powerful query support. Databases such as <a href="https://fauna.com/">FaunaDB</a> and <a href="https://cloud.google.com/firestore">Firestore</a> are a good fit for the serverless model, it&rsquo;s a fully managed service and you pay for usage and data storage instead of nodes and uptime.</p>
+<p>In FriendlyCaptcha it is important that the solution of a solved CAPTCHA can not be re-used, by storing all completed puzzles in FaunaDB as well as in the Cloudflare Cache we can make sure that never happens.</p>
+<h2 id="website-on-the-edge">Website on the edge<a class="anchor" href="#website-on-the-edge">#</a></h2>
+<p>By rendering the website on the edge you can achieve very quick response times and small bundle sizes, while still allowing you to use a templating engine and adapt the page to the user (e.g. for thei dashboard).</p>
+<p>The FriendlyCaptcha website is pure HTML and CSS that all gets rendered on the edge, there is no client-size Javascript. While I love frameworks like React, for a website (and many websites really) it&rsquo;s overkill. By rendering the website on the edge you get something that&rsquo;s in between a fully static website and a dynamic website.</p>
+<p>For templating I use <a href="https://github.com/popeindustries/lit-html-server">lit-html-server</a>, and I&rsquo;m happy with that choice. It&rsquo;s just Javascript and template literals that you can compose in a way that makes sense for you, there was no new framework to learn.</p>
+<p>For a bigger real world example of a serverside rendering approach using CloudFlare workers is the <a href="https://discord.gg">Discord website</a>, it is so fast.</p>
+<h2 id="what-are-the-advantages-of-cloudflare-workers">What are the advantages of Cloudflare Workers?<a class="anchor" href="#what-are-the-advantages-of-cloudflare-workers">#</a></h2>
+<ul>
+<li>Your code runs close to the client in multiple datacenters, you don&rsquo;t have to manage any of that, and you can sleep at night knowing that a sudden hug of death probably won&rsquo;t take down your service.</li>
+<li>Predictable pricing, which at small to medium scale is often much lower than the classic load balancer + application servers setup.</li>
+<li>Less moving parts: a single script containing all API and website logic makes life easier. Having a development, staging and production environment is easy this way.</li>
+<li>If you are replacing a (SPA) you can start moving logic to the server, decreasing bundle size and the amount of endpoints you have to expose.</li>
+<li>The tooling is fairly good, there&rsquo;s a way to have environment variables and manage secrets, and you can preview your site/API locally.</li>
+</ul>
+<h2 id="what-are-some-disadvantages">What are some disadvantages?<a class="anchor" href="#what-are-some-disadvantages">#</a></h2>
+<ul>
+<li>In most serverless Javascript environments your code does not run in Node. Many libraries and client SDKs will only work in a Node environment.. I couldn&rsquo;t use the SDK for BigQuery, Sentry, Mailgun or Stripe, and instead had to use their REST APIs.</li>
+<li>There are limitations: only few languages are supported, 1MB max script size, 50ms runtime, 128MB of memory.</li>
+<li>There is some degree of lock-in. CloudFlare workers follow the Webworker spec, so it should be fairly easy to move to another provider, but if you use any goodies such as their KV distributed datastore changing that code to use something like Redis instead will require some effort.</li>
+</ul>
+<h2 id="should-i-go-fully-serverless">Should I go (fully) serverless?<a class="anchor" href="#should-i-go-fully-serverless">#</a></h2>
+<p>Probably not, think about the application that you are building and whether any of these advantages matter. You can probably start off by writing the backend logic in your preferred language and running that on a machine on your favorite cloud provider. When that single machine no longer cuts it, you can introduce more machines.</p>
+<p>Remember that if you are trying to build a product, whether something costs $5 or $10 per month probably won&rsquo;t make the difference between success and failure.</p>
+<p>If your load is unpredictable, you require low latency, and you need reliability, then perhaps it may be the right choice. If you are building a tiny service, such as a Slack bot or a log-in wall in front of a static website, serverless is probably a great choice.</p>
+<p>Finally, another good reason to use it is for fun or just to get acquainted with serverless. Limitations and constraints usually foster creative problem solving, which is perfect for hobby projects.</p>
+
+
+    
+  </article>
+  
+
+<ul class="tags__list">
+    
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/cloudflare-workers/">cloudflare-workers</a>
+    </li>
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/serverless/">serverless</a>
+    </li></ul>
+
+ <div class="pagination">
+  
+    <a class="pagination__item" href="https://guido.io/posts/using-stripe-in-serverless-typescript/">
+        <span class="pagination__label">Previous Post</span>
+        <span class="pagination__title">Implementing a type-safe Stripe client for serverless using Typescript</span>
+    </a>
+  
+
+  
+</div>
+
+</div>
+
+  </main>
+
+  
+<footer>
+  <div class="social-icons">
+  
+  <a class="social-icons__icon social-icons__icon--github" style="margin-right: 2rem;" href="https://github.com/gzuidhof"></a>
+  
+  
+  <a class="social-icons__icon social-icons__icon--twitter" href="https://twitter.com/protoduction"></a>
+  
+</div>
+
+  <p></p>
+</footer>
+
+
+  <script src="/js/index.js"></script>
+  
+<script src="/vendor/prism/prism.js"></script>
+
+</body>
+
+</html>

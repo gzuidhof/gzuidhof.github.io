@@ -6,10 +6,20 @@
     <description>Recent content on Guido.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 16 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://guido.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Going fully serverless with Cloudflare Workers</title>
+      <link>https://guido.io/posts/going-fully-serverless-with-cloudflare-workers/</link>
+      <pubDate>Thu, 16 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://guido.io/posts/going-fully-serverless-with-cloudflare-workers/</guid>
+      <description>Over the past two months I&amp;rsquo;ve built FriendlyCaptcha, a privacy friendly alternative to Google reCAPTCHA. Normally if I were to start a new web application, I would write the server code in Golang, spin up a Postgres instance, and host a dockerized version of it on Google Cloud Run to get many of the serverless benefits.
+For a CAPTCHA product the requirements were a bit different: it is crtical that its API is fast, always available, has predictable costs, and can scale up and down instantly.</description>
+    </item>
     
     <item>
       <title>Implementing a type-safe Stripe client for serverless using Typescript</title>
@@ -40,7 +50,7 @@ I ended up going with Mailgun, below is some example Typescript code that works 
       <guid>https://guido.io/posts/embedding-webassembly-in-javascript-without-a-bundler/</guid>
       <description>As a followup to my previous post, I found that in practice embedding a WebAssembly binary in code as a base64 string using a bundler (such as Webpack or Rollup) is still not ideal. So I created a small tool, wasmwrap that generates a plain Javascript or Typescript file for you instead.
 To install it:
-npm install wasmwrap --save-devThen you can use it as such:
+npm install wasmwrap --save-dev Then you can use it as such:
 wasmwrap --input my-file.wasm --output myFile.</description>
     </item>
     
