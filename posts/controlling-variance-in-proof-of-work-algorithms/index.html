@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>Controlling variance in proof-of-work algorithms</title>
+
+  <meta charset="UTF-8">
+  <meta name="language" content="en">
+  <meta name="description" content="How to solve the progress and variance problem in proof of work algorithms.">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Controlling variance in proof-of-work algorithms" />
+  <meta name="twitter:description" content="How to solve the progress and variance problem in proof of work algorithms."
+  />
+  <meta name="twitter:site" content="@protoduction" />
+  <meta name="twitter:creator" content="@protoduction" />
+  
+
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+  <script async defer data-domain="guido.io" src="https://plausible.io/js/plausible.js"></script>
+
+  
+<link rel="stylesheet" href="/css/post.css" /> 
+
+   
+   
+    
+
+<script type="application/ld+json">
+  
+    {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/guido.io\/"
+      },
+      "articleSection" : "posts",
+      "name" : "Controlling variance in proof-of-work algorithms",
+      "headline" : "Controlling variance in proof-of-work algorithms",
+      "description" : "How to solve the progress and variance problem in proof of work algorithms.",
+      "inLanguage" : "en-US",
+      "author" : "",
+      "creator" : "",
+      "publisher": "",
+      "accountablePerson" : "",
+      "copyrightHolder" : "",
+      "copyrightYear" : "2020",
+      "datePublished": "2020-07-17 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2020-07-17 00:00:00 \u002b0000 UTC",
+      "url" : "https:\/\/guido.io\/posts\/controlling-variance-in-proof-of-work-algorithms\/",
+      "wordCount" : "1122",
+      "keywords" : ["Blog"]
+    }
+  
+  </script>
+
+</head>
+
+<body>
+  <div class="burger__container">
+  <div class="burger" aria-controls="navigation" aria-label="Menu">
+    <div class="burger__meat burger__meat--1"></div>
+    <div class="burger__meat burger__meat--2"></div>
+    <div class="burger__meat burger__meat--3"></div>
+  </div>
+</div>
+ 
+
+  <nav class="nav" role="navigation">
+  <ul class="nav__list">
+     
+    
+      <li>
+        <a 
+
+           style="font-weight: bold;"
+          
+          
+          href="/">Guido.io</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/posts">Posts</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/projects">Projects</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/games">Games</a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <main>
+    
+<div class="post">
+  <header class="post__header">
+    <h1 class="post__title">Controlling variance in proof-of-work algorithms</h1>
+    <time datetime="2020-07-17 00:00:00 &#43;0000 UTC" class="post__date"
+      >Jul 17 2020</time
+    >
+  </header>
+  <article class="post__content">
+    
+<p>Proof of work (PoW) algorithms generally have no notion of progress, instead they are more like playing the lottery millions of times until you win. Losing a million times doesn&rsquo;t influence your chances of winning the next one.</p>
+<p>That&rsquo;s ok and probably even desirable for applications like a cryptocurrency mining, but undesirable for an application like <a href="https://en.wikipedia.org/wiki/Hashcash"><em>hashcash</em></a> in which the proof of work is used as a <em>payment</em> for say, signing up for a website. I created an <a href="https://github.com/gzuidhof/friendly-pow">open source</a>, more user-friendly captcha based on proof of work. It is important that this captcha takes roughly the same amount of computation for any given user to complete, and even more important that there are no outliers.</p>
+<p>In the lottery example there are no guarantees, one user might win on the first attempt, and another may need many attempts. Before we dive into specifics and the simple solution, let&rsquo;s explore the properties of a good proof of work problem.</p>
+<h2 id="our-proof-of-work-setup">Our proof-of-work setup<a class="anchor" href="#our-proof-of-work-setup">#</a></h2>
+<p>The idea behind PoW is that the puzzle (also called challenge) must be cheap to verify, but expensive to compute.</p>
+<p>A PoW that would be &ldquo;hash this string 1 million times&rdquo; would be expensive to compute, but just as expensive to verify. Instead most PoW algorithms make the user search for a needle in a haystack: we generate a <em>puzzle string</em> <code>p</code>, and ask the user to find a <em>nonce</em> <code>q</code> such that the hash of <code>p</code> and <code>q</code> concatenated meets some rare criteria. If we use a good hash function, any input string is just as likely to meet this criteria as another.</p>
+<p>Remember that any bytes or string can be interpreted as a number. We take the first 4 bytes of the hash and interpret them as a 32 bit integer. If that number is below some threshold T (which you could call the inverse of the difficulty) then it is a valid solution. Any hash input is just as likely as the next to meet that criteria, so to find the solution the user would just try different values for the nonce <code>q</code> until they find a winning solution. Not so different from playing the lottery a lot!</p>
+<h2 id="how-many-tries-does-it-take">How many tries does it take?<a class="anchor" href="#how-many-tries-does-it-take">#</a></h2>
+<p>If your chances of winning the lotery are one in a million, after a million tries your odds of winning at least once is around 63.2% (<code>1 - (1/one_million)^one_million</code> or <code>1 - binom.pmf(1, one_million, 1/one_million)</code>). Here&rsquo;s a plot:</p>
+<p><img src="https://i.imgur.com/l5KjMXu.png" alt="Density plot of one in a million lottery"></p>
+<p>Most people take around a million attempts, but some users will be really unlucky and instead need 3 million attemps (~5% in fact) or even more! In other words: there is a large amount of variance in how many attempts are needed. This is problematic for a PoW CAPTCHA: the user will give up on waiting if it takes 5 times longer than expected. They don&rsquo;t care what the mathematical average is, they just want to sign up to your website.</p>
+<p>For a decent user experience the user also deserves some sort of progress indicator. Just showing <em>&ldquo;solving the captcha&rdquo;</em> for 10 seconds without any indication of will make the user give up and think the website is broken. If instead there is a progress bar that increases over time it&rsquo;s much more tolerable.</p>
+<p>The issue is that there is no progress, nobody knows when they will find the nonce that creates a hash that satisfies the criteria. Fortunately, there is a straightforward solution to both the progress and variance issue: we ask users to find more than one nonce.</p>
+<h2 id="multiple-easier-problems">Multiple, easier problems<a class="anchor" href="#multiple-easier-problems">#</a></h2>
+<p>Instead of making the user find the 1 in a million nonce, we can make them find 10 nonces to a 1 in 100k problem. The expected number of attempts is still the same, but now we can show a progress bar to the user!</p>
+<p>Not only do we solve the progress problem, we also decrease the variance of how many attempts were required in total. As we increase the number of nonces we ask, the variance decreases. Let&rsquo;s plot that:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
+<span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
+<span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> binom
+
+one_million <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000000</span>
+
+n_attempts <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">5</span><span style="color:#f92672">*</span>one_million, <span style="color:#ae81ff">1000</span>)
+
+fraction_still_solving_1m <span style="color:#f92672">=</span> [binom<span style="color:#f92672">.</span>cdf(<span style="color:#ae81ff">1</span>, n, <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>one_million) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> n_attempts]
+fraction_still_solving_500k <span style="color:#f92672">=</span> [binom<span style="color:#f92672">.</span>cdf(<span style="color:#ae81ff">2</span>, n, <span style="color:#ae81ff">2</span><span style="color:#f92672">/</span>one_million) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> n_attempts]
+fraction_still_solving_200k <span style="color:#f92672">=</span> [binom<span style="color:#f92672">.</span>cdf(<span style="color:#ae81ff">5</span>, n, <span style="color:#ae81ff">5</span><span style="color:#f92672">/</span>one_million) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> n_attempts]
+fraction_still_solving_100k <span style="color:#f92672">=</span> [binom<span style="color:#f92672">.</span>cdf(<span style="color:#ae81ff">10</span>, n, <span style="color:#ae81ff">10</span><span style="color:#f92672">/</span>one_million) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> n_attempts]
+fraction_still_solving_50k <span style="color:#f92672">=</span> [binom<span style="color:#f92672">.</span>cdf(<span style="color:#ae81ff">20</span>, n, <span style="color:#ae81ff">20</span><span style="color:#f92672">/</span>one_million) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> n_attempts]
+
+plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">6</span>))
+plt<span style="color:#f92672">.</span>plot(n_attempts, fraction_still_solving_1m, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1 lottery win, 1/1M&#34;</span>)
+plt<span style="color:#f92672">.</span>plot(n_attempts, fraction_still_solving_500k, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2 lottery wins, 1/500K&#34;</span>)
+plt<span style="color:#f92672">.</span>plot(n_attempts, fraction_still_solving_200k, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;5 lottery wins, 1/200K&#34;</span>)
+plt<span style="color:#f92672">.</span>plot(n_attempts, fraction_still_solving_100k, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;10 lottery wins, 1/100K&#34;</span>)
+plt<span style="color:#f92672">.</span>plot(n_attempts, fraction_still_solving_50k, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;20 lottery wins, 1/50K&#34;</span>)
+plt<span style="color:#f92672">.</span>legend()
+plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Fraction who aren&#39;t done yet&#34;</span>)
+plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;Amount of attempts&#34;</span>)
+plt<span style="color:#f92672">.</span>show()
+</code></pre></td></tr></table>
+</div>
+</div><p><img src="https://i.imgur.com/AJxyk8n.png" alt="Cumulative density plot graph"></p>
+<p>Looking at this plot we can see that if we have people play a single lottery around 1 in 10 people will take more than 4 times longer than average! That&rsquo;s unacceptable for a CAPTCHA, but as we increase the amount of wins required for a simpler lottery we decrease the variance considerably. In table form, how many people would not be done yet after N attempts:</p>
+<table>
+<thead>
+<tr>
+<th>Amount of solutions required</th>
+<th>1M attempts</th>
+<th>2M attempts</th>
+<th>3M attempts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>one in 1.4</td>
+<td>one in 2.5</td>
+<td>one in 2.5</td>
+</tr>
+<tr>
+<td>2</td>
+<td>one in 1.5</td>
+<td>one in 4.2</td>
+<td>one in 16</td>
+</tr>
+<tr>
+<td>5</td>
+<td>one in 1.6</td>
+<td>one in 14.9</td>
+<td>one in 358</td>
+</tr>
+<tr>
+<td>10</td>
+<td>one in 1.7</td>
+<td>one in 92.5</td>
+<td>one in 45K</td>
+</tr>
+<tr>
+<td>20</td>
+<td>one in 1.8</td>
+<td>one in 2715</td>
+<td>one in 512M</td>
+</tr>
+</tbody>
+</table>
+<p>We can also plot the probability mass function (below) which shows the variance clearly as well, the expected number of attempts is about the same, but the variance is much lower.</p>
+<p><img src="https://i.imgur.com/UNEq0Mq.png" alt="Porbability mass plot graph"></p>
+<h3 id="the-downsides-of-requiring-more-solutions">The downsides of requiring more solutions<a class="anchor" href="#the-downsides-of-requiring-more-solutions">#</a></h3>
+<p>There are small downsides to requiring more solutions, the first is the need to submit more solutions requiring a bit more bandwidth. In FriendlyCaptcha every solution is an 8 byte value transmitted as base64, so going from 10 to 20 solutions would take around 106 extra characters (<code>10*8*(4/3)</code>).</p>
+<p>Secondly there are simply more solutions to verify, but given that verification is cheap this doesn&rsquo;t matter.</p>
+<h2 id="conclusion">Conclusion<a class="anchor" href="#conclusion">#</a></h2>
+<p>Proof of work usually doesn&rsquo;t have any notion of progress, and any attempt is just as likely as the next to find the solution. By requiring multiple proof of work solutions we can decrease variance, as well as provide a notion of progress, both of these features are requirements for a CAPTCHA based on proof of work.</p>
+<p>Want to see the proof of work CAPTCHA in action? Try the demo <a href="friendlycaptcha.com/demo"><strong>here</strong></a>. The open source PoW library (in JS and WebAssembly) can be found <a href="https://github.com/gzuidhof/friendly-pow">here</a>, and the widget code is found <a href="https://github.com/gzuidhof/friendly-challenge">here</a>.</p>
+
+
+    
+  </article>
+  
+
+<ul class="tags__list">
+    
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/proof-of-work/">proof-of-work</a>
+    </li></ul>
+
+ <div class="pagination">
+  
+    <a class="pagination__item" href="https://guido.io/posts/going-fully-serverless-with-cloudflare-workers/">
+        <span class="pagination__label">Previous Post</span>
+        <span class="pagination__title">Going fully serverless with Cloudflare Workers</span>
+    </a>
+  
+
+  
+</div>
+
+</div>
+
+  </main>
+
+  
+<footer>
+  <div class="social-icons">
+  
+  <a class="social-icons__icon social-icons__icon--github" style="margin-right: 2rem;" href="https://github.com/gzuidhof"></a>
+  
+  
+  <a class="social-icons__icon social-icons__icon--twitter" href="https://twitter.com/protoduction"></a>
+  
+</div>
+
+  <p></p>
+</footer>
+
+
+  <script src="/js/index.js"></script>
+  
+<script src="/vendor/prism/prism.js"></script>
+
+</body>
+
+</html>

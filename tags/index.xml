@@ -6,10 +6,19 @@
     <description>Recent content in Tags on Guido.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 16 Jul 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 17 Jul 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://guido.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>proof-of-work</title>
+      <link>https://guido.io/tags/proof-of-work/</link>
+      <pubDate>Fri, 17 Jul 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://guido.io/tags/proof-of-work/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>cloudflare-workers</title>
