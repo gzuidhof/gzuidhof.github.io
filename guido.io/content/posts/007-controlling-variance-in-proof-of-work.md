@@ -19,7 +19,23 @@ The idea behind PoW is that the puzzle (also called challenge) must be cheap to 
 
 A PoW that would be "hash this string 1 million times" would be expensive to compute, but just as expensive to verify. Instead most PoW algorithms make the user search for a needle in a haystack: we generate a *puzzle string* `p`, and ask the user to find a *nonce* `q` such that the hash of `p` and `q` concatenated meets some rare criteria. If we use a good hash function, any input string is just as likely to meet this criteria as another.
 
-Remember that any bytes or string can be interpreted as a number. We take the first 4 bytes of the hash and interpret them as a 32 bit integer. If that number is below some threshold T (which you could call the inverse of the difficulty) then it is a valid solution. Any hash input is just as likely as the next to meet that criteria, so to find the solution the user would just try different values for the nonce `q` until they find a winning solution. Not so different from playing the lottery a lot!
+Remember that any bytes or string can be interpreted as a number. We take the first 4 bytes of the hash and interpret them as a 32 bit integer. If that number is below some threshold T (which you could call the inverse of the difficulty) then it is a valid solution. Any hash input is equally likely to meet that criteria, so to find the solution the user would just try different values for the nonce `q` until they find a winning solution. Not so different from playing the lottery a lot!
+
+**Verification in pseudocode**
+```golang
+puzzleString = "my-puzzle-string"
+threshold = 1000 // The lower the more difficult the puzzle is
+nonce = "3456356782345" // This is the value the solver changes to try and find a valid solution
+
+hash_result = hash(puzzleString + nonce)
+value = toUint32(hash_result[0:4])
+
+if value < threshold {
+    print "Valid!"
+} else {
+    print "Invalid solution :("
+}
+```
 
 ## How many tries does it take?
 If your chances of winning the lotery are one in a million, after a million tries your odds of winning at least once is around 63.2% (`1 - (1/one_million)^one_million` or `1 - binom.pmf(1, one_million, 1/one_million)`). Here's a density plot:
