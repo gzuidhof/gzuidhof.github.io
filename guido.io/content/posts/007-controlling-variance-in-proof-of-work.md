@@ -22,7 +22,7 @@ A PoW that would be "hash this string 1 million times" would be expensive to com
 Remember that any bytes or string can be interpreted as a number. We take the first 4 bytes of the hash and interpret them as a 32 bit integer. If that number is below some threshold T (which you could call the inverse of the difficulty) then it is a valid solution. Any hash input is just as likely as the next to meet that criteria, so to find the solution the user would just try different values for the nonce `q` until they find a winning solution. Not so different from playing the lottery a lot!
 
 ## How many tries does it take?
-If your chances of winning the lotery are one in a million, after a million tries your odds of winning at least once is around 63.2% (`1 - (1/one_million)^one_million` or `1 - binom.pmf(1, one_million, 1/one_million)`). Here's a plot:
+If your chances of winning the lotery are one in a million, after a million tries your odds of winning at least once is around 63.2% (`1 - (1/one_million)^one_million` or `1 - binom.pmf(1, one_million, 1/one_million)`). Here's a density plot:
 
 ![Density plot of one in a million lottery](https://i.imgur.com/l5KjMXu.png)
 

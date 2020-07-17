@@ -55,7 +55,7 @@
       "datePublished": "2020-07-17 00:00:00 \u002b0000 UTC",
       "dateModified" : "2020-07-17 00:00:00 \u002b0000 UTC",
       "url" : "https:\/\/guido.io\/posts\/controlling-variance-in-proof-of-work-algorithms\/",
-      "wordCount" : "1122",
+      "wordCount" : "1123",
       "keywords" : ["Blog"]
     }
   
@@ -133,7 +133,7 @@
 <p>A PoW that would be &ldquo;hash this string 1 million times&rdquo; would be expensive to compute, but just as expensive to verify. Instead most PoW algorithms make the user search for a needle in a haystack: we generate a <em>puzzle string</em> <code>p</code>, and ask the user to find a <em>nonce</em> <code>q</code> such that the hash of <code>p</code> and <code>q</code> concatenated meets some rare criteria. If we use a good hash function, any input string is just as likely to meet this criteria as another.</p>
 <p>Remember that any bytes or string can be interpreted as a number. We take the first 4 bytes of the hash and interpret them as a 32 bit integer. If that number is below some threshold T (which you could call the inverse of the difficulty) then it is a valid solution. Any hash input is just as likely as the next to meet that criteria, so to find the solution the user would just try different values for the nonce <code>q</code> until they find a winning solution. Not so different from playing the lottery a lot!</p>
 <h2 id="how-many-tries-does-it-take">How many tries does it take?<a class="anchor" href="#how-many-tries-does-it-take">#</a></h2>
-<p>If your chances of winning the lotery are one in a million, after a million tries your odds of winning at least once is around 63.2% (<code>1 - (1/one_million)^one_million</code> or <code>1 - binom.pmf(1, one_million, 1/one_million)</code>). Here&rsquo;s a plot:</p>
+<p>If your chances of winning the lotery are one in a million, after a million tries your odds of winning at least once is around 63.2% (<code>1 - (1/one_million)^one_million</code> or <code>1 - binom.pmf(1, one_million, 1/one_million)</code>). Here&rsquo;s a density plot:</p>
 <p><img src="https://i.imgur.com/l5KjMXu.png" alt="Density plot of one in a million lottery"></p>
 <p>Most people take around a million attempts, but some users will be really unlucky and instead need 3 million attemps (~5% in fact) or even more! In other words: there is a large amount of variance in how many attempts are needed. This is problematic for a PoW CAPTCHA: the user will give up on waiting if it takes 5 times longer than expected. They don&rsquo;t care what the mathematical average is, they just want to sign up to your website.</p>
 <p>For a decent user experience the user also deserves some sort of progress indicator. Just showing <em>&ldquo;solving the captcha&rdquo;</em> for 10 seconds without any indication of will make the user give up and think the website is broken. If instead there is a progress bar that increases over time it&rsquo;s much more tolerable.</p>
