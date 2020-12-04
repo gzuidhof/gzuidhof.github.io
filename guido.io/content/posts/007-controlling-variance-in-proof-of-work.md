@@ -3,7 +3,7 @@ title: "Controlling variance in proof-of-work algorithms"
 date: 2020-07-17
 slug: "controlling-variance-in-proof-of-work-algorithms"
 description: "How to solve the progress and variance problem in proof of work algorithms."
-keywords: []
+keywords: ["cloudflare", "workers", "framework", "javascript", "typescript"]
 draft: false
 tags: ["proof-of-work"]
 stylesheet: "post.css"
@@ -15,7 +15,7 @@ That's ok and probably even desirable for applications like a cryptocurrency min
 In the lottery example there are no guarantees, one user might win on the first attempt, and another may need many attempts. Before we dive into specifics and the simple solution, let's explore the properties of a good proof of work problem.
 
 ## Our proof-of-work setup
-The idea behind PoW is that the puzzle (also called challenge) must be cheap to verify, but expensive to compute.
+The idea behind PoW is that the puzzle (also called a *challenge*) must be cheap to verify, but expensive to compute.
 
 A PoW that would be "hash this string 1 million times" would be expensive to compute, but just as expensive to verify. Instead most PoW algorithms make the user search for a needle in a haystack: we generate a *puzzle string* `p`, and ask the user to find a *nonce* `q` such that the hash of `p` and `q` concatenated meets some rare criteria. If we use a good hash function, any input string is just as likely to meet this criteria as another.
 
@@ -98,11 +98,11 @@ We can also plot the probability mass function (below) which shows the variance 
 ![Porbability mass plot graph](https://i.imgur.com/UNEq0Mq.png)
 
 ### The downsides of requiring more solutions
-There are small downsides to requiring more solutions, the first is the need to submit more solutions requiring a bit more bandwidth. In FriendlyCaptcha every solution is an 8 byte value transmitted as base64, so going from 10 to 20 solutions would take around 106 extra characters (`10*8*(4/3)`).
+There are some downsides to requiring more solutions, the first is the need to submit more solutions requiring a bit more bandwidth. In FriendlyCaptcha every solution is an 8 byte value transmitted as base64, so going from 10 to 20 solutions would take around 106 extra characters (`10*8*(4/3)`).
 
 Secondly there are simply more solutions to verify, but given that verification is cheap this doesn't matter.
 
 ## Conclusion
-Proof of work usually doesn't have any notion of progress, and any attempt is just as likely as the next to find the solution. By requiring multiple proof of work solutions we can decrease variance, as well as provide a notion of progress, both of these features are requirements for a CAPTCHA based on proof of work.
+Proof of work usually doesn't have any notion of progress. Any attempt is just as likely as the next to find the solution. By requiring multiple proof of work solutions we can decrease variance, as well as provide a notion of progress, both of these features are requirements for a CAPTCHA based on proof of work.
 
-Want to see the proof of work CAPTCHA in action? Try the demo [**here**](friendlycaptcha.com/demo). The open source PoW library (in JS and WebAssembly) can be found [here](https://github.com/gzuidhof/friendly-pow), and the widget code is found [here](https://github.com/gzuidhof/friendly-challenge).
+Want to see the proof of work CAPTCHA in action? Try the demo [**here**](https://friendlycaptcha.com/demo). The open source PoW library (in JS and WebAssembly) can be found [here](https://github.com/friendlycaptcha/friendly-pow), and the widget code is found [here](https://github.com/friendlycaptcha/friendly-challenge).

@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta name="language" content="en">
   <meta name="description" content="How to solve the progress and variance problem in proof of work algorithms.">
-  <meta name="keywords" content="">
+  <meta name="keywords" content="cloudflare , workers , framework , javascript , typescript">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -56,7 +56,7 @@
       "dateModified" : "2020-07-17 00:00:00 \u002b0000 UTC",
       "url" : "https:\/\/guido.io\/posts\/controlling-variance-in-proof-of-work-algorithms\/",
       "wordCount" : "1190",
-      "keywords" : ["Blog"]
+      "keywords" : ["cloudflare", "workers", "framework", "javascript", "typescript", "Blog"]
     }
   
   </script>
@@ -129,7 +129,7 @@
 <p>That&rsquo;s ok and probably even desirable for applications like a cryptocurrency mining, but undesirable for an application like <a href="https://en.wikipedia.org/wiki/Hashcash"><em>hashcash</em></a> in which the proof of work is used as a <em>payment</em> for say, signing up for a website. I created an <a href="https://github.com/gzuidhof/friendly-pow">open source</a>, more user-friendly captcha based on proof of work. It is important that this captcha takes roughly the same amount of computation for any given user to complete, and even more important that there are no outliers.</p>
 <p>In the lottery example there are no guarantees, one user might win on the first attempt, and another may need many attempts. Before we dive into specifics and the simple solution, let&rsquo;s explore the properties of a good proof of work problem.</p>
 <h2 id="our-proof-of-work-setup">Our proof-of-work setup<a class="anchor" href="#our-proof-of-work-setup">#</a></h2>
-<p>The idea behind PoW is that the puzzle (also called challenge) must be cheap to verify, but expensive to compute.</p>
+<p>The idea behind PoW is that the puzzle (also called a <em>challenge</em>) must be cheap to verify, but expensive to compute.</p>
 <p>A PoW that would be &ldquo;hash this string 1 million times&rdquo; would be expensive to compute, but just as expensive to verify. Instead most PoW algorithms make the user search for a needle in a haystack: we generate a <em>puzzle string</em> <code>p</code>, and ask the user to find a <em>nonce</em> <code>q</code> such that the hash of <code>p</code> and <code>q</code> concatenated meets some rare criteria. If we use a good hash function, any input string is just as likely to meet this criteria as another.</p>
 <p>Remember that any bytes or string can be interpreted as a number. We take the first 4 bytes of the hash and interpret them as a 32 bit integer. If that number is below some threshold T (which you could call the inverse of the difficulty) then it is a valid solution. Any hash input is equally likely to meet that criteria, so to find the solution the user would just try different values for the nonce <code>q</code> until they find a winning solution. Not so different from playing the lottery a lot!</p>
 <p><strong>Verification in pseudocode</strong></p>
@@ -273,11 +273,11 @@ plt<span style="color:#f92672">.</span>show()
 <p>We can also plot the probability mass function (below) which shows the variance clearly as well, the expected number of attempts is about the same, but the variance is much lower.</p>
 <p><img src="https://i.imgur.com/UNEq0Mq.png" alt="Porbability mass plot graph"></p>
 <h3 id="the-downsides-of-requiring-more-solutions">The downsides of requiring more solutions<a class="anchor" href="#the-downsides-of-requiring-more-solutions">#</a></h3>
-<p>There are small downsides to requiring more solutions, the first is the need to submit more solutions requiring a bit more bandwidth. In FriendlyCaptcha every solution is an 8 byte value transmitted as base64, so going from 10 to 20 solutions would take around 106 extra characters (<code>10*8*(4/3)</code>).</p>
+<p>There are some downsides to requiring more solutions, the first is the need to submit more solutions requiring a bit more bandwidth. In FriendlyCaptcha every solution is an 8 byte value transmitted as base64, so going from 10 to 20 solutions would take around 106 extra characters (<code>10*8*(4/3)</code>).</p>
 <p>Secondly there are simply more solutions to verify, but given that verification is cheap this doesn&rsquo;t matter.</p>
 <h2 id="conclusion">Conclusion<a class="anchor" href="#conclusion">#</a></h2>
-<p>Proof of work usually doesn&rsquo;t have any notion of progress, and any attempt is just as likely as the next to find the solution. By requiring multiple proof of work solutions we can decrease variance, as well as provide a notion of progress, both of these features are requirements for a CAPTCHA based on proof of work.</p>
-<p>Want to see the proof of work CAPTCHA in action? Try the demo <a href="friendlycaptcha.com/demo"><strong>here</strong></a>. The open source PoW library (in JS and WebAssembly) can be found <a href="https://github.com/gzuidhof/friendly-pow">here</a>, and the widget code is found <a href="https://github.com/gzuidhof/friendly-challenge">here</a>.</p>
+<p>Proof of work usually doesn&rsquo;t have any notion of progress. Any attempt is just as likely as the next to find the solution. By requiring multiple proof of work solutions we can decrease variance, as well as provide a notion of progress, both of these features are requirements for a CAPTCHA based on proof of work.</p>
+<p>Want to see the proof of work CAPTCHA in action? Try the demo <a href="https://friendlycaptcha.com/demo"><strong>here</strong></a>. The open source PoW library (in JS and WebAssembly) can be found <a href="https://github.com/friendlycaptcha/friendly-pow">here</a>, and the widget code is found <a href="https://github.com/friendlycaptcha/friendly-challenge">here</a>.</p>
 
 
     
@@ -298,6 +298,11 @@ plt<span style="color:#f92672">.</span>show()
     </a>
   
 
+  
+    <a class="pagination__item" href="https://guido.io/posts/introducing-sunder/">
+      <span class="pagination__label">Next Post</span>
+      <span class="pagination__title" >Introducing Sunder - A framework for ServiceWorkers (like Cloudflare Workers)</a>
+    </a>
   
 </div>
 

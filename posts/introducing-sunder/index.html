@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>Introducing Sunder - A framework for ServiceWorkers (like Cloudflare Workers)</title>
+
+  <meta charset="UTF-8">
+  <meta name="language" content="en">
+  <meta name="description" content="Sunder is a minimalist unopinionated framework for Cloudflare Workers.">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Introducing Sunder - A framework for ServiceWorkers (like Cloudflare Workers)" />
+  <meta name="twitter:description" content="Sunder is a minimalist unopinionated framework for Cloudflare Workers."
+  />
+  <meta name="twitter:site" content="@protoduction" />
+  <meta name="twitter:creator" content="@protoduction" />
+  
+
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+  <script async defer data-domain="guido.io" src="https://plausible.io/js/plausible.js"></script>
+
+  
+<link rel="stylesheet" href="/css/post.css" /> 
+
+   
+   
+    
+
+<script type="application/ld+json">
+  
+    {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/guido.io\/"
+      },
+      "articleSection" : "posts",
+      "name" : "Introducing Sunder - A framework for ServiceWorkers (like Cloudflare Workers)",
+      "headline" : "Introducing Sunder - A framework for ServiceWorkers (like Cloudflare Workers)",
+      "description" : "Sunder is a minimalist unopinionated framework for Cloudflare Workers.",
+      "inLanguage" : "en-US",
+      "author" : "",
+      "creator" : "",
+      "publisher": "",
+      "accountablePerson" : "",
+      "copyrightHolder" : "",
+      "copyrightYear" : "2020",
+      "datePublished": "2020-12-02 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2020-12-02 00:00:00 \u002b0000 UTC",
+      "url" : "https:\/\/guido.io\/posts\/introducing-sunder\/",
+      "wordCount" : "348",
+      "keywords" : ["Blog"]
+    }
+  
+  </script>
+
+</head>
+
+<body>
+  <div class="burger__container">
+  <div class="burger" aria-controls="navigation" aria-label="Menu">
+    <div class="burger__meat burger__meat--1"></div>
+    <div class="burger__meat burger__meat--2"></div>
+    <div class="burger__meat burger__meat--3"></div>
+  </div>
+</div>
+ 
+
+  <nav class="nav" role="navigation">
+  <ul class="nav__list">
+     
+    
+      <li>
+        <a 
+
+           style="font-weight: bold;"
+          
+          
+          href="/">Guido.io</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/posts">Posts</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/projects">Projects</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/games">Games</a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <main>
+    
+<div class="post">
+  <header class="post__header">
+    <h1 class="post__title">Introducing Sunder - A framework for ServiceWorkers (like Cloudflare Workers)</h1>
+    <time datetime="2020-12-02 00:00:00 &#43;0000 UTC" class="post__date"
+      >Dec 2 2020</time
+    >
+  </header>
+  <article class="post__content">
+    
+<blockquote>
+<p>Originally posted on the <a href="https://sunderjs.com/">Sunder blog</a></p>
+</blockquote>
+<p>Sunder is a framework for Service Workers like those found in <a href="https://workers.cloudflare.com">Cloudflare Workers</a>. It allows you to create testable APIs and websites in a similar way as you would using Node.js&rsquo;s <a href="https://koajs.com">Koa</a> or <a href="https://expressjs.com">Express</a> framework.</p>
+<p>Sunder is designed to be minimal, testable, and easy to understand. It&rsquo;s only a few hundred lines of code.</p>
+<h4 id="a-small-example">A small example</h4>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> {<span style="color:#a6e22e">Sunder</span>, <span style="color:#a6e22e">Router</span>} <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;sunder&#34;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">app</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Sunder</span>();
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">router</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Router</span>();
+
+<span style="color:#75715e">// Example route with a named parameter
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">get</span>(<span style="color:#e6db74">&#34;/hello/:username&#34;</span>, ({<span style="color:#a6e22e">response</span>, <span style="color:#a6e22e">params</span>}) <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">`Hello </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">params</span>.<span style="color:#a6e22e">username</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>;
+});
+
+<span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">use</span>(<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">middleware</span>);
+
+<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;fetch&#39;</span>, (<span style="color:#a6e22e">event</span>) <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">handleEvent</span>(<span style="color:#a6e22e">event</span>);
+});
+</code></pre></td></tr></table>
+</div>
+</div><p>This is a complete example, bundle it using a tool like <a href="https://esbuild.github.io/"><code>esbuild</code></a> in under 50ms and it&rsquo;s ready for use in Cloudflare workers.</p>
+<h2 id="everything-is-middleware">Everything is middleware<a class="anchor" href="#everything-is-middleware">#</a></h2>
+<p>Inspired by Koa and Elixir&rsquo;s Plug, in Sunder everything is a <em>middleware</em>.</p>
+<p>A middleware function takes two arguments, the request&rsquo;s <code>Context</code> and a function that invokes the next middleware. An example explains it best:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">responseTimeMiddleware</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">next</span>) {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">start</span> <span style="color:#f92672">=</span> Date.<span style="color:#a6e22e">now</span>();
+    <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">next</span>();
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ms</span> <span style="color:#f92672">=</span> Date.<span style="color:#a6e22e">now</span>() <span style="color:#f92672">-</span> <span style="color:#a6e22e">start</span>;
+    <span style="color:#a6e22e">ctx</span>.<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">set</span>(<span style="color:#e6db74">&#39;X-Response-Time&#39;</span>, <span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">ms</span><span style="color:#e6db74">}</span><span style="color:#e6db74">ms`</span>);    
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>If you have used <a href="https://koajs.com">Koa</a> in the past, this should look very familiar. By making use of the <code>async</code> keyword we can <code>await</code> asynchronous tasks and avoid callback hell.</p>
+<p>By composing this core building block we can handle any request in an elegant way.</p>
+<h2 id="strict-routes">Strict routes<a class="anchor" href="#strict-routes">#</a></h2>
+<p>Typescript recently released support for <a href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-1/#template-literal-types">Template Literal Types</a>. This allows us to type a route&rsquo;s path parameters in a strict way and catch common mistakes.</p>
+<p><img src="https://i.imgur.com/XeOyoxF.gif" alt="Strict routes GIF"></p>
+<blockquote>
+<p>Note: You can use Sunder without Typescript too, but you will miss out on this type checking.</p>
+</blockquote>
+<h2 id="so-can-i-use-this">So can I use this?<a class="anchor" href="#so-can-i-use-this">#</a></h2>
+<p>Yes, you can install Sunder now (<code>npm i sunder</code>) and use it in your projects. It is open source under the MIT license.</p>
+<p>It is however still a work in progress, things will change, and the docs are incomplete. The amount of available pre-written middleware is small. Contributions are of course welcome!</p>
+
+
+    
+  </article>
+  
+
+<ul class="tags__list">
+    
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/serverless/">serverless</a>
+    </li>
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/cloudflare-workers/">cloudflare-workers</a>
+    </li></ul>
+
+ <div class="pagination">
+  
+    <a class="pagination__item" href="https://guido.io/posts/controlling-variance-in-proof-of-work-algorithms/">
+        <span class="pagination__label">Previous Post</span>
+        <span class="pagination__title">Controlling variance in proof-of-work algorithms</span>
+    </a>
+  
+
+  
+</div>
+
+</div>
+
+  </main>
+
+  
+<footer>
+  <div class="social-icons">
+  
+  <a class="social-icons__icon social-icons__icon--github" style="margin-right: 2rem;" href="https://github.com/gzuidhof"></a>
+  
+  
+  <a class="social-icons__icon social-icons__icon--twitter" href="https://twitter.com/protoduction"></a>
+  
+</div>
+
+  <p></p>
+</footer>
+
+
+  <script src="/js/index.js"></script>
+  
+<script src="/vendor/prism/prism.js"></script>
+
+</body>
+
+</html>
