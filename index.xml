@@ -6,10 +6,21 @@
     <description>Recent content on Guido.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 02 Dec 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 31 Jul 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://guido.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Testing web-based notebooks</title>
+      <link>https://guido.io/posts/testing-notebooks/</link>
+      <pubDate>Sat, 31 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://guido.io/posts/testing-notebooks/</guid>
+      <description>Notebook systems for literate programming are increasingly popular. I&amp;rsquo;m talking about tools that allow you to mix code, text and rich content like Jupyter, Observable, and Starboard (which I&amp;rsquo;m building).
+For Starboard I wanted to be able to make changes to Starboard itself and plugins while being confident everything still works end to end.
+Testing in Jupyter The most serious tool I could find for Jupyter is testbook (part of the nteract ecosystem).</description>
+    </item>
     
     <item>
       <title>Introducing Sunder - A framework for ServiceWorkers (like Cloudflare Workers)</title>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>Testing web-based notebooks</title>
+
+  <meta charset="UTF-8">
+  <meta name="language" content="en">
+  <meta name="description" content="Testing notebooks is tricky, I built Starlit - a tool for testing Starboard Notebook files">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Testing web-based notebooks" />
+  <meta name="twitter:description" content="Testing notebooks is tricky, I built Starlit - a tool for testing Starboard Notebook files"
+  />
+  <meta name="twitter:site" content="@protoduction" />
+  <meta name="twitter:creator" content="@protoduction" />
+  
+
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+  <script async defer data-domain="guido.io" src="https://plausible.io/js/plausible.js"></script>
+
+  
+<link rel="stylesheet" href="/css/post.css" /> 
+
+   
+   
+    
+
+<script type="application/ld+json">
+  
+    {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/guido.io\/"
+      },
+      "articleSection" : "posts",
+      "name" : "Testing web-based notebooks",
+      "headline" : "Testing web-based notebooks",
+      "description" : "Testing notebooks is tricky, I built Starlit - a tool for testing Starboard Notebook files",
+      "inLanguage" : "en-US",
+      "author" : "",
+      "creator" : "",
+      "publisher": "",
+      "accountablePerson" : "",
+      "copyrightHolder" : "",
+      "copyrightYear" : "2021",
+      "datePublished": "2021-07-31 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2021-07-31 00:00:00 \u002b0000 UTC",
+      "url" : "https:\/\/guido.io\/posts\/testing-notebooks\/",
+      "wordCount" : "1029",
+      "keywords" : ["Blog"]
+    }
+  
+  </script>
+
+</head>
+
+<body>
+  <div class="burger__container">
+  <div class="burger" aria-controls="navigation" aria-label="Menu">
+    <div class="burger__meat burger__meat--1"></div>
+    <div class="burger__meat burger__meat--2"></div>
+    <div class="burger__meat burger__meat--3"></div>
+  </div>
+</div>
+ 
+
+  <nav class="nav" role="navigation">
+  <ul class="nav__list">
+     
+    
+      <li>
+        <a 
+
+           style="font-weight: bold;"
+          
+          
+          href="/">Guido.io</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/posts">Posts</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/projects">Projects</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/games">Games</a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <main>
+    
+<div class="post">
+  <header class="post__header">
+    <h1 class="post__title">Testing web-based notebooks</h1>
+    <time datetime="2021-07-31 00:00:00 &#43;0000 UTC" class="post__date"
+      >Jul 31 2021</time
+    >
+  </header>
+  <article class="post__content">
+    
+<p>Notebook systems for literate programming are increasingly popular. I&rsquo;m talking about tools that allow you to mix code, text and rich content like <a href="https://jupyter.org">Jupyter</a>, <a href="https://observablehq.com">Observable</a>, and <a href="https://starboard.gg">Starboard</a> (which I&rsquo;m building).</p>
+<p>For Starboard I wanted to be able to make changes to Starboard itself and plugins while being confident everything still works end to end.</p>
+<h2 id="testing-in-jupyter">Testing in Jupyter<a class="anchor" href="#testing-in-jupyter">#</a></h2>
+<p>The most serious tool I could find for Jupyter is <a href="https://github.com/nteract/testbook">testbook</a> (part of the nteract ecosystem). This tool seems to follow a pattern that I saw used in other Jupyter testing setups: notebooks are treated a <code>.py</code> files, which allows us to test it as any other Python file.</p>
+<p>This feels wrong, why not put this function in a separate file anyway and import it into the notebook? In my opinon, a notebook should present a narrative, serve as your experimentation bed, or allow the user to learn or <em>do</em> something.</p>
+<h2 id="testing-notebooks-itself">Testing notebooks itself<a class="anchor" href="#testing-notebooks-itself">#</a></h2>
+<p>What if we want to test the actual notebook itself and not just its individual functions? What does that even mean? In short: I want to ensure I can run all the cells in the notebook start to end without any uncaught errors.</p>
+<h2 id="how-starboard-is-different">How Starboard is different<a class="anchor" href="#how-starboard-is-different">#</a></h2>
+<p><a href="https://starboard.gg">Starboard</a> is a multi-language notebook system that runs natively in the browser, for Python support it relies on WebAssembly-powered <a href="https://">Pyodide</a>. By being 100% static in the browser, given you have all the files on a static host and a modern browser - it should work forever. It also allows you to embed (small) notebooks into webpages, let&rsquo;s embed one right here:</p>
+
+<script type="module" src="https://unpkg.com/starboard-wrap@0.4.0/dist/index.js" defer></script>
+
+<starboard-embed>
+<script type="starboard">
+# %% [javascript]
+// Press the play button the left to run this cell :)
+const name = "Starboard";
+console.log(`Hello ${name}!`);
+
+// We can import libraries dynamically, this one formats millisecond durations
+const {default: prettyMs} = await import("https://cdn.skypack.dev/pretty-ms");
+prettyMs(123456789)</script>
+<iframe src="https://unpkg.com/starboard-notebook@0.12.0/dist/index.html" frameborder="0"></iframe>
+</starboard-embed>
+
+<p>Here&rsquo;s what such an embed looks like:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;module&#34;</span> <span style="color:#a6e22e">src</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;https://unpkg.com/starboard-wrap@0.4.0/dist/index.js&#34;</span> <span style="color:#a6e22e">defer</span>&gt;&lt;/<span style="color:#f92672">script</span>&gt;
+
+&lt;<span style="color:#f92672">starboard-embed</span>&gt;
+&lt;<span style="color:#f92672">script</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;starboard&#34;</span>&gt;
+<span style="color:#960050;background-color:#1e0010">#</span> <span style="color:#f92672">%%</span> [<span style="color:#a6e22e">javascript</span>]
+<span style="color:#75715e">// Press the play button the left to run this cell :)
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;Starboard&#34;</span>;
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Hello </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">name</span><span style="color:#e6db74">}</span><span style="color:#e6db74">!`</span>);
+
+<span style="color:#75715e">// We can import libraries dynamically, this one formats millisecond durations
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> {<span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">prettyMs</span>} <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#66d9ef">import</span>(<span style="color:#e6db74">&#34;https://cdn.skypack.dev/pretty-ms&#34;</span>);
+<span style="color:#a6e22e">prettyMs</span>(<span style="color:#ae81ff">123456789</span>)
+&lt;/<span style="color:#f92672">script</span>&gt;
+&lt;/<span style="color:#f92672">starboard-embed</span>&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>Other than Jupyter, this is fully interactive: you can change the code, re-run cells, and really do whatever you want. For me hosting this blog: I don&rsquo;t have to supply you with a machine to evaluate the code you type (and deal with people using those machines for mining cryptocurrencies).</p>
+<p>You can hopefully imagine this being useful as interactive documentation, articles or tutorials. And with these small embeds you can put it inside existing blogs and websites :).</p>
+<h2 id="a-less-trivial-example">A less trivial example<a class="anchor" href="#a-less-trivial-example">#</a></h2>
+<p>Imagine the following example notebook which</p>
+<ul>
+<li>Downloads a CSV file using fetch.</li>
+<li>Loads it into pandas and perform some preprocessing.</li>
+<li>Visualizes it using Matplotlib.</li>
+</ul>
+<blockquote>
+<p>(Note: running this notebook requires downloading and running the Pyodide runtime, which may take a moment the first time you do it)</p>
+</blockquote>
+
+<starboard-embed>
+<script type="starboard">
+# %% [python]
+from js import fetch
+import io
+import pandas as pd
+
+url = "https://cdn.jsdelivr.net/gh/selva86/datasets/mtcars.csv"
+csv_content = await (await fetch(url)).text()
+
+df = pd.read_csv(io.StringIO(csv_content))
+
+x = df.loc[:, ['mpg']]
+df['mpg_z'] = (x - x.mean())/x.std()
+df['colors'] = ['red' if x < 0 else 'green' for x in df['mpg_z']]
+df.sort_values('mpg_z', inplace=True)
+df.reset_index(inplace=True)
+df
+# %% [python]
+import matplotlib.pyplot as plt
+
+# Draw plot
+plt.figure(figsize=(7,6), dpi= 80)
+plt.hlines(y=df.index, xmin=0, xmax=df.mpg_z, color=df.colors, alpha=0.4, linewidth=5)
+
+# Decorations
+plt.gca().set(ylabel='$Model$', xlabel='$Mileage$ (standard deviations)')
+plt.yticks(df.index, df.cars, fontsize=8)
+plt.title('Diverging Bars of Car Mileage', fontdict={'size':16})
+plt.grid(linestyle='--', alpha=0.5)
+plt.show()</script>
+<iframe src="https://unpkg.com/starboard-notebook@0.12.0/dist/index.html" frameborder="0"></iframe>
+</starboard-embed>
+
+<p>How do we test the above notebook? It is hard to capture all the things going on here in unit tests. As Starboard Notebook itself gets developed, it is tedious to manually click through multiple notebooks to ensure things are still working. Let&rsquo;s automate that.</p>
+<h2 id="introducing-starlit-nbtest">Introducing Starlit nbtest<a class="anchor" href="#introducing-starlit-nbtest">#</a></h2>
+<p>To solve this issue I wrote a tool in Go called <a href="https://github.com/gzuidhof/starlit">Starlit nbtest</a> that runs all the cells of a notebook in a headless browser. One invokes it as follows:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># Runs all notebooks under some/path</span>
+starlit nbtest some/path/
+</code></pre></td></tr></table>
+</div>
+</div><p>The binary starts a local http server that serves all the required files. The excellent <a href="https://github.com/chromedp/chromedp">chromedp</a> package then allows us to talk to a headless browser, opening every notebook&rsquo;s test page in a separate tab. Notebooks can be pretty slow (e.g. loading Pyodide will take seconds on a less powerful device), so being able to run multiple in parallel as well as keeping overhead down is important. Being written in Go helps.</p>
+<p><img src="https://i.imgur.com/yAUcNk4.png" alt="Example nbtest output"></p>
+<blockquote>
+<p>Given enough cores, the total time taken to run the tests is usually determined by the slowest running notebook (and not the sum of all notebooks which it would be if we ran all tests serially).</p>
+</blockquote>
+<p>With this tool I can create a corpus of notebooks that <em>should</em> just work. If someone runs into a bug, I can copy paste their notebook into this corpus.</p>
+<p>Note that often one would actually add some assertions at the end. In the above notebook we could add a Javascript cell at the end with the following code:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">6
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">assert</span>(<span style="color:#a6e22e">condition</span>, <span style="color:#a6e22e">message</span>) {
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">condition</span>)
+        <span style="color:#66d9ef">throw</span> Error(<span style="color:#e6db74">&#39;Assert failed: &#39;</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">message</span> <span style="color:#f92672">||</span> <span style="color:#e6db74">&#39;&#39;</span>));
+};
+
+<span style="color:#a6e22e">assert</span>(document.<span style="color:#a6e22e">querySelector</span>(<span style="color:#e6db74">&#34;canvas&#34;</span>) <span style="color:#f92672">!==</span> <span style="color:#66d9ef">null</span>, <span style="color:#e6db74">&#34;A canvas element should be present after plotting.&#34;</span>);
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="distributing-on-npm">Distributing on NPM<a class="anchor" href="#distributing-on-npm">#</a></h2>
+<p>It turns out distributing a binary through NPM was surprisingly painful. This was especially surprising given that web tooling is increasingly written in Go and Rust for speed.</p>
+<p>There is one package <a href="https://www.npmjs.com/package/go-npm"><code>go-npm</code></a> that helps with distributing Go binaries through NPM, but in true Node style it pulls in 69 additional packages to do that, is broken for Windows users, and is no longer actively maintained. I <a href="https://github.com/gzuidhof/go-npm">forked the package</a> fixing some of these issues (getting rid of all the dependencies), but the package is still far from ideal.</p>
+<p>But I&rsquo;m satisfied, I can run my tests automatically on <a href="https://github.com/gzuidhof/starboard-notebook/blob/master/package.json#L28">Github Actions</a> using a single binary that I can install through <code>npm i --save-dev starlit</code>.</p>
+<h2 id="looking-forward">Looking forward<a class="anchor" href="#looking-forward">#</a></h2>
+<p>Most programming examples, courses, articles, and documentation nowadays have static code examples you can&rsquo;t run right then and there.</p>
+<p>The <a href="https://github.com/gzuidhof/starlit">starlit</a> tool is mostly a static site generator (which is still a work in progress!). The goal is that you point to a folder of markdown and starboard notebook files, and it spits out a static website.</p>
+<p>Think Gitbook with notebook superpowers - and it&rsquo;s truly open source :). This nbtest tool can hopefully help keep your content from going stale. I suppose it&rsquo;s a form of doctest on steroids?</p>
+
+
+    
+  </article>
+  
+
+<ul class="tags__list">
+    
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/notebook/">notebook</a>
+    </li>
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/starboard/">starboard</a>
+    </li>
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/testing/">testing</a>
+    </li>
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/starlit/">starlit</a>
+    </li></ul>
+
+ <div class="pagination">
+  
+    <a class="pagination__item" href="https://guido.io/posts/introducing-sunder/">
+        <span class="pagination__label">Previous Post</span>
+        <span class="pagination__title">Introducing Sunder - A framework for ServiceWorkers (like Cloudflare Workers)</span>
+    </a>
+  
+
+  
+</div>
+
+</div>
+
+  </main>
+
+  
+<footer>
+  <div class="social-icons">
+  
+  <a class="social-icons__icon social-icons__icon--github" style="margin-right: 2rem;" href="https://github.com/gzuidhof"></a>
+  
+  
+  <a class="social-icons__icon social-icons__icon--twitter" href="https://twitter.com/protoduction"></a>
+  
+</div>
+
+  <p></p>
+</footer>
+
+
+  <script src="/js/index.js"></script>
+  
+<script src="/vendor/prism/prism.js"></script>
+
+</body>
+
+</html>
