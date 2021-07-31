@@ -18,9 +18,6 @@ The most serious tool I could find for Jupyter is [testbook](https://github.com/
 
 This feels wrong, why not put this function in a separate file anyway and import it into the notebook? In my opinon, a notebook should present a narrative, serve as your experimentation bed, or allow the user to learn or *do* something.
 
-
-## Testing notebooks itself
-
 What if we want to test the actual notebook itself and not just its individual functions? What does that even mean? In short: I want to ensure I can run all the cells in the notebook start to end without any uncaught errors.
 
 ## How Starboard is different

@@ -55,7 +55,7 @@
       "datePublished": "2021-07-31 00:00:00 \u002b0000 UTC",
       "dateModified" : "2021-07-31 00:00:00 \u002b0000 UTC",
       "url" : "https:\/\/guido.io\/posts\/testing-notebooks\/",
-      "wordCount" : "1029",
+      "wordCount" : "1026",
       "keywords" : ["Blog"]
     }
   
@@ -130,7 +130,6 @@
 <h2 id="testing-in-jupyter">Testing in Jupyter<a class="anchor" href="#testing-in-jupyter">#</a></h2>
 <p>The most serious tool I could find for Jupyter is <a href="https://github.com/nteract/testbook">testbook</a> (part of the nteract ecosystem). This tool seems to follow a pattern that I saw used in other Jupyter testing setups: notebooks are treated a <code>.py</code> files, which allows us to test it as any other Python file.</p>
 <p>This feels wrong, why not put this function in a separate file anyway and import it into the notebook? In my opinon, a notebook should present a narrative, serve as your experimentation bed, or allow the user to learn or <em>do</em> something.</p>
-<h2 id="testing-notebooks-itself">Testing notebooks itself<a class="anchor" href="#testing-notebooks-itself">#</a></h2>
 <p>What if we want to test the actual notebook itself and not just its individual functions? What does that even mean? In short: I want to ensure I can run all the cells in the notebook start to end without any uncaught errors.</p>
 <h2 id="how-starboard-is-different">How Starboard is different<a class="anchor" href="#how-starboard-is-different">#</a></h2>
 <p><a href="https://starboard.gg">Starboard</a> is a multi-language notebook system that runs natively in the browser, for Python support it relies on WebAssembly-powered <a href="https://">Pyodide</a>. By being 100% static in the browser, given you have all the files on a static host and a modern browser - it should work forever. It also allows you to embed (small) notebooks into webpages, let&rsquo;s embed one right here:</p>
