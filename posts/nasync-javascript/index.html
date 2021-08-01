@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>What if Javascript had a synchronous async flavor?</title>
+
+  <meta charset="UTF-8">
+  <meta name="language" content="en">
+  <meta name="description" content="What if Javascript had a synchronous async flavor? Introducing n/async Javascript">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="What if Javascript had a synchronous async flavor?" />
+  <meta name="twitter:description" content="What if Javascript had a synchronous async flavor? Introducing n/async Javascript"
+  />
+  <meta name="twitter:site" content="@protoduction" />
+  <meta name="twitter:creator" content="@protoduction" />
+  
+
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+  <script async defer data-domain="guido.io" src="https://plausible.io/js/plausible.js"></script>
+
+  
+<link rel="stylesheet" href="/css/post.css" /> 
+
+   
+   
+    
+
+<script type="application/ld+json">
+  
+    {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/guido.io\/"
+      },
+      "articleSection" : "posts",
+      "name" : "What if Javascript had a synchronous async flavor?",
+      "headline" : "What if Javascript had a synchronous async flavor?",
+      "description" : "What if Javascript had a synchronous async flavor? Introducing n\/async Javascript",
+      "inLanguage" : "en-US",
+      "author" : "",
+      "creator" : "",
+      "publisher": "",
+      "accountablePerson" : "",
+      "copyrightHolder" : "",
+      "copyrightYear" : "2021",
+      "datePublished": "2021-08-01 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2021-08-01 00:00:00 \u002b0000 UTC",
+      "url" : "https:\/\/guido.io\/posts\/nasync-javascript\/",
+      "wordCount" : "503",
+      "keywords" : ["Blog"]
+    }
+  
+  </script>
+
+</head>
+
+<body>
+  <div class="burger__container">
+  <div class="burger" aria-controls="navigation" aria-label="Menu">
+    <div class="burger__meat burger__meat--1"></div>
+    <div class="burger__meat burger__meat--2"></div>
+    <div class="burger__meat burger__meat--3"></div>
+  </div>
+</div>
+ 
+
+  <nav class="nav" role="navigation">
+  <ul class="nav__list">
+     
+    
+      <li>
+        <a 
+
+           style="font-weight: bold;"
+          
+          
+          href="/">Guido.io</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/posts">Posts</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/projects">Projects</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/games">Games</a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <main>
+    
+<div class="post">
+  <header class="post__header">
+    <h1 class="post__title">What if Javascript had a synchronous async flavor?</h1>
+    <time datetime="2021-08-01 00:00:00 &#43;0000 UTC" class="post__date"
+      >Aug 1 2021</time
+    >
+  </header>
+  <article class="post__content">
+    
+<p>When writing asynchronous javascript your code will contain a bunch of <code>await</code> and <code>async</code>, <code>Promise</code>s and maybe callbacks.</p>
+<p>Here&rsquo;s an example where we fetch a page and count the amount of <code>div</code> elements:</p>
+<p>
+<script type="module" src="https://unpkg.com/starboard-wrap@0.4.0/dist/index.js" defer></script>
+
+<starboard-embed>
+<script type="starboard">
+# %%--- [javascript]
+# properties:
+#   run_on_load: true
+# ---%%
+async function fetchPageBody(url) {
+    const response = await fetch(url);
+    return response.text();
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(() => resolve(), ms))
+}
+
+const body = await fetchPageBody("https://enable-cors.org/");
+const numDivs = (body.match(/<div/g) || []).length;
+
+console.log("Number of divs:", numDivs);
+
+await sleep(2000);
+console.log("This prints after two seconds.");</script>
+<iframe src="https://unpkg.com/starboard-notebook@0.12.0/dist/index.html" frameborder="0"></iframe>
+</starboard-embed>
+</p>
+<p>As you write more and more code that is asynchronous, you will end up writing <code>await</code> quite a bit. In languages like Python and Go you write asynchronous code as if it&rsquo;s synchronous. What if we could do the same in Javascript? I&rsquo;m tired of calling a function only to find out it returns a Promise instead of a real value.</p>
+<h2 id="introducing-nasync-javascript">Introducing <strong>n/async Javascript</strong><a class="anchor" href="#introducing-nasync-javascript">#</a></h2>
+<p>n/async Javascript takes the code you write, and puts <code>await</code> in front of every expression. That sounds crazy, and it is, but here&rsquo;s a demo:</p>
+
+<starboard-embed>
+<script type="starboard">
+---
+starboard:
+  plugins:
+    - src: "https://cdn.jsdelivr.net/npm/nasync-js@0.1.0/dist/index.js"
+---
+# %%--- [nasync]
+# properties:
+#   run_on_load: true
+# ---%%
+function fetchPageBody(url) {
+    return fetch(url).text();
+}
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(() => resolve(), ms))
+}
+
+const body = fetchPageBody("https://enable-cors.org/");
+const numDivs = (body.match(/<div/g) || []).length;
+
+console.log("Number of divs:", numDivs);
+
+sleep(2000);
+console.log("This prints after two seconds.");</script>
+<iframe src="https://unpkg.com/starboard-notebook@0.12.0/dist/index.html" frameborder="0"></iframe>
+</starboard-embed>
+
+<p>Click the <strong><code>&gt; Show transpiled code</code></strong> button below the code to see the transpiled version. As you can see a lot of (unnecessary) awaits got inserted, but at least we don&rsquo;t have to write them ourselves anymore surely increasing our productivity 10x.</p>
+<p>The transpiler is powered by Babel and can be found <a href="https://github.com/gzuidhof/nasync-js">here</a>.</p>
+<h2 id="why-is-this-a-bad-idea">Why is this a bad idea?<a class="anchor" href="#why-is-this-a-bad-idea">#</a></h2>
+<p>This flavor of Javascript allows us to write asynchronous code as if it is synchronous, but in reality of course it is still asynchronous. With this flavor of Javascript you can no longer do two asynchronous tasks at the same time, everything will be executed synchronously. For example if you want to make a request using <code>fetch</code>, but are only willing to wait for two seconds for the result, you&rsquo;re out of luck.</p>
+<p>Secondly, compilers these days are really smart, but user code sprinkling in <code>await</code> everywhere (including places where it does nothing) likely was not a priority in optimization for the compiler designers.</p>
+<h2 id="so-what-is-it-good-for">So what is it good for?<a class="anchor" href="#so-what-is-it-good-for">#</a></h2>
+<p>Use it for fun, use it in experimental code in a notebook (like the above examples), but please don&rsquo;t put this into production.</p>
+<h2 id="any-caveats">Any caveats?<a class="anchor" href="#any-caveats">#</a></h2>
+<p>Member access expressions are not awaited (as <code>this</code> would lead to issues when calling a member function). For example:</p>
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
+<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span></code></pre></td>
+<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
+<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// n/async javascript input
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">myObject</span>.<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">c</span>();
+
+<span style="color:#75715e">// Transpiled output
+</span><span style="color:#75715e"></span>(<span style="color:#a6e22e">async</span> () =&gt; {<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> (<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">myObject</span>).<span style="color:#a6e22e">a</span>.<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">c</span>();
+})();
+
+<span style="color:#75715e">// What you may expect
+</span><span style="color:#75715e"></span>(<span style="color:#a6e22e">async</span> () =&gt; {<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> (<span style="color:#a6e22e">await</span> (<span style="color:#a6e22e">await</span> (<span style="color:#a6e22e">await</span> (<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">myObject</span>).<span style="color:#a6e22e">a</span>).<span style="color:#a6e22e">b</span>).<span style="color:#a6e22e">c</span>)();
+})();
+</code></pre></td></tr></table>
+</div>
+</div><p>In practice this likely what you want anyway. If you do need to await member variables you can just write await yourself.</p>
+<p>Do edit the code blocks above and play with it :)!</p>
+
+
+    
+  </article>
+  
+
+<ul class="tags__list">
+    
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/async/">async</a>
+    </li>
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/javascript/">javascript</a>
+    </li>
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/babel/">babel</a>
+    </li></ul>
+
+ <div class="pagination">
+  
+    <a class="pagination__item" href="https://guido.io/posts/testing-notebooks/">
+        <span class="pagination__label">Previous Post</span>
+        <span class="pagination__title">Testing web-based notebooks</span>
+    </a>
+  
+
+  
+</div>
+
+</div>
+
+  </main>
+
+  
+<footer>
+  <div class="social-icons">
+  
+  <a class="social-icons__icon social-icons__icon--github" style="margin-right: 2rem;" href="https://github.com/gzuidhof"></a>
+  
+  
+  <a class="social-icons__icon social-icons__icon--twitter" href="https://twitter.com/protoduction"></a>
+  
+</div>
+
+  <p></p>
+</footer>
+
+
+  <script src="/js/index.js"></script>
+  
+<script src="/vendor/prism/prism.js"></script>
+
+</body>
+
+</html>

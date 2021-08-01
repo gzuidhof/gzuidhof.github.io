@@ -6,10 +6,21 @@
     <description>Recent content in Posts on Guido.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 31 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 01 Aug 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://guido.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>What if Javascript had a synchronous async flavor?</title>
+      <link>https://guido.io/posts/nasync-javascript/</link>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://guido.io/posts/nasync-javascript/</guid>
+      <description>When writing asynchronous javascript your code will contain a bunch of await and async, Promises and maybe callbacks.
+Here&amp;rsquo;s an example where we fetch a page and count the amount of div elements:
+ # %%--- [javascript]# properties:# run_on_load: true# ---%%async function fetchPageBody(url) {const response = await fetch(url);return response.text();}function sleep(ms) {return new Promise(resolve = setTimeout(() = resolve(), ms))}const body = await fetchPageBody(&#34;</description>
+    </item>
     
     <item>
       <title>Testing web-based notebooks</title>
@@ -17,9 +28,9 @@
       <pubDate>Sat, 31 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://guido.io/posts/testing-notebooks/</guid>
-      <description>Notebook systems for literate programming are increasingly popular. I&amp;rsquo;m talking about tools that allow you to mix code, text and rich content like Jupyter, Observable, and Starboard (which I&amp;rsquo;m building).
+      <description>Notebook systems for literate programming are increasingly popular. I&amp;rsquo;m talking about tools that allow you to mix code, text and rich content like Jupyter, Observable, and Starboard.
 For Starboard I wanted to be able to make changes to Starboard itself and plugins while being confident everything still works end to end.
-Testing in Jupyter The most serious tool I could find for Jupyter is testbook (part of the nteract ecosystem).</description>
+Testing in Jupyter The most serious tool I could find for Jupyter is testbook (part of the nteract ecosystem). This tool seems to follow a pattern that I saw used in other Jupyter testing setups: notebooks are treated a .</description>
     </item>
     
     <item>
@@ -83,7 +94,7 @@ I ended up going with Mailgun, below is some example Typescript code that works 
       <guid>https://guido.io/posts/embedding-webassembly-in-javascript-without-a-bundler/</guid>
       <description>As a followup to my previous post, I found that in practice embedding a WebAssembly binary in code as a base64 string using a bundler (such as Webpack or Rollup) is still not ideal. So I created a small tool, wasmwrap that generates a plain Javascript or Typescript file for you instead.
 To install it:
-npm install wasmwrap --save-dev Then you can use it as such:
+npm install wasmwrap --save-devThen you can use it as such:
 wasmwrap --input my-file.wasm --output myFile.</description>
     </item>
     

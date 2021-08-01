@@ -6,10 +6,37 @@
     <description>Recent content in Tags on Guido.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 31 Jul 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 01 Aug 2021 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://guido.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>async</title>
+      <link>https://guido.io/tags/async/</link>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://guido.io/tags/async/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>babel</title>
+      <link>https://guido.io/tags/babel/</link>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://guido.io/tags/babel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>javascript</title>
+      <link>https://guido.io/tags/javascript/</link>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://guido.io/tags/javascript/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>notebook</title>

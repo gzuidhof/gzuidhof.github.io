@@ -8,7 +8,7 @@ draft: false
 tags: ["notebook", "starboard", "testing", "starlit"]
 stylesheet: "post.css"
 ---
-Notebook systems for literate programming are increasingly popular. I'm talking about tools that allow you to mix code, text and rich content like [Jupyter](https://jupyter.org), [Observable](https://observablehq.com), and [Starboard](https://starboard.gg) (which I'm building).
+Notebook systems for literate programming are increasingly popular. I'm talking about tools that allow you to mix code, text and rich content like [Jupyter](https://jupyter.org), [Observable](https://observablehq.com), and [Starboard](https://starboard.gg).
 
 For Starboard I wanted to be able to make changes to Starboard itself and plugins while being confident everything still works end to end.
 
@@ -139,4 +139,4 @@ Most programming examples, courses, articles, and documentation nowadays have st
 
 The [starlit](https://github.com/gzuidhof/starlit) tool is mostly a static site generator (which is still a work in progress!). The goal is that you point to a folder of markdown and starboard notebook files, and it spits out a static website.
 
-Think Gitbook with notebook superpowers - and it's truly open source :). This nbtest tool can hopefully help keep your content from going stale. I suppose it's a form of doctest on steroids?
+Think Gitbook with notebook superpowers - and it's truly open source :). This nbtest tool will help keep your content from going stale. I suppose it's a form of doctest on steroids?

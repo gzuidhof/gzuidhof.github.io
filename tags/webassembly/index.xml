@@ -19,7 +19,7 @@
       <guid>https://guido.io/posts/embedding-webassembly-in-javascript-without-a-bundler/</guid>
       <description>As a followup to my previous post, I found that in practice embedding a WebAssembly binary in code as a base64 string using a bundler (such as Webpack or Rollup) is still not ideal. So I created a small tool, wasmwrap that generates a plain Javascript or Typescript file for you instead.
 To install it:
-npm install wasmwrap --save-dev Then you can use it as such:
+npm install wasmwrap --save-devThen you can use it as such:
 wasmwrap --input my-file.wasm --output myFile.</description>
     </item>
     

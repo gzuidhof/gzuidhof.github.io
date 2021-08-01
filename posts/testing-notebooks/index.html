@@ -55,7 +55,7 @@
       "datePublished": "2021-07-31 00:00:00 \u002b0000 UTC",
       "dateModified" : "2021-07-31 00:00:00 \u002b0000 UTC",
       "url" : "https:\/\/guido.io\/posts\/testing-notebooks\/",
-      "wordCount" : "1026",
+      "wordCount" : "1022",
       "keywords" : ["Blog"]
     }
   
@@ -125,7 +125,7 @@
   </header>
   <article class="post__content">
     
-<p>Notebook systems for literate programming are increasingly popular. I&rsquo;m talking about tools that allow you to mix code, text and rich content like <a href="https://jupyter.org">Jupyter</a>, <a href="https://observablehq.com">Observable</a>, and <a href="https://starboard.gg">Starboard</a> (which I&rsquo;m building).</p>
+<p>Notebook systems for literate programming are increasingly popular. I&rsquo;m talking about tools that allow you to mix code, text and rich content like <a href="https://jupyter.org">Jupyter</a>, <a href="https://observablehq.com">Observable</a>, and <a href="https://starboard.gg">Starboard</a>.</p>
 <p>For Starboard I wanted to be able to make changes to Starboard itself and plugins while being confident everything still works end to end.</p>
 <h2 id="testing-in-jupyter">Testing in Jupyter<a class="anchor" href="#testing-in-jupyter">#</a></h2>
 <p>The most serious tool I could find for Jupyter is <a href="https://github.com/nteract/testbook">testbook</a> (part of the nteract ecosystem). This tool seems to follow a pattern that I saw used in other Jupyter testing setups: notebooks are treated a <code>.py</code> files, which allows us to test it as any other Python file.</p>
@@ -145,7 +145,7 @@ console.log(`Hello ${name}!`);
 
 // We can import libraries dynamically, this one formats millisecond durations
 const {default: prettyMs} = await import("https://cdn.skypack.dev/pretty-ms");
-prettyMs(123456789)</script>
+prettyMs(123456789)</script>
 <iframe src="https://unpkg.com/starboard-notebook@0.12.0/dist/index.html" frameborder="0"></iframe>
 </starboard-embed>
 
@@ -227,7 +227,7 @@ plt.gca().set(ylabel='$Model$', xlabel='$Mileage$ (standard deviations)')
 plt.yticks(df.index, df.cars, fontsize=8)
 plt.title('Diverging Bars of Car Mileage', fontdict={'size':16})
 plt.grid(linestyle='--', alpha=0.5)
-plt.show()</script>
+plt.show()</script>
 <iframe src="https://unpkg.com/starboard-notebook@0.12.0/dist/index.html" frameborder="0"></iframe>
 </starboard-embed>
 
@@ -276,7 +276,7 @@ starlit nbtest some/path/
 <h2 id="looking-forward">Looking forward<a class="anchor" href="#looking-forward">#</a></h2>
 <p>Most programming examples, courses, articles, and documentation nowadays have static code examples you can&rsquo;t run right then and there.</p>
 <p>The <a href="https://github.com/gzuidhof/starlit">starlit</a> tool is mostly a static site generator (which is still a work in progress!). The goal is that you point to a folder of markdown and starboard notebook files, and it spits out a static website.</p>
-<p>Think Gitbook with notebook superpowers - and it&rsquo;s truly open source :). This nbtest tool can hopefully help keep your content from going stale. I suppose it&rsquo;s a form of doctest on steroids?</p>
+<p>Think Gitbook with notebook superpowers - and it&rsquo;s truly open source :). This nbtest tool will help keep your content from going stale. I suppose it&rsquo;s a form of doctest on steroids?</p>
 
 
     
@@ -306,6 +306,11 @@ starlit nbtest some/path/
     </a>
   
 
+  
+    <a class="pagination__item" href="https://guido.io/posts/nasync-javascript/">
+      <span class="pagination__label">Next Post</span>
+      <span class="pagination__title" >What if Javascript had a synchronous async flavor?</a>
+    </a>
   
 </div>
 

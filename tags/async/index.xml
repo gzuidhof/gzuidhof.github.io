@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>async on Guido.io</title>
+    <link>https://guido.io/tags/async/</link>
+    <description>Recent content in async on Guido.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Aug 2021 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://guido.io/tags/async/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>What if Javascript had a synchronous async flavor?</title>
+      <link>https://guido.io/posts/nasync-javascript/</link>
+      <pubDate>Sun, 01 Aug 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://guido.io/posts/nasync-javascript/</guid>
+      <description>When writing asynchronous javascript your code will contain a bunch of await and async, Promises and maybe callbacks.
+Here&amp;rsquo;s an example where we fetch a page and count the amount of div elements:
+ # %%--- [javascript]# properties:# run_on_load: true# ---%%async function fetchPageBody(url) {const response = await fetch(url);return response.text();}function sleep(ms) {return new Promise(resolve = setTimeout(() = resolve(), ms))}const body = await fetchPageBody(&#34;</description>
+    </item>
+    
+  </channel>
+</rss>
