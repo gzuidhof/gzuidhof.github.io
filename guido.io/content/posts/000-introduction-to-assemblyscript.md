@@ -9,7 +9,7 @@ tags: ["webassembly", "assemblyscript"]
 stylesheet: "post.css"
 ---
 
-<p style="font-size: 1.2em; font-weight: bold">⚠️ I am still writing this article, consider this an unfinished first draft.</p>
+<p style="font-size: 1.2em; font-weight: bold">⚠️ This article is outdated by now, AssemblyScript has changed quite a bit - you will have to change some things.</p>
 
 [**AssemblyScript**](https://www.assemblyscript.org/) is a programming language that is almost the same as [**Typescript**](https://www.typescriptlang.org/) and compiles to [**WebAssembly**](https://webassembly.org/). 
 
@@ -120,26 +120,8 @@ A reason to use this compilation path instead of `tsc` could be if you needed to
 
 We build it using ```asc assembly/filters.ts -j build/filtersASM.js -O3 --runtime stub```, the built JS file is **10.3KB** in size (**5.0KB** minified).
 
-
-## Calling our routine
-
-Next let's use the code we wrote to make an image grayscale, and then draw it to a canvas. First some code to load the image and get its imagedata:
-```javascript
-
-```
-
-<p style="font-size: 1.2em; font-weight: bold">⚠️ I am still writing this article, consider this an unfinished first draft.</p>
-
-### JS build
-...
-
-### WASM build
-...
-
-
 ## Links
 * [**Example code on GitHub**](https://github.com/gzuidhof/gzuidhof.github.io/tree/master/examples/assemblyscript/image-processing)
-
 
 <br>
 <br>

@@ -10,9 +10,9 @@ stylesheet: "post.css"
 ---
 Over the past two months I've built [FriendlyCaptcha](https://friendlycaptcha.com), a privacy friendly alternative to Google reCAPTCHA. Normally if I were to start a new web application, I would write the server code in Golang, spin up a Postgres instance, and host a dockerized version of it on Google Cloud Run to get many of the serverless benefits.
 
-For a CAPTCHA product the requirements were a bit different: it is crtical that its API is fast, always available, has predictable costs, and can scale up and down instantly. A CAPTCHA service being down is a big issue for users, they can't verify the challenges submitted by their website visitors and face a dilemma: to allow requests without a valid challenge or to reject all requests (I propose they do the first!).
+For a CAPTCHA product the requirements were a bit different: it is critical that its API is fast, always available, has predictable costs, and can scale up and down instantly. A CAPTCHA service being down is a big issue for users, they can't verify the challenges submitted by their website visitors and face a dilemma: to allow requests without a valid challenge or to reject all requests (I propose they do the first!).
 
-Serverless can be a good choice for minimizing the risk of downtime for your APIs, especially if you only have a small team. There are less moving parts, a datacenter outage doesn't mean your service is down, and also the individual workers are more isolated and short-lived reducing the chance of an error putting your server into an unrecoverable bad state.
+Serverless can be a good choice for minimizing the risk of downtime for your APIs, especially if you only have a small team. There are fewer moving parts, a datacenter outage doesn't mean your service is down, and also the individual workers are more isolated and short-lived reducing the chance of an error putting your server into an unrecoverable bad state.
 
 ## Cloudflare Workers
 A couple years ago Cloudflare launched [Workers](https://workers.cloudflare.com/), a serverless platform that runs your code on *the edge*. That means your code runs in their datacenters all over the world, so any callee should have good latency from just about everywhere in the world.
@@ -20,8 +20,8 @@ A couple years ago Cloudflare launched [Workers](https://workers.cloudflare.com/
 Your code in a Cloudflare Worker runs in a V8 isolate which means that the overhead of cold starts is extremely small (less than 5ms), and response times in general are ridiculously fast because of this. This makes it great for server side rendering and APIs.
 
 There is a catch, you have to make sure your server logic 'fits' within these limits:
-* Less than 50ms of computation time for given request. Time that your script is waiting for a request does not count and not doing any computation.
-* Your code needs to either be written in Javascript or be a WebAssembly binary. Your total code bundle can only be 1MB in total size.
+* Less than 50ms of computation time for given request. Time that your script spends waiting for a request does not count.
+* Your code needs to either be written in Javascript or be a WebAssembly binary. Your total code bundle has to be at most 1MB in total size.
 * You can not use more than 128MB of memory.
 
 If you can make it work you get a whole lot in return.
