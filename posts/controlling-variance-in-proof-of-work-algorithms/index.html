@@ -133,35 +133,35 @@
 <p>A PoW that would be &ldquo;hash this string 1 million times&rdquo; would be expensive to compute, but just as expensive to verify. Instead most PoW algorithms make the user search for a needle in a haystack: we generate a <em>puzzle string</em> <code>p</code>, and ask the user to find a <em>nonce</em> <code>q</code> such that the hash of <code>p</code> and <code>q</code> concatenated meets some rare criteria. If we use a good hash function, any input string is just as likely to meet this criteria as another.</p>
 <p>Remember that any bytes or string can be interpreted as a number. We take the first 4 bytes of the hash and interpret them as a 32 bit integer. If that number is below some threshold T (which you could call the inverse of the difficulty) then it is a valid solution. Any hash input is equally likely to meet that criteria, so to find the solution the user would just try different values for the nonce <code>q</code> until they find a winning solution. Not so different from playing the lottery a lot!</p>
 <p><strong>Verification in pseudocode</strong></p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-golang" data-lang="golang"><span style="color:#a6e22e">puzzleString</span> = <span style="color:#e6db74">&#34;my-puzzle-string&#34;</span>
-<span style="color:#a6e22e">threshold</span> = <span style="color:#ae81ff">1000</span> <span style="color:#75715e">// The lower the more difficult the puzzle is
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">nonce</span> = <span style="color:#e6db74">&#34;3456356782345&#34;</span> <span style="color:#75715e">// This is the value the solver changes to try and find a valid solution
-</span><span style="color:#75715e"></span>
-<span style="color:#a6e22e">hash_result</span> = <span style="color:#a6e22e">hash</span>(<span style="color:#a6e22e">puzzleString</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">nonce</span>)
-<span style="color:#a6e22e">value</span> = <span style="color:#a6e22e">toUint32</span>(<span style="color:#a6e22e">hash_result</span>[<span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">4</span>])
-
-<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">value</span> &lt; <span style="color:#a6e22e">threshold</span> {
-    <span style="color:#a6e22e">print</span> <span style="color:#e6db74">&#34;Valid!&#34;</span>
-} <span style="color:#66d9ef">else</span> {
-    <span style="color:#a6e22e">print</span> <span style="color:#e6db74">&#34;Invalid solution :(&#34;</span>
-}
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-golang" data-lang="golang"><span style="display:flex;"><span><span style="color:#a6e22e">puzzleString</span> = <span style="color:#e6db74">&#34;my-puzzle-string&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">threshold</span> = <span style="color:#ae81ff">1000</span> <span style="color:#75715e">// The lower the more difficult the puzzle is
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">nonce</span> = <span style="color:#e6db74">&#34;3456356782345&#34;</span> <span style="color:#75715e">// This is the value the solver changes to try and find a valid solution
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">hash_result</span> = <span style="color:#a6e22e">hash</span>(<span style="color:#a6e22e">puzzleString</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">nonce</span>)
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">value</span> = <span style="color:#a6e22e">toUint32</span>(<span style="color:#a6e22e">hash_result</span>[<span style="color:#ae81ff">0</span>:<span style="color:#ae81ff">4</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> <span style="color:#a6e22e">value</span> &lt; <span style="color:#a6e22e">threshold</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print</span> <span style="color:#e6db74">&#34;Valid!&#34;</span>
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">print</span> <span style="color:#e6db74">&#34;Invalid solution :(&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="how-many-tries-does-it-take">How many tries does it take?<a class="anchor" href="#how-many-tries-does-it-take">#</a></h2>
 <p>If your chances of winning the lotery are one in a million, after a million tries your odds of winning at least once is around 63.2% (<code>1 - (1/one_million)^one_million</code> or <code>1 - binom.pmf(1, one_million, 1/one_million)</code>). Here&rsquo;s a density plot:</p>
@@ -172,59 +172,59 @@
 <h2 id="multiple-easier-problems">Multiple, easier problems<a class="anchor" href="#multiple-easier-problems">#</a></h2>
 <p>Instead of making the user find the 1 in a million nonce, we can make them find 10 nonces to a 1 in 100k problem. The expected number of attempts is still the same, but now we can show a progress bar to the user!</p>
 <p>Not only do we solve the progress problem, we also decrease the variance of how many attempts were required in total. As we increase the number of nonces we ask, the variance decreases. Let&rsquo;s plot that:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">20
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">21
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">22
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">23
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">24
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#f92672">as</span> plt
-<span style="color:#f92672">import</span> numpy <span style="color:#f92672">as</span> np
-<span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> binom
-
-one_million <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000000</span>
-
-n_attempts <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">5</span><span style="color:#f92672">*</span>one_million, <span style="color:#ae81ff">1000</span>)
-
-fraction_still_solving_1m <span style="color:#f92672">=</span> [binom<span style="color:#f92672">.</span>cdf(<span style="color:#ae81ff">1</span>, n, <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>one_million) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> n_attempts]
-fraction_still_solving_500k <span style="color:#f92672">=</span> [binom<span style="color:#f92672">.</span>cdf(<span style="color:#ae81ff">2</span>, n, <span style="color:#ae81ff">2</span><span style="color:#f92672">/</span>one_million) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> n_attempts]
-fraction_still_solving_200k <span style="color:#f92672">=</span> [binom<span style="color:#f92672">.</span>cdf(<span style="color:#ae81ff">5</span>, n, <span style="color:#ae81ff">5</span><span style="color:#f92672">/</span>one_million) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> n_attempts]
-fraction_still_solving_100k <span style="color:#f92672">=</span> [binom<span style="color:#f92672">.</span>cdf(<span style="color:#ae81ff">10</span>, n, <span style="color:#ae81ff">10</span><span style="color:#f92672">/</span>one_million) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> n_attempts]
-fraction_still_solving_50k <span style="color:#f92672">=</span> [binom<span style="color:#f92672">.</span>cdf(<span style="color:#ae81ff">20</span>, n, <span style="color:#ae81ff">20</span><span style="color:#f92672">/</span>one_million) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> n_attempts]
-
-plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">6</span>))
-plt<span style="color:#f92672">.</span>plot(n_attempts, fraction_still_solving_1m, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1 lottery win, 1/1M&#34;</span>)
-plt<span style="color:#f92672">.</span>plot(n_attempts, fraction_still_solving_500k, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2 lottery wins, 1/500K&#34;</span>)
-plt<span style="color:#f92672">.</span>plot(n_attempts, fraction_still_solving_200k, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;5 lottery wins, 1/200K&#34;</span>)
-plt<span style="color:#f92672">.</span>plot(n_attempts, fraction_still_solving_100k, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;10 lottery wins, 1/100K&#34;</span>)
-plt<span style="color:#f92672">.</span>plot(n_attempts, fraction_still_solving_50k, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;20 lottery wins, 1/50K&#34;</span>)
-plt<span style="color:#f92672">.</span>legend()
-plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Fraction who aren&#39;t done yet&#34;</span>)
-plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;Amount of attempts&#34;</span>)
-plt<span style="color:#f92672">.</span>show()
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> matplotlib.pyplot <span style="color:#66d9ef">as</span> plt
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> scipy.stats <span style="color:#f92672">import</span> binom
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>one_million <span style="color:#f92672">=</span> <span style="color:#ae81ff">1000000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n_attempts <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>arange(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">5</span><span style="color:#f92672">*</span>one_million, <span style="color:#ae81ff">1000</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>fraction_still_solving_1m <span style="color:#f92672">=</span> [binom<span style="color:#f92672">.</span>cdf(<span style="color:#ae81ff">1</span>, n, <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span>one_million) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> n_attempts]
+</span></span><span style="display:flex;"><span>fraction_still_solving_500k <span style="color:#f92672">=</span> [binom<span style="color:#f92672">.</span>cdf(<span style="color:#ae81ff">2</span>, n, <span style="color:#ae81ff">2</span><span style="color:#f92672">/</span>one_million) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> n_attempts]
+</span></span><span style="display:flex;"><span>fraction_still_solving_200k <span style="color:#f92672">=</span> [binom<span style="color:#f92672">.</span>cdf(<span style="color:#ae81ff">5</span>, n, <span style="color:#ae81ff">5</span><span style="color:#f92672">/</span>one_million) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> n_attempts]
+</span></span><span style="display:flex;"><span>fraction_still_solving_100k <span style="color:#f92672">=</span> [binom<span style="color:#f92672">.</span>cdf(<span style="color:#ae81ff">10</span>, n, <span style="color:#ae81ff">10</span><span style="color:#f92672">/</span>one_million) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> n_attempts]
+</span></span><span style="display:flex;"><span>fraction_still_solving_50k <span style="color:#f92672">=</span> [binom<span style="color:#f92672">.</span>cdf(<span style="color:#ae81ff">20</span>, n, <span style="color:#ae81ff">20</span><span style="color:#f92672">/</span>one_million) <span style="color:#66d9ef">for</span> n <span style="color:#f92672">in</span> n_attempts]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>figure(figsize<span style="color:#f92672">=</span>(<span style="color:#ae81ff">12</span>, <span style="color:#ae81ff">6</span>))
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(n_attempts, fraction_still_solving_1m, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;1 lottery win, 1/1M&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(n_attempts, fraction_still_solving_500k, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;2 lottery wins, 1/500K&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(n_attempts, fraction_still_solving_200k, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;5 lottery wins, 1/200K&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(n_attempts, fraction_still_solving_100k, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;10 lottery wins, 1/100K&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>plot(n_attempts, fraction_still_solving_50k, label<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;20 lottery wins, 1/50K&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>legend()
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>ylabel(<span style="color:#e6db74">&#34;Fraction who aren&#39;t done yet&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>xlabel(<span style="color:#e6db74">&#34;Amount of attempts&#34;</span>)
+</span></span><span style="display:flex;"><span>plt<span style="color:#f92672">.</span>show()
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><img src="https://i.imgur.com/AJxyk8n.png" alt="Cumulative density plot graph"></p>
 <p>Looking at this plot we can see that if we have people play a single lottery around 1 in 10 people will take more than 4 times longer than average! That&rsquo;s unacceptable for a CAPTCHA, but as we increase the amount of wins required for a simpler lottery we decrease the variance considerably. In table form, how many people would not be done yet after N attempts:</p>

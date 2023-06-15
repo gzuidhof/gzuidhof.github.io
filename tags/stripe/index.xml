@@ -6,11 +6,7 @@
     <description>Recent content in stripe on Guido.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Jul 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://guido.io/tags/stripe/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 13 Jul 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://guido.io/tags/stripe/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Implementing a type-safe Stripe client for serverless using Typescript</title>
       <link>https://guido.io/posts/using-stripe-in-serverless-typescript/</link>

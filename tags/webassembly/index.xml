@@ -6,11 +6,7 @@
     <description>Recent content in webassembly on Guido.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 20 Jun 2020 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://guido.io/tags/webassembly/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sat, 20 Jun 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://guido.io/tags/webassembly/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Embedding WebAssembly in Javascript code using wasmwrap</title>
       <link>https://guido.io/posts/embedding-webassembly-in-javascript-without-a-bundler/</link>
@@ -19,7 +15,7 @@
       <guid>https://guido.io/posts/embedding-webassembly-in-javascript-without-a-bundler/</guid>
       <description>As a followup to my previous post, I found that in practice embedding a WebAssembly binary in code as a base64 string using a bundler (such as Webpack or Rollup) is still not ideal. So I created a small tool, wasmwrap that generates a plain Javascript or Typescript file for you instead.
 To install it:
-npm install wasmwrap --save-devThen you can use it as such:
+npm install wasmwrap --save-dev Then you can use it as such:
 wasmwrap --input my-file.wasm --output myFile.</description>
     </item>
     
@@ -39,7 +35,7 @@ If the developer of this project does not interact with WASM code otherwise, thi
       <pubDate>Wed, 10 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://guido.io/posts/introduction-to-assemblyscript/</guid>
-      <description>⚠️ I am still writing this article, consider this an unfinished first draft.
+      <description>⚠️ This article is outdated by now, AssemblyScript has changed quite a bit - you will have to change some things.
 AssemblyScript is a programming language that is almost the same as Typescript and compiles to WebAssembly.
 WebAssembly allows near-native speed for programs that rely on heavy computation with smaller binaries. Any modern browser nowadays supports it as well as Deno and Node. It will not replace Javascript itself anytime soon, but for some problems it can be a good choice, especially those that involve extensive computation.</description>
     </item>

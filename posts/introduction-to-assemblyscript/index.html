@@ -55,7 +55,7 @@
       "datePublished": "2020-06-10 00:00:00 \u002b0000 UTC",
       "dateModified" : "2020-06-10 00:00:00 \u002b0000 UTC",
       "url" : "https:\/\/guido.io\/posts\/introduction-to-assemblyscript\/",
-      "wordCount" : "1217",
+      "wordCount" : "1170",
       "keywords" : ["Blog"]
     }
   
@@ -125,55 +125,55 @@
   </header>
   <article class="post__content">
     
-<p style="font-size: 1.2em; font-weight: bold">⚠️ I am still writing this article, consider this an unfinished first draft.</p>
+<p style="font-size: 1.2em; font-weight: bold">⚠️ This article is outdated by now, AssemblyScript has changed quite a bit - you will have to change some things.</p>
 <p><a href="https://www.assemblyscript.org/"><strong>AssemblyScript</strong></a> is a programming language that is almost the same as <a href="https://www.typescriptlang.org/"><strong>Typescript</strong></a> and compiles to <a href="https://webassembly.org/"><strong>WebAssembly</strong></a>.</p>
 <p>WebAssembly allows near-native speed for programs that rely on heavy computation with smaller binaries. Any modern browser nowadays supports it as well as <a href="https://deno.land/"><strong>Deno</strong></a> and <a href="https://nodejs.org/en/"><strong>Node</strong></a>. It will not replace Javascript itself anytime soon, but for some problems it can be a good choice, especially those that involve extensive computation.</p>
 <p>In my opinion Assemblyscript is the easiest way to get started with WebAssembly today, especially if you are already familiar with Typescript.</p>
 <h2 id="an-image-processing-example">An image processing example<a class="anchor" href="#an-image-processing-example">#</a></h2>
 <p>Instead of showing a game of life implementation, I want to show examples for a usecase that WebAssembly may actually be the right choice for: <strong>image processing</strong>.</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">19
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#75715e">// assembly/filters.ts
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">/** Converts given pixel data to grayscale, input is an RGBA pixel byte array. */</span>
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">pixelsToGrayscale</span>(<span style="color:#a6e22e">pixelData</span>: <span style="color:#66d9ef">Uint8Array</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">Uint8Array</span> {
-  <span style="color:#75715e">// Output pixel data
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Uint8Array</span>(<span style="color:#a6e22e">pixelData</span>.<span style="color:#a6e22e">length</span>);
-
-  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;<span style="color:#f92672">pixelData.length</span><span style="color:#960050;background-color:#1e0010">;</span> <span style="color:#a6e22e">i</span><span style="color:#960050;background-color:#1e0010">+=</span><span style="color:#a6e22e">4</span><span style="color:#960050;background-color:#1e0010">)</span> {
-    <span style="color:#a6e22e">const</span> <span style="color:#a6e22e">r</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">f64 </span><span style="color:#f92672">=</span> <span style="color:#a6e22e">pixelData</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">i</span><span style="color:#960050;background-color:#1e0010">];</span> <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#a6e22e">Note</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">this</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">annotation</span> <span style="color:#a6e22e">converts</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">byte</span> <span style="color:#a6e22e">value</span> <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">float64</span>
-    <span style="color:#a6e22e">const</span> <span style="color:#a6e22e">g</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">f64 </span><span style="color:#f92672">=</span> <span style="color:#a6e22e">pixelData</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">i</span><span style="color:#960050;background-color:#1e0010">+</span><span style="color:#a6e22e">1</span><span style="color:#960050;background-color:#1e0010">];</span> <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#a6e22e">in</span> <span style="color:#a6e22e">standard</span> <span style="color:#a6e22e">JS</span> <span style="color:#a6e22e">this</span> <span style="color:#a6e22e">wouldn</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">t</span> <span style="color:#a6e22e">be</span> <span style="color:#a6e22e">necessary.</span>
-    <span style="color:#a6e22e">const</span> <span style="color:#a6e22e">b</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">f64 </span><span style="color:#f92672">=</span> <span style="color:#a6e22e">pixelData</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">i</span><span style="color:#960050;background-color:#1e0010">+</span><span style="color:#a6e22e">2</span><span style="color:#960050;background-color:#1e0010">];</span>
-
-    <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#a6e22e">We</span> <span style="color:#a6e22e">use</span> <span style="color:#a6e22e">CIE</span> <span style="color:#a6e22e">luminance</span> <span style="color:#a6e22e">for</span> <span style="color:#a6e22e">conversion</span> <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">RGB</span>
-    <span style="color:#a6e22e">const</span> <span style="color:#a6e22e">v</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">u8 </span><span style="color:#f92672">=</span> <span style="color:#a6e22e">Math.round</span><span style="color:#960050;background-color:#1e0010">(</span><span style="color:#a6e22e">0.2126</span><span style="color:#960050;background-color:#1e0010">*</span><span style="color:#a6e22e">r</span> <span style="color:#960050;background-color:#1e0010">+</span> <span style="color:#a6e22e">0.7152</span><span style="color:#960050;background-color:#1e0010">*</span><span style="color:#a6e22e">g</span> <span style="color:#960050;background-color:#1e0010">+</span> <span style="color:#a6e22e">0.0722</span><span style="color:#960050;background-color:#1e0010">*</span><span style="color:#a6e22e">b</span><span style="color:#960050;background-color:#1e0010">)</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">u8</span><span style="color:#960050;background-color:#1e0010">;</span>
-    <span style="color:#a6e22e">o</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">i</span><span style="color:#960050;background-color:#1e0010">]</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#a6e22e">o</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">i</span><span style="color:#960050;background-color:#1e0010">+</span><span style="color:#a6e22e">1</span><span style="color:#960050;background-color:#1e0010">]</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#a6e22e">o</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">i</span><span style="color:#960050;background-color:#1e0010">+</span><span style="color:#a6e22e">2</span><span style="color:#960050;background-color:#1e0010">]</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#a6e22e">v</span><span style="color:#960050;background-color:#1e0010">;</span>
-    <span style="color:#a6e22e">o</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">3</span><span style="color:#960050;background-color:#1e0010">]</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#a6e22e">255</span><span style="color:#960050;background-color:#1e0010">;</span> <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#a6e22e">alpha</span> <span style="color:#a6e22e">value</span>
-  }
-  <span style="color:#a6e22e">return</span> <span style="color:#a6e22e">o</span><span style="color:#960050;background-color:#1e0010">;</span>
-}<span style="color:#960050;background-color:#1e0010">;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#75715e">// assembly/filters.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/** Converts given pixel data to grayscale, input is an RGBA pixel byte array. */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">pixelsToGrayscale</span>(<span style="color:#a6e22e">pixelData</span>: <span style="color:#66d9ef">Uint8Array</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">Uint8Array</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Output pixel data
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Uint8Array</span>(<span style="color:#a6e22e">pixelData</span>.<span style="color:#a6e22e">length</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">=</span><span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span>&lt;<span style="color:#f92672">pixelData.length</span><span style="color:#960050;background-color:#1e0010">;</span> <span style="color:#a6e22e">i</span><span style="color:#960050;background-color:#1e0010">+=</span><span style="color:#a6e22e">4</span><span style="color:#960050;background-color:#1e0010">)</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">const</span> <span style="color:#a6e22e">r</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">f64 </span><span style="color:#f92672">=</span> <span style="color:#a6e22e">pixelData</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">i</span><span style="color:#960050;background-color:#1e0010">];</span> <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#a6e22e">Note</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">this</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">annotation</span> <span style="color:#a6e22e">converts</span> <span style="color:#a6e22e">the</span> <span style="color:#a6e22e">byte</span> <span style="color:#a6e22e">value</span> <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">float64</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">const</span> <span style="color:#a6e22e">g</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">f64 </span><span style="color:#f92672">=</span> <span style="color:#a6e22e">pixelData</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">i</span><span style="color:#960050;background-color:#1e0010">+</span><span style="color:#a6e22e">1</span><span style="color:#960050;background-color:#1e0010">];</span> <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#a6e22e">in</span> <span style="color:#a6e22e">standard</span> <span style="color:#a6e22e">JS</span> <span style="color:#a6e22e">this</span> <span style="color:#a6e22e">wouldn</span><span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">t</span> <span style="color:#a6e22e">be</span> <span style="color:#a6e22e">necessary.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">const</span> <span style="color:#a6e22e">b</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">f64 </span><span style="color:#f92672">=</span> <span style="color:#a6e22e">pixelData</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">i</span><span style="color:#960050;background-color:#1e0010">+</span><span style="color:#a6e22e">2</span><span style="color:#960050;background-color:#1e0010">];</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#a6e22e">We</span> <span style="color:#a6e22e">use</span> <span style="color:#a6e22e">CIE</span> <span style="color:#a6e22e">luminance</span> <span style="color:#a6e22e">for</span> <span style="color:#a6e22e">conversion</span> <span style="color:#a6e22e">to</span> <span style="color:#a6e22e">RGB</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">const</span> <span style="color:#a6e22e">v</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">u8 </span><span style="color:#f92672">=</span> <span style="color:#a6e22e">Math.round</span><span style="color:#960050;background-color:#1e0010">(</span><span style="color:#a6e22e">0.2126</span><span style="color:#960050;background-color:#1e0010">*</span><span style="color:#a6e22e">r</span> <span style="color:#960050;background-color:#1e0010">+</span> <span style="color:#a6e22e">0.7152</span><span style="color:#960050;background-color:#1e0010">*</span><span style="color:#a6e22e">g</span> <span style="color:#960050;background-color:#1e0010">+</span> <span style="color:#a6e22e">0.0722</span><span style="color:#960050;background-color:#1e0010">*</span><span style="color:#a6e22e">b</span><span style="color:#960050;background-color:#1e0010">)</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">u8</span><span style="color:#960050;background-color:#1e0010">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">o</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">i</span><span style="color:#960050;background-color:#1e0010">]</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#a6e22e">o</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">i</span><span style="color:#960050;background-color:#1e0010">+</span><span style="color:#a6e22e">1</span><span style="color:#960050;background-color:#1e0010">]</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#a6e22e">o</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">i</span><span style="color:#960050;background-color:#1e0010">+</span><span style="color:#a6e22e">2</span><span style="color:#960050;background-color:#1e0010">]</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#a6e22e">v</span><span style="color:#960050;background-color:#1e0010">;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">o</span><span style="color:#960050;background-color:#1e0010">[</span><span style="color:#a6e22e">3</span><span style="color:#960050;background-color:#1e0010">]</span> <span style="color:#960050;background-color:#1e0010">=</span> <span style="color:#a6e22e">255</span><span style="color:#960050;background-color:#1e0010">;</span> <span style="color:#960050;background-color:#1e0010">//</span> <span style="color:#a6e22e">alpha</span> <span style="color:#a6e22e">value</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">return</span> <span style="color:#a6e22e">o</span><span style="color:#960050;background-color:#1e0010">;</span>
+</span></span><span style="display:flex;"><span>}<span style="color:#960050;background-color:#1e0010">;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>The above example looks a lot like standard Typescript, for this example we had to add explicit type annotations (such as <code>f64</code>) for it to be valid AssemblyScript.</p>
 <h2 id="compiling-our-program">Compiling our program<a class="anchor" href="#compiling-our-program">#</a></h2>
@@ -190,41 +190,41 @@ This build however does not include an automatic garbage collector so it is only
 <p>The <code>wat</code> file is a <a href="https://developer.mozilla.org/en-US/docs/WebAssembly/Understanding_the_text_format">text representation of wasm code</a> that you can open in an editor, you wouldn&rsquo;t ship it in production but it can provide insights into the generated code. It&rsquo;s roughly 9KB in size so it&rsquo;s a bit large to display here, a link to the GitHub repository with all example code can be found at the bottom.</p>
 <h4 id="typescript-definition-file-filtersdts">Typescript definition file <code>filters.d.ts</code></h4>
 <p>This contains the Typescript definition files for the AssemblyScript generated WASM module.</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#75715e">// build/filters.d.ts
-</span><span style="color:#75715e"></span>
-<span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">module</span> <span style="color:#a6e22e">ASModule</span> { <span style="color:#75715e">// Note I compressed the next 3 lines manually
-</span><span style="color:#75715e"></span>  <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">i8</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>; <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">i16</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>; <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">i32</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>; <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">i64</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">BigInt</span>; <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">isize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>;
-  <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">u8</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>; <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">u16</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>; <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">u32</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>; <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">u64</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">BigInt</span>; <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">usize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>;
-  <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">f32</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>; <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">f64</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>; <span style="color:#a6e22e">type</span> <span style="color:#66d9ef">bool</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">any</span>;
-  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">__alloc</span>(<span style="color:#a6e22e">size</span>: <span style="color:#66d9ef">usize</span>, <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">u32</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">usize</span>;
-  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">__retain</span>(<span style="color:#a6e22e">ref</span>: <span style="color:#66d9ef">usize</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">usize</span>;
-  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">__release</span>(<span style="color:#a6e22e">ref</span>: <span style="color:#66d9ef">usize</span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>;
-  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">__collect</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>;
-  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">__reset</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>;
-  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">__rtti_base</span>: <span style="color:#66d9ef">usize</span>;
-  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">pixelsToGrayscale</span>(<span style="color:#a6e22e">pixelData</span>: <span style="color:#66d9ef">usize</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">usize</span>;
-}
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">ASModule</span>;
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#75715e">// build/filters.d.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">module</span> <span style="color:#a6e22e">ASModule</span> { <span style="color:#75715e">// Note I compressed the next 3 lines manually
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">i8</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>; <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">i16</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>; <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">i32</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>; <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">i64</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">BigInt</span>; <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">isize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">u8</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>; <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">u16</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>; <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">u32</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>; <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">u64</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">BigInt</span>; <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">usize</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">f32</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>; <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">f64</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">number</span>; <span style="color:#66d9ef">type</span> <span style="color:#66d9ef">bool</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">any</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">__alloc</span>(<span style="color:#a6e22e">size</span>: <span style="color:#66d9ef">usize</span>, <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">u32</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">usize</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">__retain</span>(<span style="color:#a6e22e">ref</span>: <span style="color:#66d9ef">usize</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">usize</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">__release</span>(<span style="color:#a6e22e">ref</span>: <span style="color:#66d9ef">usize</span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">__collect</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">__reset</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">__rtti_base</span>: <span style="color:#66d9ef">usize</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">pixelsToGrayscale</span>(<span style="color:#a6e22e">pixelData</span>: <span style="color:#66d9ef">usize</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">usize</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">ASModule</span>;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="compiling-to-js-using-tsc">Compiling to JS using <code>tsc</code><a class="anchor" href="#compiling-to-js-using-tsc">#</a></h3>
 <p>The above program can be compiled to Javascript using the Typescript compiler (<code>tsc</code>), this is useful as a fallback for old browsers. This is a big advantage of AssemblyScript over languages such as C or Rust when targeting WebAssembly.<sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>.</p>
@@ -233,84 +233,69 @@ This build however does not include an automatic garbage collector so it is only
 <p>⚠️The aliasing of <code>u8</code> et al. to <code>number</code> can lead to different outputs if you aren&rsquo;t careful! If you want to target both Javascript and WebAssembly you will have to keep this in mind. The <a href="https://www.assemblyscript.org/portability.html"><strong>portability</strong></a> section in the AssemblyScript documenation goes into more detail and gives tips.</p>
 </blockquote>
 <p>We run <code>tsc -p assembly -t ES2017 -m ES6 --outDir build</code>, which creates pretty much the same file but without the type annotations. It&rsquo;s <strong>207 bytes</strong> minified.</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
-</span><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
+<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;">
+<table style="border-spacing:0;padding:0;margin:0;border:0;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 1
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 2
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 3
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 4
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 5
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 6
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 7
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 8
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f"> 9
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">10
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">11
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">12
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">13
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">14
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">15
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">16
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">17
+</span><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">18
 </span></code></pre></td>
 <td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">//build/filters.js
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">/** Converts given pixel data to grayscale, input is an RGBA pixel byte array. */</span>
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">pixelsToGrayscale</span>(<span style="color:#a6e22e">pixelData</span>) {
-    <span style="color:#75715e">// Output pixel data
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Uint8Array</span>(<span style="color:#a6e22e">pixelData</span>.<span style="color:#a6e22e">length</span>);
-    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">pixelData</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">4</span>) {
-        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pixelData</span>[<span style="color:#a6e22e">i</span>]; <span style="color:#75715e">// Note: this type annotation converts the byte value to a float64
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">g</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pixelData</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]; <span style="color:#75715e">// in standard JS this wouldn&#39;t be necessary.
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pixelData</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>];
-        <span style="color:#75715e">// We use CIE luminance for conversion to RGB
-</span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">round</span>(<span style="color:#ae81ff">0.2126</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.7152</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">g</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.0722</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">b</span>);
-        <span style="color:#a6e22e">o</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">o</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">o</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">v</span>;
-        <span style="color:#a6e22e">o</span>[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">255</span>; <span style="color:#75715e">// alpha value
-</span><span style="color:#75715e"></span>    }
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">o</span>;
-}
-;
-</code></pre></td></tr></table>
+<pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#75715e">//build/filters.js
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">/** Converts given pixel data to grayscale, input is an RGBA pixel byte array. */</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">pixelsToGrayscale</span>(<span style="color:#a6e22e">pixelData</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Output pixel data
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">o</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Uint8Array</span>(<span style="color:#a6e22e">pixelData</span>.<span style="color:#a6e22e">length</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">pixelData</span>.<span style="color:#a6e22e">length</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">4</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pixelData</span>[<span style="color:#a6e22e">i</span>]; <span style="color:#75715e">// Note: this type annotation converts the byte value to a float64
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">g</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pixelData</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>]; <span style="color:#75715e">// in standard JS this wouldn&#39;t be necessary.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">pixelData</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>];
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// We use CIE luminance for conversion to RGB
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">=</span> Math.<span style="color:#a6e22e">round</span>(<span style="color:#ae81ff">0.2126</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.7152</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">g</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">0.0722</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">b</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">o</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">o</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">o</span>[<span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">v</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">o</span>[<span style="color:#ae81ff">3</span>] <span style="color:#f92672">=</span> <span style="color:#ae81ff">255</span>; <span style="color:#75715e">// alpha value
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">o</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="compiling-to-js-using-asc">Compiling to JS using <code>asc</code><a class="anchor" href="#compiling-to-js-using-asc">#</a></h3>
 <p>Finally, it is also possible to Javascript through the AssemblyScript compiler, this will output <strong>asm.js</strong>-style code with the same interface as the other <code>asc</code> build above.
 A reason to use this compilation path instead of <code>tsc</code> could be if you needed to ensure equivalence between the JS and WASM version of your program (especially the numerical type differences need care otherwise), as well as the same interface. It&rsquo;s a good fit if you only ever fall back to JS for the oldest of browsers (do make sure that it is dynamically downloaded only for those users).</p>
 <p>We build it using <code>asc assembly/filters.ts -j build/filtersASM.js -O3 --runtime stub</code>, the built JS file is <strong>10.3KB</strong> in size (<strong>5.0KB</strong> minified).</p>
-<h2 id="calling-our-routine">Calling our routine<a class="anchor" href="#calling-our-routine">#</a></h2>
-<p>Next let&rsquo;s use the code we wrote to make an image grayscale, and then draw it to a canvas. First some code to load the image and get its imagedata:</p>
-<div class="highlight"><div style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4">
-<table style="border-spacing:0;padding:0;margin:0;border:0;width:auto;overflow:auto;display:block;"><tr><td style="vertical-align:top;padding:0;margin:0;border:0;">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code><span style="margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f7f7f">1
-</span></code></pre></td>
-<td style="vertical-align:top;padding:0;margin:0;border:0;;width:100%">
-<pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">
-</code></pre></td></tr></table>
-</div>
-</div><p style="font-size: 1.2em; font-weight: bold">⚠️ I am still writing this article, consider this an unfinished first draft.</p>
-<h3 id="js-build">JS build<a class="anchor" href="#js-build">#</a></h3>
-<p>&hellip;</p>
-<h3 id="wasm-build">WASM build<a class="anchor" href="#wasm-build">#</a></h3>
-<p>&hellip;</p>
 <h2 id="links">Links<a class="anchor" href="#links">#</a></h2>
 <ul>
 <li><a href="https://github.com/gzuidhof/gzuidhof.github.io/tree/master/examples/assemblyscript/image-processing"><strong>Example code on GitHub</strong></a></li>
 </ul>
 <br>
 <br>
-<section class="footnotes" role="doc-endnotes">
+<div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn:1" role="doc-endnote">
-<p>If we did not use <code>Uint8Array</code> but instead would use more low level <code>u8</code> arrays it could be even smaller. Also we could disable bounds checks on array access, which would also slightly speed things up. <a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:1">
+<p>If we did not use <code>Uint8Array</code> but instead would use more low level <code>u8</code> arrays it could be even smaller. Also we could disable bounds checks on array access, which would also slightly speed things up.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
-<li id="fn:2" role="doc-endnote">
-<p>Technically those languages can also generate Javascript output using <a href="https://emscripten.org/">emscripten</a>, but that code will be anything but idiomatic JS and likely have very poor performance. <a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<li id="fn:2">
+<p>Technically those languages can also generate Javascript output using <a href="https://emscripten.org/">emscripten</a>, but that code will be anything but idiomatic JS and likely have very poor performance.&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
-</section>
+</div>
 
 
     

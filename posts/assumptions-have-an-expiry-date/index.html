@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>Assumptions have an expiry date in software</title>
+
+  <meta charset="UTF-8">
+  <meta name="language" content="en">
+  <meta name="description" content="Testing notebooks is tricky, I built Starlit - a tool for testing Starboard Notebook files">
+  <meta name="keywords" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  
+  
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Assumptions have an expiry date in software" />
+  <meta name="twitter:description" content="Testing notebooks is tricky, I built Starlit - a tool for testing Starboard Notebook files"
+  />
+  <meta name="twitter:site" content="@protoduction" />
+  <meta name="twitter:creator" content="@protoduction" />
+  
+
+  <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
+  <script async defer data-domain="guido.io" src="https://plausible.io/js/plausible.js"></script>
+
+  
+<link rel="stylesheet" href="/css/post.css" /> 
+
+   
+   
+    
+
+<script type="application/ld+json">
+  
+    {
+      "@context" : "http://schema.org",
+      "@type" : "BlogPosting",
+      "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/guido.io\/"
+      },
+      "articleSection" : "posts",
+      "name" : "Assumptions have an expiry date in software",
+      "headline" : "Assumptions have an expiry date in software",
+      "description" : "Testing notebooks is tricky, I built Starlit - a tool for testing Starboard Notebook files",
+      "inLanguage" : "en-US",
+      "author" : "",
+      "creator" : "",
+      "publisher": "",
+      "accountablePerson" : "",
+      "copyrightHolder" : "",
+      "copyrightYear" : "2023",
+      "datePublished": "2023-06-15 00:00:00 \u002b0000 UTC",
+      "dateModified" : "2023-06-15 00:00:00 \u002b0000 UTC",
+      "url" : "https:\/\/guido.io\/posts\/assumptions-have-an-expiry-date\/",
+      "wordCount" : "398",
+      "keywords" : ["Blog"]
+    }
+  
+  </script>
+
+</head>
+
+<body>
+  <div class="burger__container">
+  <div class="burger" aria-controls="navigation" aria-label="Menu">
+    <div class="burger__meat burger__meat--1"></div>
+    <div class="burger__meat burger__meat--2"></div>
+    <div class="burger__meat burger__meat--3"></div>
+  </div>
+</div>
+ 
+
+  <nav class="nav" role="navigation">
+  <ul class="nav__list">
+     
+    
+      <li>
+        <a 
+
+           style="font-weight: bold;"
+          
+          
+          href="/">Guido.io</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/posts">Posts</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/projects">Projects</a>
+      </li>
+    
+      <li>
+        <a 
+
+          
+          
+          href="/games">Games</a>
+      </li>
+    
+  </ul>
+</nav>
+
+
+  <main>
+    
+<div class="post">
+  <header class="post__header">
+    <h1 class="post__title">Assumptions have an expiry date in software</h1>
+    <time datetime="2023-06-15 00:00:00 &#43;0000 UTC" class="post__date"
+      >Jun 15 2023</time
+    >
+  </header>
+  <article class="post__content">
+    
+<h2 id="assumptions-almost-never-hold">Assumptions almost never hold<a class="anchor" href="#assumptions-almost-never-hold">#</a></h2>
+<p>The first customers in your SaaS product may be fine having a single e-mail linked to their account. But that doesn&rsquo;t work for everyone.</p>
+<p>As your product gains adoption, more and more users ask to have a way to invite their colleagues to their account by e-mail. The assumption of <code>“one e-mail address &lt;&gt; one account”</code> is no longer good enough. The next step is to build a <code>teams</code> abstraction in your code, where one team consists of multiple users.</p>
+<p>Should you have built this abstraction into your code from day one? <a href="https://blog.bullettrain.co/teams-should-be-an-mvp-feature/">Some say you should</a>, and in this case I agree. Some things are however better left for later - actually finishing and shipping your software also seems important.</p>
+<h2 id="trade-off">Trade off<a class="anchor" href="#trade-off">#</a></h2>
+<p>There is a trade-off between keeping things simple versus flexible. The most important part of building a new product is to see if it solves a problem and can sustain a business. The goal is not to have the perfect future-proof codebase.</p>
+<p>The question to ask is <em>&ldquo;which assumptions can I get away with and for how long?&rdquo;</em>.</p>
+<h2 id="exactly-one-relationships-seem-to-never-hold">Exactly one relationships seem to never hold<a class="anchor" href="#exactly-one-relationships-seem-to-never-hold">#</a></h2>
+<p>Often these assumptions seem to be around <em><strong>exactly one</strong></em> relationships. <code>One e-mail &lt;-&gt; one paying customer</code> didn&rsquo;t hold for us. <em>Exactly one</em> relationships seem to be rather rare in the human and engineered world, but they can be a good-enough starting point.</p>
+<p>Some example simplifying assumptions:</p>
+<ul>
+<li>A customer account
+<ul>
+<li>only needs a single login</li>
+<li>has one address, in one country, and speaks one common language.</li>
+<li>has one billing account</li>
+<li>has only one internal team that uses your product</li>
+</ul>
+</li>
+<li>A person
+<ul>
+<li>has one name</li>
+<li>has one nationality</li>
+<li>can be married to one person at a time</li>
+<li>identifies as one gender</li>
+</ul>
+</li>
+<li>Your server code
+<ul>
+<li>only needs to talk to one S3 bucket</li>
+<li>only needs to run on one operating system</li>
+<li>has one ground truth source for who is entitled to which features</li>
+</ul>
+</li>
+</ul>
+<h2 id="how-to-decide">How to decide?<a class="anchor" href="#how-to-decide">#</a></h2>
+<p>Some assumptions can be held longer than others. It’s a good idea to estimate when simplifying assumptions will bite you when designing your domain model.</p>
+<p>Is it when you have 10 customers, 1000 customers, or do you expect that it will never be an issue? How much of a pain would it be to undo this assumption?</p>
+<p>Depending on the answer you may want to spend some extra effort to reduce your future regret.</p>
+
+
+    
+  </article>
+  
+
+<ul class="tags__list">
+    
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/system-design/">system-design</a>
+    </li>
+    <li class="tag__item">
+        <a class="tag__link" href="https://guido.io/tags/saas/">saas</a>
+    </li></ul>
+
+ <div class="pagination">
+  
+    <a class="pagination__item" href="https://guido.io/posts/nasync-javascript/">
+        <span class="pagination__label">Previous Post</span>
+        <span class="pagination__title">What if Javascript had a synchronous async flavor?</span>
+    </a>
+  
+
+  
+</div>
+
+</div>
+
+  </main>
+
+  
+<footer>
+  <div class="social-icons">
+  
+  <a class="social-icons__icon social-icons__icon--github" style="margin-right: 2rem;" href="https://github.com/gzuidhof"></a>
+  
+  
+  <a class="social-icons__icon social-icons__icon--twitter" href="https://twitter.com/protoduction"></a>
+  
+</div>
+
+  <p></p>
+</footer>
+
+
+  <script src="/js/index.js"></script>
+  
+<script src="/vendor/prism/prism.js"></script>
+
+</body>
+
+</html>

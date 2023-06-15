@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>saas on Guido.io</title>
+    <link>https://guido.io/tags/saas/</link>
+    <description>Recent content in saas on Guido.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 15 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://guido.io/tags/saas/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Assumptions have an expiry date in software</title>
+      <link>https://guido.io/posts/assumptions-have-an-expiry-date/</link>
+      <pubDate>Thu, 15 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://guido.io/posts/assumptions-have-an-expiry-date/</guid>
+      <description>Assumptions almost never hold The first customers in your SaaS product may be fine having a single e-mail linked to their account. But that doesn&amp;rsquo;t work for everyone.
+As your product gains adoption, more and more users ask to have a way to invite their colleagues to their account by e-mail. The assumption of “one e-mail address &amp;lt;&amp;gt; one account” is no longer good enough. The next step is to build a teams abstraction in your code, where one team consists of multiple users.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -6,11 +6,7 @@
     <description>Recent content in javascript on Guido.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 01 Aug 2021 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://guido.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 01 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://guido.io/tags/javascript/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>What if Javascript had a synchronous async flavor?</title>
       <link>https://guido.io/posts/nasync-javascript/</link>
@@ -19,7 +15,7 @@
       <guid>https://guido.io/posts/nasync-javascript/</guid>
       <description>When writing asynchronous javascript your code will contain a bunch of await and async, Promises and maybe callbacks.
 Here&amp;rsquo;s an example where we fetch a page and count the amount of div elements:
- # %%--- [javascript]# properties:# run_on_load: true# ---%%async function fetchPageBody(url) {const response = await fetch(url);return response.text();}function sleep(ms) {return new Promise(resolve = setTimeout(() = resolve(), ms))}const body = await fetchPageBody(&#34;</description>
+As you write more and more code that is asynchronous, you will end up writing await quite a bit. In languages like Python and Go you write asynchronous code as if it&amp;rsquo;s synchronous. What if we could do the same in Javascript?</description>
     </item>
     
   </channel>

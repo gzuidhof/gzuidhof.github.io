@@ -6,10 +6,16 @@
     <description>Recent content in Posts on Guido.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 01 Aug 2021 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://guido.io/posts/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Thu, 15 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://guido.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Assumptions have an expiry date in software</title>
+      <link>https://guido.io/posts/assumptions-have-an-expiry-date/</link>
+      <pubDate>Thu, 15 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://guido.io/posts/assumptions-have-an-expiry-date/</guid>
+      <description>Assumptions almost never hold The first customers in your SaaS product may be fine having a single e-mail linked to their account. But that doesn&amp;rsquo;t work for everyone.
+As your product gains adoption, more and more users ask to have a way to invite their colleagues to their account by e-mail. The assumption of “one e-mail address &amp;lt;&amp;gt; one account” is no longer good enough. The next step is to build a teams abstraction in your code, where one team consists of multiple users.</description>
+    </item>
     
     <item>
       <title>What if Javascript had a synchronous async flavor?</title>
@@ -19,7 +25,7 @@
       <guid>https://guido.io/posts/nasync-javascript/</guid>
       <description>When writing asynchronous javascript your code will contain a bunch of await and async, Promises and maybe callbacks.
 Here&amp;rsquo;s an example where we fetch a page and count the amount of div elements:
- # %%--- [javascript]# properties:# run_on_load: true# ---%%async function fetchPageBody(url) {const response = await fetch(url);return response.text();}function sleep(ms) {return new Promise(resolve = setTimeout(() = resolve(), ms))}const body = await fetchPageBody(&#34;</description>
+As you write more and more code that is asynchronous, you will end up writing await quite a bit. In languages like Python and Go you write asynchronous code as if it&amp;rsquo;s synchronous. What if we could do the same in Javascript?</description>
     </item>
     
     <item>
@@ -40,9 +46,9 @@ Testing in Jupyter The most serious tool I could find for Jupyter is testbook (p
       
       <guid>https://guido.io/posts/introducing-sunder/</guid>
       <description>Originally posted on the Sunder blog
- Sunder is a framework for Service Workers like those found in Cloudflare Workers. It allows you to create testable APIs and websites in a similar way as you would using Node.js&amp;rsquo;s Koa or Express framework.
+Sunder is a framework for Service Workers like those found in Cloudflare Workers. It allows you to create testable APIs and websites in a similar way as you would using Node.js&amp;rsquo;s Koa or Express framework.
 Sunder is designed to be minimal, testable, and easy to understand. It&amp;rsquo;s only a few hundred lines of code.
-A small example 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15  import {Sunder, Router} from &amp;#34;sunder&amp;#34;; const app = new Sunder(); const router = new Router(); // Example route with a named parameter router.</description>
+A small example 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 import {Sunder, Router} from &amp;#34;sunder&amp;#34;; const app = new Sunder(); const router = new Router(); // Example route with a named parameter router.</description>
     </item>
     
     <item>
@@ -62,7 +68,7 @@ That&amp;rsquo;s ok and probably even desirable for applications like a cryptocu
       
       <guid>https://guido.io/posts/going-fully-serverless-with-cloudflare-workers/</guid>
       <description>Over the past two months I&amp;rsquo;ve built FriendlyCaptcha, a privacy friendly alternative to Google reCAPTCHA. Normally if I were to start a new web application, I would write the server code in Golang, spin up a Postgres instance, and host a dockerized version of it on Google Cloud Run to get many of the serverless benefits.
-For a CAPTCHA product the requirements were a bit different: it is crtical that its API is fast, always available, has predictable costs, and can scale up and down instantly.</description>
+For a CAPTCHA product the requirements were a bit different: it is critical that its API is fast, always available, has predictable costs, and can scale up and down instantly.</description>
     </item>
     
     <item>
@@ -83,7 +89,7 @@ This makes going fully serverless painful, so far I had to implement the client 
       <guid>https://guido.io/posts/sending-email-from-cloudflare-workers/</guid>
       <description>In most serverless environments, Cloudflare Workers included, you can not send e-mail through SMTP. Also, many client SDKs for providers such as Mailgun or Sendgrid assume you are on the Node platform and will not work in many serverless runtimes. Luckily most providers also provide a REST API to send e-mail.
 I ended up going with Mailgun, below is some example Typescript code that works in Cloudflare Workers.
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37  declare const MAILGUN_API_BASE_URL: string; declare const MAILGUN_API_KEY: string; export interface EmailData { from: string; to: string; subject: string; text: string; html: string cc?</description>
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 declare const MAILGUN_API_BASE_URL: string; declare const MAILGUN_API_KEY: string; export interface EmailData { from: string; to: string; subject: string; text: string; html: string cc?</description>
     </item>
     
     <item>
@@ -94,7 +100,7 @@ I ended up going with Mailgun, below is some example Typescript code that works 
       <guid>https://guido.io/posts/embedding-webassembly-in-javascript-without-a-bundler/</guid>
       <description>As a followup to my previous post, I found that in practice embedding a WebAssembly binary in code as a base64 string using a bundler (such as Webpack or Rollup) is still not ideal. So I created a small tool, wasmwrap that generates a plain Javascript or Typescript file for you instead.
 To install it:
-npm install wasmwrap --save-devThen you can use it as such:
+npm install wasmwrap --save-dev Then you can use it as such:
 wasmwrap --input my-file.wasm --output myFile.</description>
     </item>
     
@@ -114,7 +120,7 @@ If the developer of this project does not interact with WASM code otherwise, thi
       <pubDate>Wed, 10 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>https://guido.io/posts/introduction-to-assemblyscript/</guid>
-      <description>⚠️ I am still writing this article, consider this an unfinished first draft.
+      <description>⚠️ This article is outdated by now, AssemblyScript has changed quite a bit - you will have to change some things.
 AssemblyScript is a programming language that is almost the same as Typescript and compiles to WebAssembly.
 WebAssembly allows near-native speed for programs that rely on heavy computation with smaller binaries. Any modern browser nowadays supports it as well as Deno and Node. It will not replace Javascript itself anytime soon, but for some problems it can be a good choice, especially those that involve extensive computation.</description>
     </item>

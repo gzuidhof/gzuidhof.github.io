@@ -47,7 +47,8 @@
 
 .project-container {
 	border: 1px solid rgba(0, 0, 0, 0.08);
-	margin-bottom: 18px;
+	margin-bottom: 16px;
+	margin-top: 1em;
 	padding: 10px;
 	border-radius: 2px;
 }
