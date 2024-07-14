@@ -13,8 +13,9 @@
       <pubDate>Thu, 15 Jun 2023 00:00:00 +0000</pubDate>
       
       <guid>https://guido.io/posts/assumptions-have-an-expiry-date/</guid>
-      <description>Assumptions almost never hold The first customers in your SaaS product may be fine having a single e-mail linked to their account. But that doesn&amp;rsquo;t work for everyone.
-As your product gains adoption, more and more users ask to have a way to invite their colleagues to their account by e-mail. The assumption of “one e-mail address &amp;lt;&amp;gt; one account” is no longer good enough. The next step is to build a teams abstraction in your code, where one team consists of multiple users.</description>
+      <description>Assumptions seem to never hold Having a single e-mail per account may be fine for the first customers of your SaaS, but you will quickly learn that users want to invite their colleagues.
+The assumption of “one e-mail address &amp;lt;&amp;gt; one account” is no longer good enough. The next step is to build a teams abstraction in your code, where one team consists of multiple users.
+Should you have built this abstraction into your code from day one?</description>
     </item>
     
     <item>
@@ -45,7 +46,7 @@ Testing in Jupyter The most serious tool I could find for Jupyter is testbook (p
       <pubDate>Wed, 02 Dec 2020 00:00:00 +0000</pubDate>
       
       <guid>https://guido.io/posts/introducing-sunder/</guid>
-      <description>Originally posted on the Sunder blog
+      <description>Originally posted on the Sunder blog.
 Sunder is a framework for Service Workers like those found in Cloudflare Workers. It allows you to create testable APIs and websites in a similar way as you would using Node.js&amp;rsquo;s Koa or Express framework.
 Sunder is designed to be minimal, testable, and easy to understand. It&amp;rsquo;s only a few hundred lines of code.
 A small example 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 import {Sunder, Router} from &amp;#34;sunder&amp;#34;; const app = new Sunder(); const router = new Router(); // Example route with a named parameter router.</description>

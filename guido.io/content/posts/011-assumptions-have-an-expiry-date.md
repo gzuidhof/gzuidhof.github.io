@@ -2,20 +2,20 @@
 title: "Assumptions have an expiry date in software"
 date: 2023-06-15
 slug: "assumptions-have-an-expiry-date"
-description: "Testing notebooks is tricky, I built Starlit - a tool for testing Starboard Notebook files"
+description: ""
 keywords: []
 draft: false
 tags: ["system-design", "saas"]
 stylesheet: "post.css"
 ---
 
-## Assumptions almost never hold
+## Assumptions seem to never hold
 
-The first customers in your SaaS product may be fine having a single e-mail linked to their account. But that doesn't work for everyone.
+Having a single e-mail per account may be fine for the first customers of your SaaS, but you will quickly learn that users want to invite their colleagues.
 
-As your product gains adoption, more and more users ask to have a way to invite their colleagues to their account by e-mail. The assumption of `“one e-mail address <> one account”` is no longer good enough. The next step is to build a `teams` abstraction in your code, where one team consists of multiple users.
+The assumption of `“one e-mail address <> one account”` is no longer good enough. The next step is to build a `teams` abstraction in your code, where one team consists of multiple users.
 
-Should you have built this abstraction into your code from day one? [Some say you should](https://blog.bullettrain.co/teams-should-be-an-mvp-feature/), and in this case I agree. Some things are however better left for later - actually finishing and shipping your software also seems important.
+Should you have built this abstraction into your code from day one? [Some say you should](https://blog.bullettrain.co/teams-should-be-an-mvp-feature/). In case of e-mails, I would agree that it's a MVP feature. Some things are however better left for later as you may never end up launching your product otherwise.
 
 ## Trade off
 
@@ -23,9 +23,9 @@ There is a trade-off between keeping things simple versus flexible. The most imp
 
 The question to ask is *"which assumptions can I get away with and for how long?"*.
 
-## Exactly one relationships seem to never hold
+## Exactly one relationships
 
-Often these assumptions seem to be around ***exactly one*** relationships. `One e-mail <-> one paying customer` didn't hold for us. *Exactly one* relationships seem to be rather rare in the human and engineered world, but they can be a good-enough starting point.
+Often modeling assumptions seem to be around ***exactly one*** relationships. `One e-mail <-> one paying customer` didn't hold for us. *Exactly one* relationships seem to be rather rare in the human and engineered world, but they can be a good-enough starting point.
 
 Some example simplifying assumptions:
 

@@ -6,7 +6,7 @@
 
   <meta charset="UTF-8">
   <meta name="language" content="en">
-  <meta name="description" content="Testing notebooks is tricky, I built Starlit - a tool for testing Starboard Notebook files">
+  <meta name="description" content="">
   <meta name="keywords" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
@@ -16,14 +16,14 @@
   
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Assumptions have an expiry date in software" />
-  <meta name="twitter:description" content="Testing notebooks is tricky, I built Starlit - a tool for testing Starboard Notebook files"
+  <meta name="twitter:description" content=""
   />
   <meta name="twitter:site" content="@protoduction" />
   <meta name="twitter:creator" content="@protoduction" />
   
 
   <link rel="shortcut icon" type="image/png" href="/favicon.ico" />
-  <script async defer data-domain="guido.io" src="https://plausible.io/js/plausible.js"></script>
+  <script defer src="https://umami.guido.io/script.js" data-website-id="2bff0626-cb0a-45d0-80e7-cf30b89a35c3"></script>
 
   
 <link rel="stylesheet" href="/css/post.css" /> 
@@ -44,7 +44,7 @@
       "articleSection" : "posts",
       "name" : "Assumptions have an expiry date in software",
       "headline" : "Assumptions have an expiry date in software",
-      "description" : "Testing notebooks is tricky, I built Starlit - a tool for testing Starboard Notebook files",
+      "description" : "",
       "inLanguage" : "en-US",
       "author" : "",
       "creator" : "",
@@ -55,7 +55,7 @@
       "datePublished": "2023-06-15 00:00:00 \u002b0000 UTC",
       "dateModified" : "2023-06-15 00:00:00 \u002b0000 UTC",
       "url" : "https:\/\/guido.io\/posts\/assumptions-have-an-expiry-date\/",
-      "wordCount" : "398",
+      "wordCount" : "382",
       "keywords" : ["Blog"]
     }
   
@@ -125,15 +125,15 @@
   </header>
   <article class="post__content">
     
-<h2 id="assumptions-almost-never-hold">Assumptions almost never hold<a class="anchor" href="#assumptions-almost-never-hold">#</a></h2>
-<p>The first customers in your SaaS product may be fine having a single e-mail linked to their account. But that doesn&rsquo;t work for everyone.</p>
-<p>As your product gains adoption, more and more users ask to have a way to invite their colleagues to their account by e-mail. The assumption of <code>“one e-mail address &lt;&gt; one account”</code> is no longer good enough. The next step is to build a <code>teams</code> abstraction in your code, where one team consists of multiple users.</p>
-<p>Should you have built this abstraction into your code from day one? <a href="https://blog.bullettrain.co/teams-should-be-an-mvp-feature/">Some say you should</a>, and in this case I agree. Some things are however better left for later - actually finishing and shipping your software also seems important.</p>
+<h2 id="assumptions-seem-to-never-hold">Assumptions seem to never hold<a class="anchor" href="#assumptions-seem-to-never-hold">#</a></h2>
+<p>Having a single e-mail per account may be fine for the first customers of your SaaS, but you will quickly learn that users want to invite their colleagues.</p>
+<p>The assumption of <code>“one e-mail address &lt;&gt; one account”</code> is no longer good enough. The next step is to build a <code>teams</code> abstraction in your code, where one team consists of multiple users.</p>
+<p>Should you have built this abstraction into your code from day one? <a href="https://blog.bullettrain.co/teams-should-be-an-mvp-feature/">Some say you should</a>. In case of e-mails, I would agree that it&rsquo;s a MVP feature. Some things are however better left for later as you may never end up launching your product otherwise.</p>
 <h2 id="trade-off">Trade off<a class="anchor" href="#trade-off">#</a></h2>
 <p>There is a trade-off between keeping things simple versus flexible. The most important part of building a new product is to see if it solves a problem and can sustain a business. The goal is not to have the perfect future-proof codebase.</p>
 <p>The question to ask is <em>&ldquo;which assumptions can I get away with and for how long?&rdquo;</em>.</p>
-<h2 id="exactly-one-relationships-seem-to-never-hold">Exactly one relationships seem to never hold<a class="anchor" href="#exactly-one-relationships-seem-to-never-hold">#</a></h2>
-<p>Often these assumptions seem to be around <em><strong>exactly one</strong></em> relationships. <code>One e-mail &lt;-&gt; one paying customer</code> didn&rsquo;t hold for us. <em>Exactly one</em> relationships seem to be rather rare in the human and engineered world, but they can be a good-enough starting point.</p>
+<h2 id="exactly-one-relationships">Exactly one relationships<a class="anchor" href="#exactly-one-relationships">#</a></h2>
+<p>Often modeling assumptions seem to be around <em><strong>exactly one</strong></em> relationships. <code>One e-mail &lt;-&gt; one paying customer</code> didn&rsquo;t hold for us. <em>Exactly one</em> relationships seem to be rather rare in the human and engineered world, but they can be a good-enough starting point.</p>
 <p>Some example simplifying assumptions:</p>
 <ul>
 <li>A customer account
